@@ -1,4 +1,4 @@
-import { Mail, Heart } from "lucide-react";
+import { Heart, Mail } from "lucide-react";
 import { personalInfo, navLinks } from "@/lib/data";
 
 function GithubIcon({ className }: { className?: string }) {
@@ -17,104 +17,80 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
-function TwitterIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-    </svg>
-  );
-}
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-surface/50">
-      <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid w-full gap-8 grid-cols-1 text-center md:text-left md:grid-cols-3">
+    <footer className="border-t border-border">
+      <div className="section-container py-8">
+        <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
           {/* Brand */}
-          <div className="flex flex-col items-center md:items-start">
-            <a href="#home" className="text-lg font-bold tracking-tight">
-              <span className="gradient-text">&lt;</span>
-              <span className="text-text-primary">
-                {personalInfo.name.split(" ")[0]}
-              </span>
-              <span className="gradient-text"> /&gt;</span>
-            </a>
-            <p className="mt-3 text-sm text-text-tertiary max-w-xs">
-              {personalInfo.title} passionate about building scalable
-              infrastructure and automating workflows.
-            </p>
-          </div>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
+              <a href="#home" className="text-sm font-semibold text-text-primary">
+                {personalInfo.name}
+              </a>
+              <div className="hidden sm:flex gap-3">
+                {navLinks.slice(1).map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-xs text-text-tertiary hover:text-text-primary transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+            </div>
 
-          {/* Quick Links */}
-          <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-sm font-semibold text-text-primary mb-4">
-              Quick Links
-            </h3>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-2">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm text-text-tertiary hover:text-primary transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
+            {/* System Status */}
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+              </span>
+              <span className="text-[10px] font-medium text-text-secondary uppercase tracking-wider">
+                All Systems Operational
+              </span>
             </div>
           </div>
 
           {/* Social */}
-          <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-sm font-semibold text-text-primary mb-4">
-              Connect
-            </h3>
-            <div className="flex gap-3 justify-center md:justify-start">
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-text-tertiary transition-all hover:border-primary hover:text-text-primary hover:-translate-y-1"
-                aria-label="GitHub"
-              >
-                <GithubIcon className="h-4 w-4" />
-              </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-text-tertiary transition-all hover:border-primary hover:text-blue-500 hover:-translate-y-1"
-                aria-label="LinkedIn"
-              >
-                <LinkedinIcon className="h-4 w-4" />
-              </a>
-              {personalInfo.twitter && (
-                <a
-                  href={personalInfo.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-text-tertiary transition-all hover:border-primary hover:text-text-primary hover:-translate-y-1"
-                  aria-label="Twitter (X)"
-                >
-                  <TwitterIcon className="h-4 w-4" />
-                </a>
-              )}
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-text-tertiary transition-all hover:border-primary hover:text-primary hover:-translate-y-1"
-                aria-label="Email"
-              >
-                <Mail className="h-4 w-4" />
-              </a>
-            </div>
+          <div className="flex items-center gap-3">
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-text-tertiary hover:text-text-primary transition-colors"
+              aria-label="GitHub"
+            >
+              <GithubIcon className="h-4 w-4" />
+            </a>
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-text-tertiary hover:text-text-primary transition-colors"
+              aria-label="LinkedIn"
+            >
+              <LinkedinIcon className="h-4 w-4" />
+            </a>
+
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="text-text-tertiary hover:text-text-primary transition-colors"
+              aria-label="Email"
+            >
+              <Mail className="h-4 w-4" />
+            </a>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-10 border-t border-border pt-6 text-center">
-          <p className="text-sm text-text-tertiary flex items-center justify-center gap-1">
+        {/* Copyright */}
+        <div className="mt-6 text-center">
+          <p className="text-xs text-text-tertiary flex items-center justify-center gap-1">
             &copy; {new Date().getFullYear()} {personalInfo.name}. Built with
             Next.js &{" "}
-            <Heart className="inline h-3.5 w-3.5 text-red-500 fill-red-500" />
+            <Heart className="inline h-3 w-3 text-red-500 fill-red-500" />
           </p>
         </div>
       </div>
