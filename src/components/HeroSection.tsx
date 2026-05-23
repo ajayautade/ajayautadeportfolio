@@ -2,75 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import IDETyping from "./ui/IDETyping";
 import { ArrowDown, FileText, Eye } from "lucide-react";
-import { personalInfo, terminalCommands, stats } from "@/lib/data";
-
-function TerminalAnimation() {
-  const [currentLine, setCurrentLine] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
-
-  useEffect(() => {
-    const command = terminalCommands[currentLine % terminalCommands.length];
-    let charIndex = 0;
-
-    if (isTyping) {
-      const typingInterval = setInterval(() => {
-        if (charIndex <= command.length) {
-          setDisplayText(command.slice(0, charIndex));
-          charIndex++;
-        } else {
-          clearInterval(typingInterval);
-          setIsTyping(false);
-          setTimeout(() => {
-            setCurrentLine((prev) => prev + 1);
-            setIsTyping(true);
-          }, 2000);
-        }
-      }, 50);
-
-      return () => clearInterval(typingInterval);
-    }
-  }, [currentLine, isTyping]);
-
-  const previousLines = terminalCommands
-    .slice(0, currentLine % terminalCommands.length)
-    .slice(-3);
-
-  return (
-    <div className="glass-card overflow-hidden font-mono text-sm">
-      {/* Terminal Header */}
-      <div className="flex items-center gap-2 border-b border-glass-border px-4 py-3">
-        <div className="h-3 w-3 rounded-full bg-red-500/80" />
-        <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
-        <div className="h-3 w-3 rounded-full bg-green-500/80" />
-        <span className="ml-2 text-xs text-text-tertiary">
-          ajay@devops ~ terminal
-        </span>
-      </div>
-
-      {/* Terminal Body */}
-      <div className="p-4 space-y-1 min-h-[140px]">
-        {previousLines.map((line, i) => (
-          <div key={i} className="text-text-tertiary text-xs sm:text-sm">
-            {line}
-          </div>
-        ))}
-        <div className="flex items-center text-accent text-xs sm:text-sm">
-          <span>{displayText}</span>
-          <span className="terminal-cursor ml-0.5 inline-block h-4 w-2 bg-accent" />
-        </div>
-      </div>
-    </div>
-  );
-}
+import Image from "next/image";
+import { personalInfo, stats } from "@/lib/data";
 
 function AnimatedCounter({ value, label }: { value: number; label: string }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const duration = 2000;
-    const steps = 60;
+    const duration = 1500;
+    const steps = 40;
     const increment = value / steps;
     let current = 0;
     const timer = setInterval(() => {
@@ -82,14 +24,13 @@ function AnimatedCounter({ value, label }: { value: number; label: string }) {
         setCount(Math.floor(current));
       }
     }, duration / steps);
-
     return () => clearInterval(timer);
   }, [value]);
 
   return (
     <div className="text-center">
-      <div className="text-2xl font-bold text-primary sm:text-3xl">{count}+</div>
-      <div className="text-sm text-text-secondary">{label}</div>
+      <div className="text-2xl font-bold text-primary">{count}+</div>
+      <div className="text-xs text-text-secondary mt-1">{label}</div>
     </div>
   );
 }
@@ -98,95 +39,83 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg"
+      className="relative min-h-[100dvh] flex items-center justify-center"
     >
-      {/* Gradient Orbs */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
+      {/* Subtle background orbs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-accent/5 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="grid w-full items-center gap-12 lg:grid-cols-2">
-          {/* Left Content */}
-          <div>
+      <div className="relative z-10 section-container w-full py-12 sm:py-20">
+        <div className="flex flex-col-reverse items-center gap-12 lg:flex-row lg:gap-16">
+          {/* Left — Text Content */}
+          <div className="flex-1 text-center lg:text-left">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="mb-4 inline-flex items-center gap-2 rounded-full px-2 py-1.5"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mb-3 inline-flex items-center gap-2 rounded-full border border-border px-3 py-1"
             >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
               </span>
-              <span className="text-sm font-medium text-text-secondary">
+              <span className="text-xs font-medium text-text-secondary">
                 Open to opportunities
               </span>
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl"
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
             >
               Hi, I&apos;m{" "}
               <span className="gradient-text">{personalInfo.name}</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-3 text-xl font-medium tracking-tight text-text-secondary sm:text-2xl"
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-2 text-lg font-medium text-text-secondary sm:text-xl"
             >
               {personalInfo.title}
             </motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-6 max-w-lg text-base leading-relaxed text-text-tertiary sm:text-lg"
-            >
-              {personalInfo.shortBio}
-            </motion.p>
-
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              className="mt-8 flex flex-col sm:flex-row gap-4"
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <motion.a 
-                href="#projects" 
-                className="btn-primary"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              <IDETyping />
+            </motion.div>
+
+            {/* Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
+            >
+              <a href="#projects" className="btn-primary">
                 <Eye className="h-4 w-4" />
                 View Projects
-              </motion.a>
-              <motion.a 
-                href="/resume.pdf" 
-                download 
-                className="btn-outline"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              </a>
+              <a href="/resume.pdf" download className="btn-outline">
                 <FileText className="h-4 w-4" />
                 Download Resume
-              </motion.a>
+              </a>
             </motion.div>
 
             {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6 }}
-              className="mt-12 grid grid-cols-2 sm:flex sm:flex-row gap-6 sm:gap-8 border-t border-border pt-8"
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 border-t border-border pt-6"
             >
               {stats.map((stat) => (
                 <AnimatedCounter
@@ -198,15 +127,37 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right - Terminal */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="hidden lg:block"
+          {/* Right — Profile Picture */}
+          <motion.a
+            href={personalInfo.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex-shrink-0 block cursor-pointer"
+            aria-label="Visit my LinkedIn profile"
           >
-            <TerminalAnimation />
-          </motion.div>
+            <div className="relative h-48 w-48 sm:h-56 sm:w-56 lg:h-72 lg:w-72 group">
+              {/* Animated glowing background */}
+              <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 opacity-30 blur-2xl group-hover:opacity-50 transition-opacity duration-500" />
+              
+              {/* Gradient border */}
+              <div className="relative h-full w-full rounded-full p-[4px] bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500">
+                {/* Image container */}
+                <div className="relative h-full w-full rounded-full overflow-hidden bg-surface">
+                  <Image
+                    src="/profile.png"
+                    alt={personalInfo.name}
+                    fill
+                    sizes="(max-width: 768px) 192px, (max-width: 1024px) 224px, 288px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.a>
         </div>
       </div>
 
@@ -215,15 +166,15 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="flex flex-col items-center gap-2"
+          className="flex flex-col items-center gap-1"
         >
-          <span className="text-xs text-text-tertiary">Scroll Down</span>
-          <ArrowDown className="h-4 w-4 text-text-tertiary" />
+          <span className="text-[10px] text-text-tertiary">Scroll</span>
+          <ArrowDown className="h-3 w-3 text-text-tertiary" />
         </motion.div>
       </motion.div>
     </section>
