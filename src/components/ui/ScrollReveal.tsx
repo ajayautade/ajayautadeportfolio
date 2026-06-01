@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion, useInView, useAnimation } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -17,45 +17,29 @@ export default function ScrollReveal({
   direction = "up",
 }: ScrollRevealProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const controls = useAnimation();
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   const directionMap = {
-    up: { y: 40 },
-    down: { y: -40 },
-    left: { x: 40 },
-    right: { x: -40 },
+    up: { y: 20 },
+    down: { y: -20 },
+    left: { x: 20 },
+    right: { x: -20 },
   };
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
-  }, [isInView, controls]);
 
   return (
     <motion.div
       ref={ref}
       className={`w-full ${className}`}
-      initial="hidden"
-      animate={controls}
-      variants={{
-        hidden: {
-          opacity: 0,
-          filter: "blur(10px)",
-          ...directionMap[direction],
-        },
-        visible: {
-          opacity: 1,
-          filter: "blur(0px)",
-          x: 0,
-          y: 0,
-          transition: {
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1], // cinematic ease out
-            delay: delay,
-          },
-        },
+      initial={{ opacity: 0, ...directionMap[direction] }}
+      animate={
+        isInView
+          ? { opacity: 1, x: 0, y: 0 }
+          : { opacity: 0, ...directionMap[direction] }
+      }
+      transition={{
+        duration: 0.5,
+        ease: [0.25, 0.1, 0.25, 1],
+        delay,
       }}
     >
       {children}

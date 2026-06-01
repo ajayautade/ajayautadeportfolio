@@ -1,10 +1,9 @@
 "use client";
 
 import { ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
-import { projects } from "@/lib/data";
+import { projects, personalInfo } from "@/lib/data";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -16,8 +15,8 @@ function GithubIcon({ className }: { className?: string }) {
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="relative py-16 sm:py-20 lg:py-24">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-12 sm:py-20 lg:py-24">
+      <div className="section-container">
         <ScrollReveal>
           <SectionHeading
             title="Featured Projects"
@@ -25,88 +24,78 @@ export default function ProjectsSection() {
           />
         </ScrollReveal>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
-            <ScrollReveal key={project.title} delay={index * 0.15}>
-              <motion.div 
-                className="glass-card group flex h-full flex-col"
-                whileHover={{ y: -8 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                {/* Image Placeholder */}
-                <div className="relative h-40 sm:h-48 overflow-hidden bg-surface-elevated/50 p-6 border-b border-glass-border">
-                  <div className="relative z-10">
-                    <div className="flex items-center justify-between">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <GithubIcon className="h-5 w-5" />
-                      </div>
-                      {project.featured && (
-                        <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                          Featured
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="mt-4 text-xl font-semibold text-text-primary">
-                      {project.title}
-                    </h3>
+            <ScrollReveal key={project.title} delay={index * 0.1}>
+              <div className="card flex h-full flex-col p-5">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-elevated text-text-secondary">
+                    <GithubIcon className="h-4 w-4" />
                   </div>
+                  {project.featured && (
+                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium text-primary">
+                      Featured
+                    </span>
+                  )}
                 </div>
 
-                {/* Card Body */}
-                <div className="flex flex-1 flex-col p-6 pt-4">
-                  <p className="mb-4 text-sm leading-relaxed text-text-secondary">
-                    {project.longDescription}
-                  </p>
+                {/* Title & Description */}
+                <h3 className="text-base font-semibold text-text-primary">
+                  {project.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-text-secondary flex-1">
+                  {project.longDescription}
+                </p>
 
-                  {/* Tech Tags */}
-                  <div className="mb-6 flex flex-wrap gap-2">
-                    {project.techStack.map((tech) => (
-                      <span key={tech} className="tech-tag">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                {/* Tech Tags */}
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {project.techStack.map((tech) => (
+                    <span key={tech} className="tech-pill">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
 
-                  {/* Links */}
-                  <div className="mt-auto flex gap-3">
+                {/* Links */}
+                <div className="mt-4 flex gap-2 pt-4 border-t border-border">
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline flex-1 text-xs py-2"
+                  >
+                    <GithubIcon className="h-3.5 w-3.5" />
+                    Source
+                  </a>
+                  {project.liveUrl && (
                     <a
-                      href={project.githubUrl}
+                      href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-outline flex-1 justify-center text-sm py-2"
+                      className="btn-primary flex-1 text-xs py-2"
                     >
-                      <GithubIcon className="h-4 w-4" />
-                      Source Code
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      Demo
                     </a>
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-primary flex-1 justify-center text-sm py-2"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        Live Demo
-                      </a>
-                    )}
-                  </div>
+                  )}
                 </div>
-              </motion.div>
+              </div>
             </ScrollReveal>
           ))}
         </div>
 
-        {/* View All Projects */}
+        {/* View All */}
         <ScrollReveal>
-          <div className="mt-12 text-center">
+          <div className="mt-10 text-center">
             <a
-              href="https://github.com/ajayautade?tab=repositories"
+              href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline"
+              className="btn-outline inline-flex"
             >
               <GithubIcon className="h-4 w-4" />
-              View All Projects on GitHub
+              View All on GitHub
             </a>
           </div>
         </ScrollReveal>
@@ -114,3 +103,4 @@ export default function ProjectsSection() {
     </section>
   );
 }
+

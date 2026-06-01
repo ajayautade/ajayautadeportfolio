@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  CheckCircle2,
-  ExternalLink,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { personalInfo } from "@/lib/data";
@@ -29,13 +22,6 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
-function TwitterIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-    </svg>
-  );
-}
 
 const contactInfo = [
   {
@@ -43,22 +29,25 @@ const contactInfo = [
     label: "Email",
     value: personalInfo.email,
     href: `mailto:${personalInfo.email}`,
-    color: "text-primary",
   },
   {
     icon: Phone,
     label: "Phone",
     value: `+91 ${personalInfo.phone}`,
     href: `tel:+91${personalInfo.phone}`,
-    color: "text-accent",
   },
   {
     icon: MapPin,
     label: "Location",
     value: personalInfo.location,
     href: "#",
-    color: "text-success",
   },
+];
+
+const socialLinks = [
+  { icon: GithubIcon, href: personalInfo.github, label: "GitHub" },
+  { icon: LinkedinIcon, href: personalInfo.linkedin, label: "LinkedIn" },
+  { icon: Mail, href: `mailto:${personalInfo.email}`, label: "Email" },
 ];
 
 export default function ContactSection() {
@@ -83,37 +72,29 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-16 sm:py-20 lg:py-24 mt-8 sm:mt-12">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 h-full">
+    <section id="contact" className="py-12 sm:py-20 lg:py-24">
+      <div className="section-container">
         <ScrollReveal>
-          <div className="mb-20 text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              <span className="gradient-text">Get In Touch</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-lg text-lg text-text-secondary">
-              Have a project in mind, want to collaborate, or hire me? Let's connect!
-            </p>
-            <div className="mx-auto mt-6 h-1 w-20 rounded-full bg-gradient-to-r from-primary to-accent" />
-          </div>
+          <SectionHeading
+            title="Get In Touch"
+            subtitle="Have a project in mind or want to hire me? Let's connect!"
+          />
         </ScrollReveal>
 
-        <div className="grid w-full gap-12 lg:grid-cols-5 lg:gap-16">
+        <div className="grid gap-8 lg:grid-cols-5 lg:gap-12">
           {/* Contact Info */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-3">
             {contactInfo.map((item, index) => (
-              <ScrollReveal key={item.label} delay={index * 0.1} direction="left">
-                <a
-                  href={item.href}
-                  className="glass-card flex items-center gap-4 p-4 group"
-                >
-                  <div
-                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-card-hover ${item.color}`}
-                  >
-                    <item.icon className="h-5 w-5" />
+              <ScrollReveal key={item.label} delay={index * 0.1}>
+                <a href={item.href} className="card flex items-center gap-3 p-4 group">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-elevated text-primary">
+                    <item.icon className="h-4 w-4" />
                   </div>
-                  <div>
-                    <p className="text-sm text-text-tertiary">{item.label}</p>
-                    <p className="text-sm font-medium text-text-primary group-hover:text-primary transition-colors">
+                  <div className="min-w-0">
+                    <p className="text-xs text-text-tertiary uppercase tracking-wide">
+                      {item.label}
+                    </p>
+                    <p className="text-sm font-medium text-text-primary truncate group-hover:text-primary transition-colors">
                       {item.value}
                     </p>
                   </div>
@@ -122,63 +103,39 @@ export default function ContactSection() {
             ))}
 
             {/* Social Links */}
-            <ScrollReveal delay={0.3} direction="left">
-              <div className="glass-card p-5">
-                <p className="mb-4 text-sm font-medium text-text-secondary">
-                  Connect with me
+            <ScrollReveal delay={0.3}>
+              <div className="card p-4">
+                <p className="mb-3 text-xs font-medium text-text-tertiary uppercase tracking-wide">
+                  Connect
                 </p>
-                <div className="flex gap-3">
-                  <a
-                    href={personalInfo.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-surface text-text-tertiary transition-all hover:border-primary hover:-translate-y-1 hover:text-text-primary"
-                    aria-label="GitHub"
-                  >
-                    <GithubIcon className="h-5 w-5" />
-                  </a>
-                  <a
-                    href={personalInfo.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-surface text-text-tertiary transition-all hover:border-primary hover:-translate-y-1 hover:text-blue-500"
-                    aria-label="LinkedIn"
-                  >
-                    <LinkedinIcon className="h-5 w-5" />
-                  </a>
-                  {personalInfo.twitter && (
+                <div className="flex gap-2">
+                  {socialLinks.map((link) => (
                     <a
-                      href={personalInfo.twitter}
-                      target="_blank"
+                      key={link.label}
+                      href={link.href}
+                      target={link.href.startsWith("mailto") ? undefined : "_blank"}
                       rel="noopener noreferrer"
-                      className="flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-surface text-text-tertiary transition-all hover:border-primary hover:-translate-y-1 hover:text-text-primary"
-                      aria-label="Twitter (X)"
+                      className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-text-tertiary transition-all hover:border-primary hover:text-primary hover:-translate-y-0.5"
+                      aria-label={link.label}
                     >
-                      <TwitterIcon className="h-4 w-4" />
+                      <link.icon className="h-4 w-4" />
                     </a>
-                  )}
-                  <a
-                    href={`mailto:${personalInfo.email}`}
-                    className="flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-surface text-text-tertiary transition-all hover:border-primary hover:-translate-y-1 hover:text-primary"
-                    aria-label="Email"
-                  >
-                    <Mail className="h-5 w-5" />
-                  </a>
+                  ))}
                 </div>
               </div>
             </ScrollReveal>
           </div>
 
           {/* Contact Form */}
-          <ScrollReveal direction="right" className="lg:col-span-3 h-full">
-            <form onSubmit={handleSubmit} className="glass-card p-6 sm:p-8 lg:p-10 h-full flex flex-col">
-              <div className="grid gap-5 sm:grid-cols-2">
+          <ScrollReveal direction="right" className="lg:col-span-3">
+            <form onSubmit={handleSubmit} className="card p-5 sm:p-6" suppressHydrationWarning>
+              <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label
                     htmlFor="contact-name"
-                    className="mb-2 block text-sm font-medium text-text-secondary"
+                    className="mb-1.5 block text-xs font-medium text-text-secondary"
                   >
-                    Your Name
+                    Name
                   </label>
                   <input
                     type="text"
@@ -188,16 +145,16 @@ export default function ContactSection() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, name: e.target.value }))
                     }
-                    className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-                    placeholder="Enter Your Name"
+                    className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none transition-colors"
+                    placeholder="Your name"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="contact-email"
-                    className="mb-2 block text-sm font-medium text-text-secondary"
+                    className="mb-1.5 block text-xs font-medium text-text-secondary"
                   >
-                    Your Email
+                    Email
                   </label>
                   <input
                     type="email"
@@ -207,16 +164,16 @@ export default function ContactSection() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, email: e.target.value }))
                     }
-                    className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none transition-colors"
                     placeholder="you@example.com"
                   />
                 </div>
               </div>
 
-              <div className="mt-5">
+              <div className="mt-4">
                 <label
                   htmlFor="contact-subject"
-                  className="mb-2 block text-sm font-medium text-text-secondary"
+                  className="mb-1.5 block text-xs font-medium text-text-secondary"
                 >
                   Subject
                 </label>
@@ -228,40 +185,40 @@ export default function ContactSection() {
                   onChange={(e) =>
                     setFormState((s) => ({ ...s, subject: e.target.value }))
                   }
-                  className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                  className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none transition-colors"
                   placeholder="Job Opportunity"
                 />
               </div>
 
-              <div className="mt-5 flex-1 flex flex-col">
+              <div className="mt-4">
                 <label
                   htmlFor="contact-message"
-                  className="mb-2 block text-sm font-medium text-text-secondary"
+                  className="mb-1.5 block text-xs font-medium text-text-secondary"
                 >
                   Message
                 </label>
                 <textarea
                   id="contact-message"
                   required
+                  rows={5}
                   value={formState.message}
                   onChange={(e) =>
                     setFormState((s) => ({ ...s, message: e.target.value }))
                   }
-                  className="w-full flex-1 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors resize-none"
+                  className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none transition-colors resize-none"
                   placeholder="Hi Ajay, I'd like to discuss..."
                 />
               </div>
 
-              <div className="mt-6 mt-auto">
+              <div className="mt-5">
                 <button
                   type="submit"
-                  className={`btn-primary w-full justify-center ${isSubmitted ? "!bg-success" : ""
-                    }`}
+                  className={`btn-primary w-full ${isSubmitted ? "!bg-success" : ""}`}
                 >
                   {isSubmitted ? (
                     <>
                       <CheckCircle2 className="h-4 w-4" />
-                      Message Sent!
+                      Sent!
                     </>
                   ) : (
                     <>
