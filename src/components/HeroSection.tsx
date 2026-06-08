@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import IDETyping from "./ui/IDETyping";
+import ParticleNetwork from "./ui/ParticleNetwork";
 import { ArrowDown, FileText, Eye } from "lucide-react";
 import Image from "next/image";
 import { personalInfo, stats } from "@/lib/data";
@@ -41,8 +42,9 @@ export default function HeroSection() {
       id="home"
       className="relative min-h-[100dvh] flex items-center justify-center"
     >
-      {/* Subtle background orbs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Particle network background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <ParticleNetwork />
         <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-accent/5 blur-3xl" />
       </div>
@@ -90,6 +92,11 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
+              {/* Mobile: show short bio text */}
+              <p className="block sm:hidden mt-4 max-w-md text-sm leading-relaxed text-text-secondary mx-auto lg:mx-0">
+                {personalInfo.shortBio}
+              </p>
+              {/* Desktop: show IDE typing animation */}
               <IDETyping />
             </motion.div>
 
