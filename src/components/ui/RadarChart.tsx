@@ -18,7 +18,7 @@ const radarData: RadarDataPoint[] = [
   { label: "OS & Net", value: 78, skills: ["Linux", "Networking", "Git"] },
 ];
 
-const SIZE = 320;
+const SIZE = 420;
 const CENTER = SIZE / 2;
 const LEVELS = 4;
 
@@ -60,7 +60,7 @@ export default function RadarChart() {
 
   const numPoints = radarData.length;
   const angleStep = 360 / numPoints;
-  const maxRadius = CENTER - 55; // More padding for labels
+  const maxRadius = CENTER - 85; // More padding for labels
 
   // Build grid rings
   const gridRings = Array.from({ length: LEVELS }, (_, i) => {
@@ -97,7 +97,7 @@ export default function RadarChart() {
     <div ref={ref} className="flex flex-col items-center">
       <svg
         viewBox={`0 0 ${SIZE} ${SIZE}`}
-        className="w-full max-w-[340px] sm:max-w-[380px]"
+        className="w-full max-w-[340px] sm:max-w-[380px] overflow-visible"
       >
         {/* Grid rings */}
         {gridRings.map((points, i) => (
