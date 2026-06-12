@@ -16,6 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ajayautade.dev"),
   title: "Ajay Autade — DevOps Engineer | Portfolio",
   description:
     "Portfolio of Ajay Autade, a DevOps Engineer specializing in AWS, Docker, Kubernetes, Terraform, CI/CD, and cloud-native infrastructure. Open to opportunities.",
