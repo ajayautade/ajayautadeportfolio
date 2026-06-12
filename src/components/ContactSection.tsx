@@ -1,7 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle2,
+  ArrowRight,
+  Clock,
+  Calendar,
+} from "lucide-react";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { personalInfo } from "@/lib/data";
@@ -21,34 +31,6 @@ function LinkedinIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: personalInfo.email,
-    href: `mailto:${personalInfo.email}`,
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: `+91 ${personalInfo.phone}`,
-    href: `tel:+91${personalInfo.phone}`,
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: personalInfo.location,
-    href: "#",
-  },
-];
-
-const socialLinks = [
-  { icon: GithubIcon, href: personalInfo.github, label: "GitHub" },
-  { icon: LinkedinIcon, href: personalInfo.linkedin, label: "LinkedIn" },
-  { icon: Mail, href: `mailto:${personalInfo.email}`, label: "Email" },
-];
 
 export default function ContactSection() {
   const [formState, setFormState] = useState({
@@ -72,165 +54,257 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-12 sm:py-20 lg:py-24">
-      <div className="section-container">
+    <section id="contact" className="py-12 sm:py-20 lg:py-24 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent" />
+
+      <div className="section-container relative z-10">
         <ScrollReveal>
           <SectionHeading
-            title="Get In Touch"
-            subtitle="Have a project in mind or want to hire me? Let's connect!"
+            title="Let's Work Together"
+            subtitle="Looking for a DevOps Engineer who can hit the ground running? Let's talk."
           />
         </ScrollReveal>
 
-        <div className="grid gap-8 lg:grid-cols-5 lg:gap-12">
-          {/* Contact Info */}
-          <div className="lg:col-span-2 space-y-3">
-            {contactInfo.map((item, index) => (
-              <ScrollReveal key={item.label} delay={index * 0.1}>
-                <a href={item.href} className="card flex items-center gap-3 p-4 group">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-elevated text-primary">
-                    <item.icon className="h-4 w-4" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs text-text-tertiary uppercase tracking-wide">
-                      {item.label}
-                    </p>
-                    <p className="text-sm font-medium text-text-primary truncate group-hover:text-primary transition-colors">
-                      {item.value}
-                    </p>
-                  </div>
-                </a>
-              </ScrollReveal>
-            ))}
-
-            {/* Social Links */}
-            <ScrollReveal delay={0.3}>
-              <div className="card p-4">
-                <p className="mb-3 text-xs font-medium text-text-tertiary uppercase tracking-wide">
-                  Connect
-                </p>
-                <div className="flex gap-2">
-                  {socialLinks.map((link) => (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                      rel="noopener noreferrer"
-                      className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-text-tertiary transition-all hover:border-primary hover:text-primary hover:-translate-y-0.5"
-                      aria-label={link.label}
-                    >
-                      <link.icon className="h-4 w-4" />
-                    </a>
-                  ))}
-                </div>
+        {/* Availability Banner */}
+        <ScrollReveal delay={0.1}>
+          <div className="mx-auto max-w-2xl mb-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 rounded-2xl border border-success/20 bg-success/5 p-4 sm:p-5">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-3 w-3">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
+                  <span className="relative inline-flex h-3 w-3 rounded-full bg-success" />
+                </span>
+                <span className="text-sm font-semibold text-success">
+                  Available for Hire
+                </span>
               </div>
-            </ScrollReveal>
+              <div className="hidden sm:block h-4 w-px bg-border" />
+              <div className="flex items-center gap-2 text-text-secondary">
+                <Clock className="h-3.5 w-3.5" />
+                <span className="text-xs">Responds within 24 hours</span>
+              </div>
+              <div className="hidden sm:block h-4 w-px bg-border" />
+              <div className="flex items-center gap-2 text-text-secondary">
+                <Calendar className="h-3.5 w-3.5" />
+                <span className="text-xs">Can start immediately</span>
+              </div>
+            </div>
           </div>
+        </ScrollReveal>
 
-          {/* Contact Form */}
-          <ScrollReveal direction="right" className="lg:col-span-3">
-            <form onSubmit={handleSubmit} className="card p-5 sm:p-6" suppressHydrationWarning>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
+        {/* Quick Actions */}
+        <ScrollReveal delay={0.15}>
+          <div className="mx-auto max-w-3xl mb-10 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="group card p-4 sm:p-5 flex flex-row sm:flex-col items-center sm:items-center text-left sm:text-center gap-3 sm:gap-0 hover:border-primary/40 transition-all duration-300"
+            >
+              <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary sm:mb-3 group-hover:bg-primary/20 transition-colors">
+                <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-sm font-semibold text-text-primary">Email Me</h3>
+                <p className="text-xs text-text-tertiary truncate">
+                  {personalInfo.email}
+                </p>
+              </div>
+            </a>
+
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group card p-4 sm:p-5 flex flex-row sm:flex-col items-center sm:items-center text-left sm:text-center gap-3 sm:gap-0 hover:border-[#0A66C2]/40 transition-all duration-300"
+            >
+              <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-[#0A66C2]/10 text-[#0A66C2] sm:mb-3 group-hover:bg-[#0A66C2]/20 transition-colors">
+                <LinkedinIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-sm font-semibold text-text-primary">
+                  Connect on LinkedIn
+                </h3>
+                <p className="text-xs text-text-tertiary">
+                  Let&apos;s grow our network
+                </p>
+              </div>
+            </a>
+
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group card p-4 sm:p-5 flex flex-row sm:flex-col items-center sm:items-center text-left sm:text-center gap-3 sm:gap-0 hover:border-text-primary/20 transition-all duration-300"
+            >
+              <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-text-primary/10 text-text-primary sm:mb-3 group-hover:bg-text-primary/20 transition-colors">
+                <GithubIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-sm font-semibold text-text-primary">
+                  Check My Code
+                </h3>
+                <p className="text-xs text-text-tertiary">
+                  Open-source projects &amp; contributions
+                </p>
+              </div>
+            </a>
+          </div>
+        </ScrollReveal>
+
+        {/* Send a Message Form */}
+        <ScrollReveal delay={0.2}>
+          <div className="mx-auto max-w-2xl">
+            <div className="card p-6 sm:p-8 relative overflow-hidden">
+              {/* Top gradient bar */}
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-accent to-success" />
+
+              {/* Header */}
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-bold text-text-primary">
+                  Send a Message
+                </h3>
+                <p className="mt-2 text-sm text-text-tertiary">
+                  Have a specific role in mind? Tell me about it.
+                </p>
+              </div>
+
+              {/* Form */}
+              <form onSubmit={handleSubmit} suppressHydrationWarning>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label
+                      htmlFor="contact-name"
+                      className="mb-2 block text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="contact-name"
+                      required
+                      value={formState.name}
+                      onChange={(e) =>
+                        setFormState((s) => ({ ...s, name: e.target.value }))
+                      }
+                      className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="contact-email"
+                      className="mb-2 block text-xs font-semibold uppercase tracking-wider text-text-tertiary"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="contact-email"
+                      required
+                      value={formState.email}
+                      onChange={(e) =>
+                        setFormState((s) => ({ ...s, email: e.target.value }))
+                      }
+                      className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all"
+                      placeholder="you@company.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-5">
                   <label
-                    htmlFor="contact-name"
-                    className="mb-1.5 block text-xs font-medium text-text-secondary"
+                    htmlFor="contact-subject"
+                    className="mb-2 block text-xs font-semibold uppercase tracking-wider text-text-tertiary"
                   >
-                    Name
+                    Subject
                   </label>
                   <input
                     type="text"
-                    id="contact-name"
+                    id="contact-subject"
                     required
-                    value={formState.name}
+                    value={formState.subject}
                     onChange={(e) =>
-                      setFormState((s) => ({ ...s, name: e.target.value }))
+                      setFormState((s) => ({ ...s, subject: e.target.value }))
                     }
-                    className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none transition-colors"
-                    placeholder="Your name"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all"
+                    placeholder="Job Opportunity — DevOps Engineer"
                   />
                 </div>
-                <div>
+
+                <div className="mt-5">
                   <label
-                    htmlFor="contact-email"
-                    className="mb-1.5 block text-xs font-medium text-text-secondary"
+                    htmlFor="contact-message"
+                    className="mb-2 block text-xs font-semibold uppercase tracking-wider text-text-tertiary"
                   >
-                    Email
+                    Message
                   </label>
-                  <input
-                    type="email"
-                    id="contact-email"
+                  <textarea
+                    id="contact-message"
                     required
-                    value={formState.email}
+                    rows={5}
+                    value={formState.message}
                     onChange={(e) =>
-                      setFormState((s) => ({ ...s, email: e.target.value }))
+                      setFormState((s) => ({ ...s, message: e.target.value }))
                     }
-                    className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none transition-colors"
-                    placeholder="you@example.com"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all resize-none"
+                    placeholder="Hi Ajay, we have an opening for a DevOps Engineer and I'd love to discuss..."
                   />
                 </div>
-              </div>
 
-              <div className="mt-4">
-                <label
-                  htmlFor="contact-subject"
-                  className="mb-1.5 block text-xs font-medium text-text-secondary"
-                >
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="contact-subject"
-                  required
-                  value={formState.subject}
-                  onChange={(e) =>
-                    setFormState((s) => ({ ...s, subject: e.target.value }))
-                  }
-                  className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none transition-colors"
-                  placeholder="Job Opportunity"
-                />
-              </div>
-
-              <div className="mt-4">
-                <label
-                  htmlFor="contact-message"
-                  className="mb-1.5 block text-xs font-medium text-text-secondary"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="contact-message"
-                  required
-                  rows={5}
-                  value={formState.message}
-                  onChange={(e) =>
-                    setFormState((s) => ({ ...s, message: e.target.value }))
-                  }
-                  className="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none transition-colors resize-none"
-                  placeholder="Hi Ajay, I'd like to discuss..."
-                />
-              </div>
-
-              <div className="mt-5">
-                <button
+                {/* Submit Button */}
+                <motion.button
                   type="submit"
-                  className={`btn-primary w-full ${isSubmitted ? "!bg-success" : ""}`}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.97 }}
+                  className={`mt-6 relative w-full flex items-center justify-center gap-2.5 py-4 px-4 rounded-xl font-semibold text-sm transition-all duration-300 overflow-hidden ${
+                    isSubmitted
+                      ? "bg-success text-white shadow-lg shadow-success/25"
+                      : "bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/25 hover:shadow-primary/40"
+                  }`}
                 >
-                  {isSubmitted ? (
-                    <>
-                      <CheckCircle2 className="h-4 w-4" />
-                      Sent!
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-4 w-4" />
-                      Send Message
-                    </>
+                  {!isSubmitted && (
+                    <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                   )}
-                </button>
+                  <span className="relative z-10 flex items-center gap-2">
+                    {isSubmitted ? (
+                      <>
+                        <CheckCircle2 className="h-5 w-5" />
+                        Message Sent!
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" />
+                        Send Message
+                        <ArrowRight className="h-4 w-4" />
+                      </>
+                    )}
+                  </span>
+                </motion.button>
+              </form>
+
+              {/* Contact details footer */}
+              <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-xs text-text-tertiary">
+                <a
+                  href={`mailto:${personalInfo.email}`}
+                  className="flex items-center gap-1.5 hover:text-primary transition-colors"
+                >
+                  <Mail className="h-3.5 w-3.5" />
+                  {personalInfo.email}
+                </a>
+                <a
+                  href={`tel:+91${personalInfo.phone}`}
+                  className="flex items-center gap-1.5 hover:text-primary transition-colors"
+                >
+                  <Phone className="h-3.5 w-3.5" />
+                  +91 {personalInfo.phone}
+                </a>
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="h-3.5 w-3.5" />
+                  {personalInfo.location}
+                </span>
               </div>
-            </form>
-          </ScrollReveal>
-        </div>
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
