@@ -42,16 +42,18 @@ export default function ScrollReveal({
       variants={{
         hidden: {
           opacity: 0,
+          filter: "blur(10px)",
           ...directionMap[direction],
         },
         visible: {
           opacity: 1,
+          filter: "blur(0px)",
           x: 0,
           y: 0,
           transition: {
-            duration: 0.6,
-            delay,
-            ease: [0.22, 1, 0.36, 1],
+            duration: 0.8,
+            ease: [0.16, 1, 0.3, 1], // cinematic ease out
+            delay: delay,
           },
         },
       }}

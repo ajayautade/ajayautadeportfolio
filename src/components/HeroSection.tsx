@@ -115,13 +115,13 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="mb-4 inline-flex items-center gap-2 rounded-full border border-glass-border bg-glass-bg px-4 py-1.5 backdrop-blur-sm"
+              className="mb-4 inline-flex items-center gap-2 rounded-full px-2 py-1.5"
             >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
               </span>
-              <span className="text-sm text-text-secondary">
+              <span className="text-sm font-medium text-text-secondary">
                 Open to opportunities
               </span>
             </motion.div>
@@ -130,7 +130,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
+              className="text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl"
             >
               Hi, I&apos;m{" "}
               <span className="gradient-text">{personalInfo.name}</span>
@@ -140,7 +140,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-3 text-xl font-semibold text-text-secondary sm:text-2xl"
+              className="mt-3 text-xl font-medium tracking-tight text-text-secondary sm:text-2xl"
             >
               {personalInfo.title}
             </motion.p>
@@ -160,14 +160,25 @@ export default function HeroSection() {
               transition={{ duration: 0.7, delay: 0.5 }}
               className="mt-8 flex flex-col sm:flex-row gap-4"
             >
-              <a href="#projects" className="btn-primary">
+              <motion.a 
+                href="#projects" 
+                className="btn-primary"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Eye className="h-4 w-4" />
                 View Projects
-              </a>
-              <a href="/resume.pdf" download className="btn-outline">
+              </motion.a>
+              <motion.a 
+                href="/resume.pdf" 
+                download 
+                className="btn-outline"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <FileText className="h-4 w-4" />
                 Download Resume
-              </a>
+              </motion.a>
             </motion.div>
 
             {/* Stats */}

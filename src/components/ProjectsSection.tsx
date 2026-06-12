@@ -1,6 +1,7 @@
 "use client";
 
 import { ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { projects } from "@/lib/data";
@@ -27,22 +28,25 @@ export default function ProjectsSection() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <ScrollReveal key={project.title} delay={index * 0.15}>
-              <div className="glass-card group flex h-full flex-col gradient-border">
+              <motion.div 
+                className="glass-card group flex h-full flex-col"
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 {/* Image Placeholder */}
-                <div className="relative h-40 sm:h-48 overflow-hidden bg-gradient-to-br from-primary/20 via-accent/10 to-transparent p-6">
-                  <div className="absolute inset-0 bg-gradient-to-t from-glass-bg to-transparent" />
+                <div className="relative h-40 sm:h-48 overflow-hidden bg-surface-elevated/50 p-6 border-b border-glass-border">
                   <div className="relative z-10">
                     <div className="flex items-center justify-between">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/20 text-primary">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                         <GithubIcon className="h-5 w-5" />
                       </div>
                       {project.featured && (
-                        <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">
+                        <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                           Featured
                         </span>
                       )}
                     </div>
-                    <h3 className="mt-4 text-xl font-bold text-text-primary">
+                    <h3 className="mt-4 text-xl font-semibold text-text-primary">
                       {project.title}
                     </h3>
                   </div>
@@ -87,7 +91,7 @@ export default function ProjectsSection() {
                     )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </ScrollReveal>
           ))}
         </div>

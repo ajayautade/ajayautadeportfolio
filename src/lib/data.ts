@@ -267,7 +267,8 @@ export const terminalCommands = [
 ];
 
 export const stats = [
-  { label: "Repositories", value: 19 },
-  { label: "Technologies", value: 13 },
-  { label: "Internships", value: 2 },
+  { label: "Projects", value: 19 },
+  { label: "Tools And Technology", value: 13 },
+  { label: "Internship", value: 2 },
+  { label: "Year Experience", value: 1 },
 ];

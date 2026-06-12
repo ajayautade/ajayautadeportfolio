@@ -18,25 +18,24 @@ export default function ExperienceSection() {
 
         <div className="relative mx-auto w-full max-w-3xl">
           {/* Timeline Line */}
-          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-transparent md:left-8" />
+          <div className="absolute left-4 top-0 bottom-0 w-px bg-border md:left-8" />
 
           {experiences.map((exp, index) => (
             <ScrollReveal key={exp.company} delay={index * 0.15}>
               <div className="relative mb-12 pl-10 md:pl-16">
                 {/* Timeline Dot */}
-                <div className="absolute left-[9px] top-6 flex h-4 w-4 items-center justify-center md:left-[25px]">
-                  <div className="h-4 w-4 rounded-full border-2 border-primary bg-surface" />
-                  <div className="absolute h-2 w-2 rounded-full bg-primary" />
+                <div className="absolute left-[11px] top-7 flex h-3 w-3 items-center justify-center md:left-[27px]">
+                  <div className="h-3 w-3 rounded-full bg-primary" />
                 </div>
 
                 <div className="glass-card overflow-hidden">
                   {/* Header */}
-                  <div className="border-b border-glass-border bg-gradient-to-r from-primary/5 to-transparent p-5 sm:p-6">
+                  <div className="border-b border-glass-border bg-surface-elevated/30 p-5 sm:p-6">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <Building2 className="h-4 w-4 text-primary" />
-                          <h3 className="text-lg font-bold text-text-primary">
+                          <h3 className="text-lg font-semibold text-text-primary">
                             {exp.company}
                           </h3>
                         </div>
