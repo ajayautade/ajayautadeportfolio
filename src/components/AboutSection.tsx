@@ -43,10 +43,10 @@ export default function AboutSection() {
           {/* Bio */}
           <ScrollReveal delay={0.1}>
             <div className="space-y-4">
-              <p className="text-base leading-relaxed text-text-secondary">
+              <p className="text-base leading-relaxed text-text-primary/80">
                 {personalInfo.bio}
               </p>
-              <p className="text-sm leading-relaxed text-text-tertiary">
+              <p className="text-sm leading-relaxed text-text-secondary">
                 With a B.Tech in Computer Science and Engineering from MGM&apos;s
                 Jawaharlal Nehru Engineering College, I bring a strong
                 foundation in software engineering principles combined with

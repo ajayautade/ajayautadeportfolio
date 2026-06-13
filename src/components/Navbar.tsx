@@ -201,15 +201,18 @@ export default function Navbar() {
               ))}
               
               {/* Mobile Resume Button */}
-              <a
+              <motion.a
                 href="/resume.pdf"
                 download
                 onClick={() => setIsMobileOpen(false)}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-3 px-4 text-sm font-medium text-white transition-colors hover:bg-primary/90 mt-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.05 + 0.1 }}
+                className="flex w-full max-w-xs items-center justify-center gap-2.5 rounded-xl bg-primary py-4 px-6 text-base font-semibold text-white transition-colors hover:bg-primary/90 mt-8 shadow-lg"
               >
-                <FileText className="h-4 w-4" />
+                <FileText className="h-5 w-5" />
                 Download Resume
-              </a>
+              </motion.a>
             </nav>
           </motion.div>
         )}

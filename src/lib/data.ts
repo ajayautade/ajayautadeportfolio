@@ -121,7 +121,7 @@ export const projects: Project[] = [
     description:
       "Movie search website with dynamic search and browsing capabilities",
     longDescription:
-      "A movie search website built with web technologies, featuring dynamic search functionality, responsive design, and integration with movie database APIs.",
+      "A movie search website built with web technologies, featuring dynamic search functionality, responsive design, and integration with movie database APIs for real-time results and detailed movie information.",
     techStack: ["HTML", "CSS", "JavaScript", "API Integration"],
     githubUrl: "https://github.com/ajayautade/MoviesMonkey",
     featured: true,
