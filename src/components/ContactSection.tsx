@@ -56,7 +56,7 @@ export default function ContactSection() {
         },
         body: JSON.stringify({
           access_key: "da2a32de-3577-47d5-aeda-d5322f125776",
-          from_name: formState.name,
+          name: formState.name,
           email: formState.email,
           subject: formState.subject || "New Message from Portfolio",
           message: formState.message,
