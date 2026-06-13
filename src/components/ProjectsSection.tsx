@@ -24,10 +24,10 @@ export default function ProjectsSection() {
           />
         </ScrollReveal>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <ScrollReveal key={project.title} delay={index * 0.1}>
-              <div className="card flex h-full flex-col p-5">
+              <div className="card flex h-full flex-col p-4 sm:p-5">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-elevated text-text-secondary">

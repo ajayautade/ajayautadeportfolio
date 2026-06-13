@@ -60,12 +60,12 @@ export default function ServicesSection() {
           />
         </ScrollReveal>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
               <ScrollReveal key={service.title} delay={index * 0.08}>
-                <div className="group card p-6 h-full relative overflow-hidden transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
+                <div className="group card p-4 sm:p-6 h-full relative overflow-hidden transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
                   {/* Gradient background on hover */}
                   <div
                     className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}

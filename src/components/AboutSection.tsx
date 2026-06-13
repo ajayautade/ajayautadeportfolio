@@ -52,11 +52,21 @@ export default function AboutSection() {
                 foundation in software engineering principles combined with
                 hands-on DevOps expertise.
               </p>
+
+              {/* How I Work */}
+              <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
+                  How I Work
+                </p>
+                <p className="text-sm leading-relaxed text-text-secondary italic">
+                  &ldquo;{personalInfo.philosophy}&rdquo;
+                </p>
+              </div>
             </div>
           </ScrollReveal>
 
           {/* Info Cards */}
-          <div className="space-y-3">
+          <div className="space-y-3 sm:space-y-4">
             {infoCards.map((card, index) => (
               <ScrollReveal key={card.label} delay={index * 0.1}>
                 <div className="card p-4 flex items-start gap-4">

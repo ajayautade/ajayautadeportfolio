@@ -82,7 +82,7 @@ export default function StatsSection() {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-6">
           {funFacts.map((fact, index) => {
             const Icon = fact.icon;
             return (
@@ -90,19 +90,19 @@ export default function StatsSection() {
                 <motion.div
                   whileHover={{ y: -4, scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className="card p-5 text-center group hover:border-primary/30"
+                  className="card p-3 sm:p-5 text-center group hover:border-primary/30"
                 >
                   <Icon
-                    className={`h-6 w-6 mx-auto mb-3 ${fact.color} opacity-70 group-hover:opacity-100 transition-opacity`}
+                    className={`h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-2 sm:mb-3 ${fact.color} opacity-70 group-hover:opacity-100 transition-opacity`}
                   />
-                  <div className={`text-2xl sm:text-3xl font-bold ${fact.color} mb-1`}>
+                  <div className={`text-lg sm:text-2xl lg:text-3xl font-bold ${fact.color} mb-1`}>
                     <AnimatedNumber
                       value={fact.value}
                       suffix={fact.suffix}
                       decimals={(fact as { decimals?: number }).decimals}
                     />
                   </div>
-                  <div className="text-[11px] sm:text-xs text-text-tertiary font-medium uppercase tracking-wider">
+                  <div className="text-[9px] sm:text-[11px] text-text-tertiary font-medium uppercase tracking-wider">
                     {fact.label}
                   </div>
                 </motion.div>

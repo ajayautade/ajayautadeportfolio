@@ -8,7 +8,7 @@ import { ArrowDown, FileText, Eye } from "lucide-react";
 import Image from "next/image";
 import { personalInfo, stats } from "@/lib/data";
 
-function AnimatedCounter({ value, label }: { value: number; label: string }) {
+function AnimatedCounter({ value, label, suffix = "+" }: { value: number; label: string; suffix?: string }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -30,8 +30,8 @@ function AnimatedCounter({ value, label }: { value: number; label: string }) {
 
   return (
     <div className="text-center">
-      <div className="text-2xl font-bold text-primary">{count}+</div>
-      <div className="text-xs text-text-secondary mt-1">{label}</div>
+      <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary">{count}{suffix}</div>
+      <div className="text-[10px] sm:text-xs text-text-secondary mt-1">{label}</div>
     </div>
   );
 }
@@ -122,13 +122,14 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 border-t border-border pt-6"
+              className="mt-8 sm:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 border-t border-border pt-6"
             >
               {stats.map((stat) => (
                 <AnimatedCounter
                   key={stat.label}
                   value={stat.value}
                   label={stat.label}
+                  suffix={stat.label === "Uptime Achieved" ? "%" : "+"}
                 />
               ))}
             </motion.div>
