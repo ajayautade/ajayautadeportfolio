@@ -11,6 +11,7 @@ import {
   ArrowRight,
   Clock,
   Calendar,
+  Loader2,
 } from "lucide-react";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
@@ -40,17 +41,41 @@ export default function ContactSection() {
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoUrl = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-      formState.subject
-    )}&body=${encodeURIComponent(
-      `Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`
-    )}`;
-    window.open(mailtoUrl, "_blank");
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "da2a32de-3577-47d5-aeda-d5322f125776",
+          from_name: formState.name,
+          email: formState.email,
+          subject: formState.subject || "New Message from Portfolio",
+          message: formState.message,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setIsSubmitted(true);
+        setFormState({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } else {
+        console.error("Web3Forms Error:", result);
+      }
+    } catch (error) {
+      console.error("Error submitting form", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -253,22 +278,30 @@ export default function ContactSection() {
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.97 }}
+                  disabled={isSubmitting || isSubmitted}
+                  whileHover={{ scale: isSubmitting || isSubmitted ? 1 : 1.01 }}
+                  whileTap={{ scale: isSubmitting || isSubmitted ? 1 : 0.97 }}
                   className={`mt-6 relative w-full flex items-center justify-center gap-2.5 py-4 px-4 rounded-xl font-semibold text-sm transition-all duration-300 overflow-hidden ${
                     isSubmitted
                       ? "bg-success text-white shadow-lg shadow-success/25"
+                      : isSubmitting
+                      ? "bg-surface-elevated text-text-tertiary cursor-not-allowed border border-border"
                       : "bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/25 hover:shadow-primary/40"
                   }`}
                 >
-                  {!isSubmitted && (
+                  {!isSubmitted && !isSubmitting && (
                     <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                   )}
                   <span className="relative z-10 flex items-center gap-2">
-                    {isSubmitted ? (
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : isSubmitted ? (
                       <>
                         <CheckCircle2 className="h-5 w-5" />
-                        Message Sent!
+                        Message Sent Successfully!
                       </>
                     ) : (
                       <>
