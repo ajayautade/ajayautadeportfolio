@@ -1,0 +1,16 @@
+{
+  "name": "Ajay Autade — DevOps & Cloud Engineer",
+  "short_name": "Ajay Autade",
+  "description": "Portfolio of Ajay Autade, a DevOps Engineer specializing in AWS, Docker, Kubernetes, Terraform, CI/CD, and cloud-native infrastructure.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

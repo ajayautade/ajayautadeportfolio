@@ -41,7 +41,7 @@ export default async function Image() {
             }}
           />
           <span style={{ fontSize: 40, color: "#a1a1aa", fontWeight: 600, fontFamily: "sans-serif" }}>
-            ajayautade.dev
+            ajayautade.com
           </span>
         </div>
         <h1

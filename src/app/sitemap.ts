@@ -1,15 +1,17 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://ajayautade.com";
+
   return [
     {
-      url: "https://ajayautade.dev",
+      url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: "https://ajayautade.dev/services",
+      url: `${baseUrl}/services`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
