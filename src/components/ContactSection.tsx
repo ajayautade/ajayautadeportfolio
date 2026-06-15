@@ -40,11 +40,36 @@ export default function ContactSection() {
     subject: "",
     message: "",
   });
+  const [honeypot, setHoneypot] = useState(""); // Anti-spam honeypot
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitCount, setSubmitCount] = useState(0);
+  const [lastSubmitTime, setLastSubmitTime] = useState(0);
+
+  // Sanitize input — strip HTML tags and limit length
+  const sanitize = (input: string, maxLength: number = 500) => {
+    return input
+      .replace(/<[^>]*>/g, "") // Strip HTML tags
+      .replace(/[<>]/g, "") // Remove remaining angle brackets
+      .slice(0, maxLength);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Honeypot check — if filled, it's a bot
+    if (honeypot) {
+      setIsSubmitted(true);
+      setTimeout(() => setIsSubmitted(false), 5000);
+      return;
+    }
+
+    // Rate limiting — max 3 submissions per 5 minutes
+    const now = Date.now();
+    if (now - lastSubmitTime < 300000 && submitCount >= 3) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -56,10 +81,10 @@ export default function ContactSection() {
         },
         body: JSON.stringify({
           access_key: "da2a32de-3577-47d5-aeda-d5322f125776",
-          name: formState.name,
-          email: formState.email,
-          subject: formState.subject || "New Message from Portfolio",
-          message: formState.message,
+          name: sanitize(formState.name, 100),
+          email: formState.email.slice(0, 254),
+          subject: sanitize(formState.subject, 200) || "New Message from Portfolio",
+          message: sanitize(formState.message, 2000),
         }),
       });
 
@@ -67,6 +92,8 @@ export default function ContactSection() {
       if (result.success) {
         setIsSubmitted(true);
         setFormState({ name: "", email: "", subject: "", message: "" });
+        setSubmitCount((c) => c + 1);
+        setLastSubmitTime(now);
         setTimeout(() => setIsSubmitted(false), 5000);
       } else {
         console.error("Web3Forms Error:", result);
@@ -194,6 +221,17 @@ export default function ContactSection() {
 
               {/* Form */}
               <form onSubmit={handleSubmit} suppressHydrationWarning>
+                {/* Honeypot — hidden from real users, bots fill it */}
+                <input
+                  type="text"
+                  name="website"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0 }}
+                  aria-hidden="true"
+                />
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
                     <label
@@ -206,6 +244,7 @@ export default function ContactSection() {
                       type="text"
                       id="contact-name"
                       required
+                      maxLength={100}
                       value={formState.name}
                       onChange={(e) =>
                         setFormState((s) => ({ ...s, name: e.target.value }))
@@ -225,6 +264,7 @@ export default function ContactSection() {
                       type="email"
                       id="contact-email"
                       required
+                      maxLength={254}
                       value={formState.email}
                       onChange={(e) =>
                         setFormState((s) => ({ ...s, email: e.target.value }))
@@ -246,6 +286,7 @@ export default function ContactSection() {
                     type="text"
                     id="contact-subject"
                     required
+                    maxLength={200}
                     value={formState.subject}
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, subject: e.target.value }))
@@ -265,6 +306,7 @@ export default function ContactSection() {
                   <textarea
                     id="contact-message"
                     required
+                    maxLength={2000}
                     rows={5}
                     value={formState.message}
                     onChange={(e) =>
