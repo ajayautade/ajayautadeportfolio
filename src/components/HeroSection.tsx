@@ -107,7 +107,18 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.5 }}
               className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
             >
-              <a href="#projects" className="btn-primary">
+              <a 
+                href="#projects" 
+                className="btn-primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.querySelector("#projects");
+                  if (el) {
+                    const y = el.getBoundingClientRect().top + window.scrollY - 80;
+                    window.scrollTo({ top: y, behavior: "smooth" });
+                  }
+                }}
+              >
                 <Eye className="h-4 w-4" />
                 View Projects
               </a>

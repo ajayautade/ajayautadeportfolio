@@ -1,3 +1,5 @@
+"use client";
+
 import { Heart, Mail } from "lucide-react";
 import { personalInfo, navLinks } from "@/lib/data";
 
@@ -26,14 +28,14 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4">
-              <a href="#home" className="text-sm font-semibold text-text-primary">
+              <a onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="text-sm font-semibold text-text-primary">
                 {personalInfo.name}
               </a>
               <div className="hidden sm:flex gap-3">
                 {navLinks.slice(1).map((link) => (
                   <a
                     key={link.name}
-                    href={link.href}
+                    href={link.href} onClick={(e) => { e.preventDefault(); const el = document.querySelector(link.href); if (el) { const y = el.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top: y, behavior: "smooth" }); } }}
                     className="text-xs text-text-tertiary hover:text-text-primary transition-colors"
                   >
                     {link.name}
