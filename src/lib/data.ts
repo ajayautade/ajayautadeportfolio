@@ -3,7 +3,7 @@ export const personalInfo = {
   title: "DevOps & Cloud Engineer",
   location: "Chhatrapati Sambhajinagar, Maharashtra, India",
   phone: "7820902571",
-  email: "ajayautade2@gmail.com",
+  email: "contact@ajayautade.com",
   github: "https://github.com/ajayautade",
   linkedin: "https://www.linkedin.com/in/ajayautadepatil",
   bio: "I automate the boring stuff so engineering teams can ship faster. From spinning up Kubernetes clusters to building CI/CD pipelines that just work — I make infrastructure disappear behind a great developer experience.",

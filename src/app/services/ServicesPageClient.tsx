@@ -75,7 +75,7 @@ function ServicesFooter() {
             <LinkedinIcon className="h-4 w-4" />
           </a>
           <a
-            href="mailto:ajayautade2@gmail.com"
+            href="mailto:contact@ajayautade.com"
             className="text-text-tertiary hover:text-text-primary transition-colors"
           >
             <Mail className="h-4 w-4" />

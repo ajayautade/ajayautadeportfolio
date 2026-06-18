@@ -120,7 +120,7 @@ export default function RootLayout({
                 description: "DevOps Engineer specializing in AWS, Docker, Kubernetes, Terraform, CI/CD pipelines, and cloud-native infrastructure. Based in Maharashtra, India.",
                 url: "https://ajayautade.com",
                 image: "https://ajayautade.com/profile.png",
-                email: "ajayautade2@gmail.com",
+                email: "contact@ajayautade.com",
                 telephone: "+917820902571",
                 nationality: "Indian",
                 address: {

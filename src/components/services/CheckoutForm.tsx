@@ -55,7 +55,7 @@ Looking forward to hearing from you!
       `DevOps Service Inquiry — ${formatPrice(totalPrice)}`
     );
     const body = encodeURIComponent(emailBody);
-    const mailtoUrl = `mailto:ajayautade2@gmail.com?subject=${subject}&body=${body}`;
+    const mailtoUrl = `mailto:contact@ajayautade.com?subject=${subject}&body=${body}`;
 
     // Open the email client
     window.open(mailtoUrl, "_blank");
