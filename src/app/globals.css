@@ -239,3 +239,48 @@ body {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
+
+/* ============================================
+   MOBILE TOUCH UX
+   ============================================ */
+
+/* Remove iOS blue tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Faster taps on interactive elements */
+a,
+button,
+.tech-pill,
+.card {
+  touch-action: manipulation;
+}
+
+/* Press feedback on buttons */
+.btn-primary:active,
+.btn-outline:active {
+  transform: scale(0.96);
+}
+
+/* Larger touch targets on mobile */
+@media (max-width: 639px) {
+  .btn-primary,
+  .btn-outline {
+    min-height: 44px;
+  }
+
+  .tech-pill {
+    padding: 0.375rem 0.875rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* Hide scrollbars for carousels (cross-browser) */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

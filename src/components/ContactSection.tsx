@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import {
   Mail,
   Phone,
@@ -147,9 +147,11 @@ export default function ContactSection() {
         {/* Quick Actions */}
         <ScrollReveal delay={0.15}>
           <div className="mx-auto max-w-3xl mb-10 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <a
+            <motion.a
               href={`mailto:${personalInfo.email}`}
               className="group card p-4 sm:p-5 flex flex-row sm:flex-col items-center sm:items-center text-left sm:text-center gap-3 sm:gap-0 hover:border-primary/40 transition-all duration-300"
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary sm:mb-3 group-hover:bg-primary/20 transition-colors">
                 <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -160,13 +162,15 @@ export default function ContactSection() {
                   {personalInfo.email}
                 </p>
               </div>
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
               href={personalInfo.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="group card p-4 sm:p-5 flex flex-row sm:flex-col items-center sm:items-center text-left sm:text-center gap-3 sm:gap-0 hover:border-[#0A66C2]/40 transition-all duration-300"
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-[#0A66C2]/10 text-[#0A66C2] sm:mb-3 group-hover:bg-[#0A66C2]/20 transition-colors">
                 <LinkedinIcon className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -179,13 +183,15 @@ export default function ContactSection() {
                   Let&apos;s grow our network
                 </p>
               </div>
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
               className="group card p-4 sm:p-5 flex flex-row sm:flex-col items-center sm:items-center text-left sm:text-center gap-3 sm:gap-0 hover:border-text-primary/20 transition-all duration-300"
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-text-primary/10 text-text-primary sm:mb-3 group-hover:bg-text-primary/20 transition-colors">
                 <GithubIcon className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -198,7 +204,7 @@ export default function ContactSection() {
                   Open-source projects &amp; contributions
                 </p>
               </div>
-            </a>
+            </motion.a>
           </div>
         </ScrollReveal>
 

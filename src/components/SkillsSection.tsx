@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
   Cloud,
   Box,
@@ -65,13 +66,16 @@ export default function SkillsSection() {
                       {category.skills.map((skill) => {
                         const SkillIcon = iconMap[skill.icon] || Code;
                         return (
-                          <span
+                          <motion.span
                             key={skill.name}
-                            className="tech-pill inline-flex items-center gap-1.5"
+                            className="tech-pill inline-flex items-center gap-1.5 cursor-default select-none touch-manipulation"
+                            whileTap={{ scale: 1.15 }}
+                            whileHover={{ scale: 1.08 }}
+                            transition={{ type: "spring", stiffness: 500, damping: 15 }}
                           >
                             <SkillIcon className="h-3 w-3" />
                             {skill.name}
-                          </span>
+                          </motion.span>
                         );
                       })}
                     </div>

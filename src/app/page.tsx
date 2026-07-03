@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -9,12 +12,18 @@ import StatsSection from "@/components/StatsSection";
 import ContactSection from "@/components/ContactSection";
 import ServicesSection from "@/components/ServicesSection";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/BackToTop";
+import SectionDots from "@/components/SectionDots";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <motion.main
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
         {/* 1. Hook — who you are */}
         <HeroSection />
 
@@ -41,8 +50,10 @@ export default function Home() {
 
         {/* 9. Strong CTA — make it easy to reach you */}
         <ContactSection />
-      </main>
+      </motion.main>
       <Footer />
+      <BackToTop />
+      <SectionDots />
     </>
   );
 }
