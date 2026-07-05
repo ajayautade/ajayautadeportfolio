@@ -122,7 +122,7 @@ export default function HeroSection() {
                 <Eye className="h-4 w-4" />
                 View Projects
               </a>
-              <a href="/resume.pdf" download className="btn-outline">
+              <a href="/resume.pdf" download="Ajay_Autade_DevOps_Engineer_Resume.pdf" className="btn-outline">
                 <FileText className="h-4 w-4" />
                 Download Resume
               </a>

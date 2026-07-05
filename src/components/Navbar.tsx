@@ -123,7 +123,7 @@ export default function Navbar() {
                 </button>
                 <a 
                   href="/resume.pdf" 
-                  download 
+                  download="Ajay_Autade_DevOps_Engineer_Resume.pdf" 
                   className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md bg-primary text-white hover:bg-primary/90 transition-colors"
                 >
                   <FileText className="h-4 w-4" />
@@ -203,7 +203,7 @@ export default function Navbar() {
               {/* Mobile Resume Button */}
               <motion.a
                 href="/resume.pdf"
-                download
+                download="Ajay_Autade_DevOps_Engineer_Resume.pdf"
                 onClick={() => setIsMobileOpen(false)}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
