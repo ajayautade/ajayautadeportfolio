@@ -240,11 +240,161 @@ export const certifications: Certification[] = [
   },
 ];
 
+export interface EarnedCertificate {
+  name: string;
+  issuer: string;
+  platform: "coursera" | "udemy" | "aws" | "linkedin" | "google" | "other";
+  date: string;
+  credentialId: string;
+  credentialUrl: string;
+  skills: string[];
+}
+
+export const earnedCertificates: EarnedCertificate[] = [
+  {
+    name: "Introduction to Artificial Intelligence (AI)",
+    issuer: "IBM",
+    platform: "coursera",
+    date: "Jun 2022",
+    credentialId: "9NN4D47DNCU6",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/verify/9NN4D47DNCU6",
+    skills: ["Artificial Intelligence", "Machine Learning", "Neural Networks"],
+  },
+  {
+    name: "AI For Everyone",
+    issuer: "DeepLearning.AI",
+    platform: "coursera",
+    date: "May 2022",
+    credentialId: "8YZGXC6KTV76",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/verify/8YZGXC6KTV76",
+    skills: ["AI Strategy", "Deep Learning", "Data Science"],
+  },
+  {
+    name: "Introduction to Google SEO",
+    issuer: "University of California, Davis",
+    platform: "coursera",
+    date: "Sep 2021",
+    credentialId: "TWKU7EVH9TR7",
+    credentialUrl: "https://coursera.org/share/9a65d362389e0892336d6872087b8363",
+    skills: ["SEO", "Google Analytics", "Digital Marketing"],
+  },
+  {
+    name: "High Performance Collaboration: Leadership, Teamwork, and Negotiation",
+    issuer: "Northwestern University",
+    platform: "coursera",
+    date: "Nov 2021",
+    credentialId: "F84K3NTH2G7Y",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/verify/F84K3NTH2G7Y",
+    skills: ["Leadership", "Teamwork", "Negotiation"],
+  },
+  {
+    name: "Interpersonal Communication for Engineering Leaders",
+    issuer: "Rice University",
+    platform: "coursera",
+    date: "Nov 2021",
+    credentialId: "SNF9WKWUEMQ3",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/verify/SNF9WKWUEMQ3",
+    skills: ["Communication", "Engineering Leadership", "Team Management"],
+  },
+  {
+    name: "High-Impact Business Writing",
+    issuer: "University of California, Irvine",
+    platform: "coursera",
+    date: "Nov 2021",
+    credentialId: "FYBR9NRVH2ZJ",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/verify/FYBR9NRVH2ZJ",
+    skills: ["Business Writing", "Professional Communication"],
+  },
+  // ── Udemy Certificates (DevOps-relevant first) ──
+  {
+    name: "Terraform + AWS - Your Introduction!",
+    issuer: "Udemy",
+    platform: "udemy",
+    date: "Dec 2019",
+    credentialId: "UC-ZWIHCCTS",
+    credentialUrl: "https://www.udemy.com/certificate/UC-ZWIHCCTS/",
+    skills: ["Terraform", "AWS", "Infrastructure as Code"],
+  },
+  {
+    name: "The Cyber Security Bootcamp",
+    issuer: "Udemy",
+    platform: "udemy",
+    date: "May 2020",
+    credentialId: "UC-e2f230d4",
+    credentialUrl: "https://www.udemy.com/certificate/UC-e2f230d4-be58-4f63-b0aa-eaafab2f3e41/",
+    skills: ["Cyber Security", "Network Security", "DevSecOps"],
+  },
+  {
+    name: "Learn To Code From Scratch With Python 3",
+    issuer: "Udemy",
+    platform: "udemy",
+    date: "Jun 2020",
+    credentialId: "UC-70cc9030",
+    credentialUrl: "https://www.udemy.com/certificate/UC-70cc9030-2552-43f0-a067-ea487bd4874e/",
+    skills: ["Python", "Scripting", "Automation"],
+  },
+  {
+    name: "Object Oriented Programming in Python",
+    issuer: "Udemy",
+    platform: "udemy",
+    date: "Dec 2019",
+    credentialId: "UC-BFP145P5",
+    credentialUrl: "https://www.udemy.com/certificate/UC-BFP145P5/",
+    skills: ["Python", "OOP", "Software Design"],
+  },
+  {
+    name: "JavaScript for QA Engineers and SDETs",
+    issuer: "Udemy",
+    platform: "udemy",
+    date: "May 2020",
+    credentialId: "UC-4284e65b",
+    credentialUrl: "https://www.udemy.com/certificate/UC-4284e65b-f43a-4450-9948-a18c5f84125d/",
+    skills: ["JavaScript", "QA Testing", "Test Automation"],
+  },
+  {
+    name: "Learn Node.js From Scratch",
+    issuer: "Udemy",
+    platform: "udemy",
+    date: "Dec 2019",
+    credentialId: "UC-JMB9XR4G",
+    credentialUrl: "https://www.udemy.com/certificate/UC-JMB9XR4G/",
+    skills: ["Node.js", "Backend Development", "JavaScript"],
+  },
+  {
+    name: "C++ Tutorial for Complete Beginners",
+    issuer: "Udemy",
+    platform: "udemy",
+    date: "Jun 2020",
+    credentialId: "UC-83db59e7",
+    credentialUrl: "https://www.udemy.com/certificate/UC-83db59e7-ba9e-4cba-baaf-d4f6f12f78e4/",
+    skills: ["C++", "Programming Fundamentals"],
+  },
+  {
+    name: "Learn HTML and CSS Together for Beginners",
+    issuer: "Udemy",
+    platform: "udemy",
+    date: "Jun 2020",
+    credentialId: "UC-574089cf",
+    credentialUrl: "https://www.udemy.com/certificate/UC-574089cf-d3d5-48bb-8b0c-ed272fd69595/",
+    skills: ["HTML", "CSS", "Web Development"],
+  },
+  {
+    name: "Learn C++ Game Development",
+    issuer: "Udemy",
+    platform: "udemy",
+    date: "May 2022",
+    credentialId: "UC-3fe83ec4",
+    credentialUrl: "https://www.udemy.com/certificate/UC-3fe83ec4-7b96-4db0-81b1-38fdc0ba978d/",
+    skills: ["C++", "Game Development"],
+  },
+];
+
 export const navLinks = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Experience", href: "#experience" },
   { name: "Skills", href: "#skills" },
+  { name: "Certificates", href: "#certificates" },
   { name: "Projects", href: "#projects" },
   { name: "Contact", href: "#contact" },
 ];
