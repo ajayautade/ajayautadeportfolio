@@ -8,6 +8,7 @@ import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import SkillsSection from "@/components/SkillsSection";
 import CertificationsSection from "@/components/CertificationsSection";
+import CertificatesSection from "@/components/CertificatesSection";
 import StatsSection from "@/components/StatsSection";
 import ContactSection from "@/components/ContactSection";
 import ServicesSection from "@/components/ServicesSection";
@@ -41,6 +42,9 @@ export default function Home() {
 
         {/* 6. Credibility — certifications in progress */}
         <CertificationsSection />
+
+        {/* 6.5. Earned certificates from learning platforms */}
+        <CertificatesSection />
 
         {/* 7. Impact numbers — quantified results */}
         <StatsSection />
