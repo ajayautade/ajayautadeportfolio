@@ -48,7 +48,7 @@ export default function SectionDots() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 20 }}
           transition={{ duration: 0.3 }}
-          className="fixed right-3 top-1/2 -translate-y-1/2 z-40 flex flex-col items-end gap-3 md:hidden"
+          className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col items-end gap-3 hidden md:flex"
         >
           {navLinks.map((link) => {
             const sectionId = link.href.replace("#", "");

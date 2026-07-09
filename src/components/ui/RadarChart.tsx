@@ -149,6 +149,7 @@ export default function RadarChart() {
               className="cursor-pointer"
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
+              onClick={() => setHoveredIndex(hoveredIndex === i ? null : i)}
             />
             <circle
               cx={point.x}
@@ -195,6 +196,7 @@ export default function RadarChart() {
               }`}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
+              onClick={() => setHoveredIndex(hoveredIndex === i ? null : i)}
             >
               {radarData[i].label}
             </text>
@@ -227,7 +229,7 @@ export default function RadarChart() {
           </motion.div>
         ) : (
           <p className="text-xs text-text-tertiary">
-            Hover on a point to see details
+            Tap or hover on a point to see details
           </p>
         )}
       </div>
