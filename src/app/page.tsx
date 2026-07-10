@@ -6,6 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import PipelineSimulator from "@/components/PipelineSimulator";
 import SkillsSection from "@/components/SkillsSection";
 import CertificationsSection from "@/components/CertificationsSection";
 import CertificatesSection from "@/components/CertificatesSection";
@@ -36,6 +37,9 @@ export default function Home() {
 
         {/* 4. Evidence — real projects that demonstrate skills */}
         <ProjectsSection />
+
+        {/* 4.5. Sandbox — interactive CI/CD pipeline simulator */}
+        <PipelineSimulator />
 
         {/* 5. Technical depth — skills & proficiency */}
         <SkillsSection />
