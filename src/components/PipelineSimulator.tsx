@@ -153,13 +153,13 @@ export default function PipelineSimulator() {
   const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
   const [activeLogIndex, setActiveLogIndex] = useState(0);
 
-  const terminalEndRef = useRef<HTMLDivElement>(null);
+  const terminalContainerRef = useRef<HTMLDivElement>(null);
   const logsIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-scroll terminal
+  // Auto-scroll terminal — scroll only INSIDE the terminal box, not the page
   useEffect(() => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (terminalContainerRef.current) {
+      terminalContainerRef.current.scrollTop = terminalContainerRef.current.scrollHeight;
     }
   }, [terminalLogs]);
 
@@ -359,8 +359,11 @@ export default function PipelineSimulator() {
                   </div>
                 </div>
 
-                {/* Console logs output */}
-                <div className="flex-1 overflow-y-auto p-4 font-mono text-xs text-text-secondary space-y-2 select-none leading-relaxed">
+                {/* Console logs output — ref on the scrollable container for internal-only scrolling */}
+                <div
+                  ref={terminalContainerRef}
+                  className="flex-1 overflow-y-auto p-4 font-mono text-xs text-text-secondary space-y-1.5 select-none leading-relaxed"
+                >
                   {terminalLogs.length === 0 && (
                     <div className="flex flex-col items-center justify-center h-full text-center text-text-tertiary">
                       <Terminal className="h-8 w-8 opacity-25 mb-2" />
@@ -373,19 +376,18 @@ export default function PipelineSimulator() {
                     const isSuccessLog = log.startsWith("✔") || log.startsWith("✓") || log.startsWith("🎉");
                     const isAlert = log.startsWith("🚀") || log.startsWith("🐳") || log.startsWith("🛡");
                     const isError = log.includes("CRITICAL") || log.includes("Error");
-                    
+
                     let textColor = "text-text-secondary";
                     if (isSuccessLog) textColor = "text-success font-medium";
                     else if (isAlert) textColor = "text-accent font-medium";
                     else if (isError) textColor = "text-red-400 font-semibold";
-                    
+
                     return (
                       <div key={index} className={`${textColor} break-words`}>
                         {log}
                       </div>
                     );
                   })}
-                  <div ref={terminalEndRef} />
                 </div>
               </div>
             </ScrollReveal>
