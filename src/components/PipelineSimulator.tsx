@@ -420,12 +420,12 @@ export default function PipelineSimulator() {
                   </p>
                 </div>
                 <a
-                  href="https://github.com/ajayautade/mlops-sentiment-analyzer"
+                  href="https://github.com/ajayautade"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-outline flex items-center justify-center py-2 px-4 text-xs gap-1.5 hover:bg-success hover:border-success hover:text-white"
                 >
-                  View Code repository
+                  View GitHub Profile
                   <ExternalLink className="h-3.5 w-3.5" />
                 </a>
               </div>

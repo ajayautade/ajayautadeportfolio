@@ -147,15 +147,11 @@ export default function HeroSection() {
           </div>
 
           {/* Right — Profile Picture */}
-          <motion.a
-            href={personalInfo.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex-shrink-0 block cursor-pointer"
-            aria-label="Visit my LinkedIn profile"
+            className="flex-shrink-0"
           >
             <div className="relative h-48 w-48 sm:h-56 sm:w-56 lg:h-72 lg:w-72 group">
               {/* Animated glowing background */}
@@ -170,13 +166,13 @@ export default function HeroSection() {
                     alt={personalInfo.name}
                     fill
                     sizes="(max-width: 768px) 192px, (max-width: 1024px) 224px, 288px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover"
                     priority
                   />
                 </div>
               </div>
             </div>
-          </motion.a>
+          </motion.div>
         </div>
       </div>
 
