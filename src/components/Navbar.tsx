@@ -134,10 +134,10 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Controls */}
-            <div className="flex items-center gap-2 md:hidden">
+            <div className="flex items-center gap-1.5 md:hidden">
               <button
                 onClick={() => setIsTerminalOpen(true)}
-                className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-text-tertiary transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-border text-text-tertiary transition-colors"
                 aria-label="Open Terminal"
               >
                 <TerminalIcon className="h-4 w-4" />
@@ -145,7 +145,7 @@ export default function Navbar() {
               <ThemeToggle />
               <button
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
-                className="flex h-8 w-8 items-center justify-center rounded-md border border-border transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-border transition-colors"
                 aria-label="Toggle menu"
               >
                 {isMobileOpen ? (
@@ -167,15 +167,16 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-bg flex flex-col items-center justify-center md:hidden"
+            className="fixed inset-0 z-50 bg-bg flex flex-col items-center justify-center md:hidden overscroll-none"
+            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
           >
-            {/* Close button */}
+            {/* Close button — 44px touch target */}
             <button
               onClick={() => setIsMobileOpen(false)}
-              className="absolute top-4 right-6 flex h-8 w-8 items-center justify-center rounded-md border border-border"
+              className="absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-md border border-border"
               aria-label="Close menu"
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5" />
             </button>
 
             <nav className="flex flex-col items-center gap-2">

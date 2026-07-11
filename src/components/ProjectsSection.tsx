@@ -59,11 +59,8 @@ export default function ProjectsSection() {
           <ScrollReveal>
             <div
               ref={scrollRef}
-              className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-5 px-5"
-              style={{
-                scrollbarWidth: "none",
-                WebkitOverflowScrolling: "touch",
-              }}
+              className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-5 px-5 hide-scrollbar"
+              style={{ WebkitOverflowScrolling: "touch" }}
             >
               {projects.map((project) => (
                 <div
@@ -127,20 +124,27 @@ export default function ProjectsSection() {
               ))}
             </div>
 
-            {/* Dot indicators */}
-            <div className="flex justify-center gap-2 mt-2">
-              {projects.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => scrollToCard(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    activeIndex === index
-                      ? "w-6 bg-primary"
-                      : "w-2 bg-text-tertiary/40"
-                  }`}
-                  aria-label={`Go to project ${index + 1}`}
-                />
-              ))}
+            {/* Compact page indicator for mobile */}
+            <div className="flex items-center justify-center gap-3 mt-3">
+              <button
+                onClick={() => scrollToCard(Math.max(0, activeIndex - 1))}
+                disabled={activeIndex === 0}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-text-tertiary disabled:opacity-30 transition-opacity"
+                aria-label="Previous project"
+              >
+                <svg viewBox="0 0 16 16" fill="currentColor" className="h-3.5 w-3.5"><path d="M10.5 3L6 8l4.5 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              <span className="text-xs font-medium text-text-tertiary tabular-nums">
+                {activeIndex + 1} <span className="text-text-tertiary/50">/</span> {projects.length}
+              </span>
+              <button
+                onClick={() => scrollToCard(Math.min(projects.length - 1, activeIndex + 1))}
+                disabled={activeIndex === projects.length - 1}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-text-tertiary disabled:opacity-30 transition-opacity"
+                aria-label="Next project"
+              >
+                <svg viewBox="0 0 16 16" fill="currentColor" className="h-3.5 w-3.5"><path d="M5.5 3L10 8l-4.5 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
             </div>
           </ScrollReveal>
         </div>

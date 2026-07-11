@@ -29,7 +29,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
     },
   ]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -37,8 +37,11 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
     }
   }, [isOpen]);
 
+  // Scroll within the terminal body only — no page scroll
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
   }, [history]);
 
   const handleCommand = (cmd: string) => {
@@ -147,7 +150,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
               </div>
               <button
                 onClick={onClose}
-                className="rounded-md p-1 hover:bg-white/10 transition-colors"
+                className="rounded-md p-2 hover:bg-white/10 transition-colors"
                 aria-label="Close terminal"
               >
                 <X className="h-4 w-4 text-text-tertiary" />
@@ -156,7 +159,8 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
 
             {/* Terminal body */}
             <div 
-              className="h-[60vh] max-h-[500px] overflow-y-auto p-4 sm:p-6"
+              ref={terminalBodyRef}
+              className="h-[55dvh] max-h-[480px] overflow-y-auto p-4 sm:p-6 overscroll-contain"
               onClick={() => inputRef.current?.focus()}
             >
               {history.map((item, index) => (
@@ -181,12 +185,14 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="flex-1 bg-transparent outline-none ring-0 border-none p-0 focus:ring-0"
+                  /* font-size 16px prevents iOS Safari from zooming in on focus */
+                  className="flex-1 bg-transparent outline-none ring-0 border-none p-0 focus:ring-0 text-[16px] sm:text-sm"
                   spellCheck={false}
                   autoComplete="off"
+                  autoCapitalize="none"
+                  autoCorrect="off"
                 />
               </div>
-              <div ref={bottomRef} />
             </div>
           </motion.div>
         </>

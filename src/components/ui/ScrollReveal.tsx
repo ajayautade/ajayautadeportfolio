@@ -17,19 +17,20 @@ export default function ScrollReveal({
   direction = "up",
 }: ScrollRevealProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
 
   const directionMap = {
-    up: { y: 20 },
-    down: { y: -20 },
-    left: { x: 20 },
-    right: { x: -20 },
+    up: { y: 16 },
+    down: { y: -16 },
+    left: { x: 16 },
+    right: { x: -16 },
   };
 
   return (
     <motion.div
       ref={ref}
       className={`w-full ${className}`}
+      style={{ willChange: "transform, opacity" }}
       initial={{ opacity: 0, ...directionMap[direction] }}
       animate={
         isInView
@@ -37,7 +38,7 @@ export default function ScrollReveal({
           : { opacity: 0, ...directionMap[direction] }
       }
       transition={{
-        duration: 0.5,
+        duration: 0.45,
         ease: [0.25, 0.1, 0.25, 1],
         delay,
       }}

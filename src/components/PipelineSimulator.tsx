@@ -276,8 +276,8 @@ export default function PipelineSimulator() {
 
             {/* Pipeline Visual Graph */}
             <ScrollReveal delay={0.15}>
-              <div className="card p-6 md:p-8 flex flex-col items-center justify-center overflow-x-auto">
-                <div className="flex flex-col md:flex-row items-center gap-4 md:gap-2 w-full justify-between min-w-[500px]">
+              <div className="card p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center overflow-x-auto">
+                <div className="pipeline-stage-graph flex flex-col sm:flex-row items-center gap-2 sm:gap-2 w-full justify-between">
                   
                   {PIPELINE_STAGES.map((stage, idx) => {
                     const status = stageStatuses[stage.id];
@@ -286,11 +286,11 @@ export default function PipelineSimulator() {
                     const isSuccess = status === "success";
                     
                     return (
-                      <div key={stage.id} className="flex flex-col md:flex-row items-center flex-1">
+                      <div key={stage.id} className="flex flex-col sm:flex-row items-center flex-1 w-full sm:w-auto">
                         {/* Node Card */}
-                        <div className="flex flex-col items-center relative z-10">
+                        <div className="flex flex-row sm:flex-col items-center gap-3 sm:gap-0 relative z-10 w-full sm:w-auto">
                           <div 
-                            className={`flex h-12 w-12 items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                            className={`flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                               isRunning 
                                 ? "border-primary bg-primary/10 shadow-[0_0_12px_rgba(59,130,246,0.3)] animate-pulse" 
                                 : isSuccess 
@@ -299,36 +299,38 @@ export default function PipelineSimulator() {
                             }`}
                           >
                             {isRunning ? (
-                              <RotateCw className="h-5 w-5 animate-spin text-primary" />
+                              <RotateCw className="h-4 w-4 sm:h-5 sm:w-5 animate-spin text-primary" />
                             ) : isSuccess ? (
-                              <CheckCircle2 className="h-5 w-5" />
+                              <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5" />
                             ) : (
-                              <StageIcon className="h-5 w-5" />
+                              <StageIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                             )}
                           </div>
-                          <span className="text-xs font-semibold text-text-primary mt-2 whitespace-nowrap">
-                            {stage.name}
-                          </span>
-                          <span className="text-[10px] text-text-tertiary">
-                            {stage.subtitle}
-                          </span>
+                          <div className="flex flex-col sm:items-center sm:text-center">
+                            <span className="text-xs font-semibold text-text-primary sm:mt-2 whitespace-nowrap">
+                              {stage.name}
+                            </span>
+                            <span className="text-[10px] text-text-tertiary">
+                              {stage.subtitle}
+                            </span>
+                          </div>
                         </div>
 
                         {/* Connection Line */}
                         {idx < PIPELINE_STAGES.length - 1 && (
-                          <div className="w-1 md:w-full h-8 md:h-[2px] relative flex items-center justify-center my-1 md:my-0">
+                          <div className="w-0.5 sm:w-full h-6 sm:h-[2px] relative flex items-center justify-center my-0.5 sm:my-0 mx-auto sm:mx-0">
                             {/* Base line */}
                             <div className="absolute inset-0 bg-border" />
                             {/* Animated colored indicator */}
                             <div 
-                              className={`absolute top-0 left-0 bottom-0 md:top-auto md:bottom-auto md:left-0 md:right-auto h-full md:h-full bg-gradient-to-r from-success to-primary transition-all duration-500`}
+                              className="absolute top-0 left-0 bottom-0 sm:bottom-auto sm:left-0 sm:right-auto sm:h-full bg-gradient-to-b sm:bg-gradient-to-r from-success to-primary transition-all duration-500"
                               style={{ 
                                 width: isSuccess ? "100%" : "0%",
                                 height: isSuccess ? "100%" : "0%"
                               }}
                             />
-                            {/* Directional arrow */}
-                            <ChevronRight className={`absolute hidden md:block h-3 w-3 -right-1 z-10 transition-colors ${
+                            {/* Directional arrow — only on desktop */}
+                            <ChevronRight className={`absolute hidden sm:block h-3 w-3 -right-1 z-10 transition-colors ${
                               isSuccess ? "text-primary" : "text-border"
                             }`} />
                           </div>
@@ -345,7 +347,7 @@ export default function PipelineSimulator() {
           {/* Console / Console Logs Column */}
           <div className="lg:col-span-4 space-y-6 w-full">
             <ScrollReveal delay={0.2}>
-              <div className="card border-border bg-[#09090b] overflow-hidden flex flex-col h-[340px] md:h-[400px]">
+              <div className="card border-border bg-[#09090b] overflow-hidden flex flex-col h-[300px] sm:h-[360px] md:h-[420px]">
                 {/* Console header */}
                 <div className="flex items-center justify-between bg-[#18181b] border-b border-white/10 px-4 py-2">
                   <div className="flex items-center gap-2">
