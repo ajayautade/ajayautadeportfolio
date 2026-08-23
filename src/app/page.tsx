@@ -29,11 +29,17 @@ export default function Home() {
         {/* 1. Hook — who you are */}
         <HeroSection />
 
+        <div className="section-divider" />
+
         {/* 2. Context — background & philosophy */}
         <AboutSection />
 
+        <div className="section-divider" />
+
         {/* 3. Proof of work — what you've done (most important for recruiters) */}
         <ExperienceSection />
+
+        <div className="section-divider" />
 
         {/* 4. Evidence — real projects that demonstrate skills */}
         <ProjectsSection />
@@ -41,8 +47,12 @@ export default function Home() {
         {/* 4.5. Sandbox — interactive CI/CD pipeline simulator */}
         <PipelineSimulator />
 
+        <div className="section-divider" />
+
         {/* 5. Technical depth — skills & proficiency */}
         <SkillsSection />
+
+        <div className="section-divider" />
 
         {/* 6. Credibility — certifications in progress */}
         <CertificationsSection />
@@ -50,11 +60,17 @@ export default function Home() {
         {/* 6.5. Earned certificates from learning platforms */}
         <CertificatesSection />
 
+        <div className="section-divider" />
+
         {/* 7. Impact numbers — quantified results */}
         <StatsSection />
 
+        <div className="section-divider" />
+
         {/* 8. What you offer — capabilities overview */}
         <ServicesSection />
+
+        <div className="section-divider" />
 
         {/* 9. Strong CTA — make it easy to reach you */}
         <ContactSection />

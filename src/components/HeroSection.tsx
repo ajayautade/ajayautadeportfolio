@@ -57,7 +57,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="mb-3 inline-flex items-center gap-2 rounded-full border border-border px-3 py-1"
+              className="mb-3 inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 animate-glow-pulse"
             >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
@@ -151,7 +151,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex-shrink-0"
+            className="flex-shrink-0 animate-float"
           >
             <div className="relative h-48 w-48 sm:h-56 sm:w-56 lg:h-72 lg:w-72 group">
               {/* Animated glowing background */}
@@ -163,7 +163,7 @@ export default function HeroSection() {
                 <div className="relative h-full w-full rounded-full overflow-hidden bg-surface">
                   <Image
                     src="/profile.png"
-                    alt={personalInfo.name}
+                    alt={`${personalInfo.name} - DevOps & Cloud Engineer`}
                     fill
                     sizes="(max-width: 768px) 192px, (max-width: 1024px) 224px, 288px"
                     className="object-cover"

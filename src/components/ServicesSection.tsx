@@ -73,8 +73,8 @@ export default function ServicesSection() {
 
                   <div className="relative z-10">
                     {/* Icon */}
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary/20 transition-colors">
-                      <Icon className="h-6 w-6" />
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                      <Icon className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" />
                     </div>
 
                     {/* Title */}

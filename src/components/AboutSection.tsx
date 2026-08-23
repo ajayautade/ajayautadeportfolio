@@ -54,7 +54,8 @@ export default function AboutSection() {
               </p>
 
               {/* How I Work */}
-              <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4">
+              <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 hover:opacity-100 transition-opacity duration-500" />
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
                   How I Work
                 </p>

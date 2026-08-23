@@ -22,7 +22,8 @@ function LinkedinIcon({ className }: { className?: string }) {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-border relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
       <div className="section-container py-8">
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
           {/* Brand */}

@@ -14,6 +14,7 @@ import {
   Blocks,
   Cog,
   Wifi,
+  Database,
 } from "lucide-react";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
@@ -22,7 +23,7 @@ import { skillCategories } from "@/lib/data";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Cloud, Box, GitBranch, Code, Monitor, Activity,
-  RefreshCw, Terminal, Network, Blocks, Cog, Wifi,
+  RefreshCw, Terminal, Network, Blocks, Cog, Wifi, Database,
 };
 
 export default function SkillsSection() {

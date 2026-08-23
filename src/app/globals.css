@@ -118,7 +118,7 @@ body {
     border-color: var(--color-primary);
   }
   .dark .card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(129, 140, 248, 0.08), 0 0 40px rgba(129, 140, 248, 0.03);
   }
 }
 
@@ -134,10 +134,17 @@ body {
    GRADIENT TEXT
    ============================================ */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent), var(--color-primary));
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
 }
 
 /* ============================================
@@ -165,7 +172,12 @@ body {
   .btn-primary:hover {
     opacity: 0.9;
     transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
   }
+}
+
+.dark .btn-primary:hover {
+  box-shadow: 0 4px 15px rgba(129, 140, 248, 0.25);
 }
 
 .btn-outline {
@@ -318,4 +330,58 @@ button,
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* ============================================
+   SECTION DIVIDER
+   ============================================ */
+.section-divider {
+  height: 1px;
+  max-width: 12rem;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-accent), transparent);
+  opacity: 0.2;
+}
+
+/* ============================================
+   FLOATING ANIMATION
+   ============================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ============================================
+   GLOW PULSE
+   ============================================ */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: 0 0 16px rgba(16, 185, 129, 0.5), 0 0 24px rgba(16, 185, 129, 0.2); }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* ============================================
+   ICON SPIN ON HOVER
+   ============================================ */
+.group:hover .group-hover\:rotate-12 {
+  transform: rotate(12deg);
+}
+
+/* ============================================
+   TIMELINE DOT GLOW
+   ============================================ */
+@keyframes dot-glow {
+  0%, 100% { box-shadow: 0 0 4px rgba(79, 70, 229, 0.4); }
+  50% { box-shadow: 0 0 12px rgba(79, 70, 229, 0.7), 0 0 20px rgba(79, 70, 229, 0.3); }
+}
+
+.timeline-dot-glow {
+  animation: dot-glow 3s ease-in-out infinite;
 }

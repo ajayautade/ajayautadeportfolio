@@ -40,6 +40,7 @@ export const skillCategories = [
     skills: [
       { name: "Docker", icon: "Box" },
       { name: "Kubernetes", icon: "Network" },
+      { name: "Helm", icon: "Blocks" },
       { name: "EKS", icon: "Cloud" },
     ],
   },
@@ -78,6 +79,14 @@ export const skillCategories = [
     ],
   },
   {
+    title: "Databases",
+    icon: "Database",
+    skills: [
+      { name: "MongoDB", icon: "Database" },
+      { name: "MySQL", icon: "Database" },
+    ],
+  },
+  {
     title: "OS & Networking",
     icon: "Monitor",
     skills: [
@@ -101,11 +110,12 @@ export const projects: Project[] = [
   {
     title: "MLOps Sentiment Analyzer",
     description:
-      "Production-grade MLOps pipeline with HuggingFace AI model deployed on AWS EKS",
+      "Zero-touch ML deployment pipeline — 45min to ~8min code-to-production on AWS EKS",
     longDescription:
-      "End-to-end MLOps pipeline: HuggingFace sentiment model containerized with Docker, orchestrated on AWS EKS via Terraform IaC, with ArgoCD GitOps for zero-touch deployments, GitHub Actions CI/CD, and full Prometheus + Grafana observability stack.",
+      "Built a zero-touch deployment pipeline using GitHub Actions and ArgoCD, reducing code-to-production time from 45 minutes to ~8 minutes on AWS EKS. Shrunk ML Docker images by 73% (3GB→800MB) via multi-stage builds, configured Kubernetes HPA to scale pods (2→10) based on CPU/Memory loads, and tracked 9 real-time inference metrics via Prometheus + Grafana.",
     techStack: [
       "Python",
+      "FastAPI",
       "Docker",
       "Kubernetes",
       "AWS EKS",
@@ -121,17 +131,18 @@ export const projects: Project[] = [
   {
     title: "MoviesMonkey",
     description:
-      "Containerized movie search app with automated CI/CD and cloud deployment",
+      "Cloud-native web app on AWS EKS with dual-pipeline CI/CD and 5-service monitoring stack",
     longDescription:
-      "Movie search platform with real-time API integration, containerized with Docker and deployed on AWS EC2 behind an Nginx reverse proxy. Includes GitHub Actions CI/CD pipeline for automated builds and deployments.",
+      "Engineered a dual-pipeline GitHub Actions workflow with Trivy security scans and ArgoCD, auto-syncing Kubernetes manifests every 3 minutes. Provisioned an AWS EKS cluster via Modular Terraform and deployed using Helm with HPA auto-scaling (2→10 pods at 70% CPU/80% Memory). Architected a 5-service monitoring stack with 4 custom PromQL alert rules.",
     techStack: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Docker",
-      "Nginx",
-      "AWS EC2",
+      "AWS EKS",
+      "Kubernetes",
+      "Terraform",
+      "ArgoCD",
       "GitHub Actions",
+      "Helm",
+      "Prometheus",
+      "Grafana",
     ],
     githubUrl: "https://github.com/ajayautade/MoviesMonkey",
     featured: true,
@@ -166,39 +177,42 @@ export interface Experience {
 export const experiences: Experience[] = [
   {
     company: "Invictus Web Solutions Pvt. Ltd.",
-    role: "DevOps Engineer Intern",
-    duration: "6 Months",
+    role: "DevOps Engineering Intern",
+    duration: "June 2025 – Dec 2025",
     description: [
-      "Dockerized 3 client-facing web applications, reducing deployment time from 2+ hours to under 15 minutes per release",
-      "Configured GitHub Actions CI/CD pipelines for 4 projects, enabling automated testing and zero-downtime deployments",
-      "Wrote Bash and Python scripts to automate server health checks, eliminating ~4 hours/week of manual monitoring",
-      "Managed AWS EC2 instances and configured Nginx reverse proxies for production traffic routing and SSL termination",
+      "Automated AWS infrastructure provisioning (EC2, S3, VPC, IAM) using Terraform, cutting manual setup time from hours to minutes",
+      "Containerized 4+ applications with Docker and deployed them on Kubernetes clusters, ensuring scalability and zero-downtime deployments",
+      "Designed and deployed end-to-end CI/CD pipelines using Jenkins and GitHub Actions, reducing release time by 60% across 4+ applications",
     ],
     technologies: [
       "Docker",
+      "Kubernetes",
+      "Terraform",
+      "Jenkins",
       "GitHub Actions",
       "AWS EC2",
-      "Nginx",
-      "Python",
-      "Bash",
+      "AWS S3",
+      "VPC",
+      "IAM",
       "Linux",
       "Git",
     ],
   },
   {
     company: "Anlage Infotech Pvt. Ltd.",
-    role: "Software Development Intern",
-    duration: "6 Months",
+    role: "Software Developer Intern",
+    duration: "Nov 2023 – April 2024",
     description: [
-      "Built and deployed 2 internal tools using Python and Flask, serving 15+ team members daily",
-      "Introduced Git branching strategy (GitFlow) to the team, reducing merge conflicts by 60%",
-      "Set up staging environments with Docker Compose for pre-production testing, catching 30+ bugs before release",
-      "Participated in code reviews and improved test coverage from 45% to 78% across 3 key repositories",
+      "Engineered scalable RESTful APIs to facilitate seamless, secure data exchange between distributed application components, improving overall system integration",
+      "Actively participated in cross-functional code reviews, architectural planning, and pair programming sessions to uphold strict coding standards",
+      "Designed and deployed end-to-end CI/CD pipelines using Jenkins and GitHub Actions, reducing release time by 60% across 4+ applications",
     ],
     technologies: [
       "Python",
       "Flask",
       "Docker Compose",
+      "Jenkins",
+      "GitHub Actions",
       "Git",
       "Linux",
       "PostgreSQL",
@@ -401,8 +415,8 @@ export const navLinks = [
 ];
 
 export const stats = [
-  { label: "Containers Deployed", value: 50 },
-  { label: "CI/CD Pipelines", value: 10 },
+  { label: "Dockerized Apps", value: 30 },
+  { label: "CI/CD Pipelines", value: 50 },
   { label: "Cloud Providers", value: 3 },
   { label: "Uptime Achieved", value: 99 },
 ];

@@ -19,11 +19,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://ajayautade.com"),
   title: {
-    default: "Ajay Autade — DevOps & Cloud Engineer | Portfolio",
+    default: "Ajay Autade — DevOps & Cloud Engineer | AWS, Kubernetes, Docker, Terraform | Portfolio",
     template: "%s — Ajay Autade",
   },
   description:
-    "Ajay Autade is a Computer Science Engineer from India specializing in DevOps, DevSecOps, Artificial Intelligence, AWS, Docker, Kubernetes, Terraform, and CI/CD pipelines. B.Tech CSE graduate from MGM JNEC delivering high-quality cloud infrastructure and automation solutions.",
+    "Ajay Autade is a DevOps & Cloud Engineer from India with hands-on expertise in AWS, Kubernetes, Docker, Terraform, CI/CD, Jenkins, GitHub Actions, ArgoCD, and MLOps. B.Tech CSE graduate from MGM JNEC, Maharashtra. View portfolio, projects, and resume. Open to opportunities.",
   keywords: [
     // Name-based (core identity)
     "Ajay Autade",
@@ -41,6 +41,8 @@ export const metadata: Metadata = {
     "Ajay Autade MGM JNEC",
     "Ajay Autade Maharashtra",
     "Ajay Autade India",
+    "Ajay Autade Resume",
+    "Ajay Autade DevOps Resume",
     "ajayautade.com",
     // Role & expertise
     "DevOps Engineer",
@@ -53,6 +55,24 @@ export const metadata: Metadata = {
     "DevOps Engineer Maharashtra",
     "AWS DevOps Engineer",
     "Kubernetes Engineer",
+    "Platform Engineer",
+    "Site Reliability Engineer",
+    "Cloud Native Engineer",
+    "DevOps Automation Engineer",
+    "Infrastructure Engineer India",
+    // High-intent search keywords
+    "DevOps Engineer Portfolio India",
+    "Hire DevOps Engineer India",
+    "AWS DevOps Engineer Portfolio",
+    "Kubernetes Engineer India",
+    "Cloud Infrastructure Engineer",
+    "CI/CD Pipeline Engineer",
+    "Terraform Engineer India",
+    "Docker Kubernetes Engineer",
+    "DevOps Fresher India",
+    "Junior DevOps Engineer India",
+    "Site Reliability Engineer India",
+    "B.Tech CSE DevOps",
     // Skills
     "AWS",
     "Docker",
@@ -77,6 +97,13 @@ export const metadata: Metadata = {
     "Cyber Security",
     "Cloud Native",
     "Cloud Infrastructure",
+    "Helm",
+    "MongoDB",
+    "MySQL",
+    "FastAPI",
+    "EKS",
+    "ECR",
+    "Infrastructure Automation",
     "DevOps Portfolio",
     "Hire DevOps Engineer",
     "Freelance DevOps",
@@ -88,9 +115,9 @@ export const metadata: Metadata = {
     canonical: "https://ajayautade.com",
   },
   openGraph: {
-    title: "Ajay Autade — DevOps, DevSecOps & AI Engineer",
+    title: "Ajay Autade — DevOps, DevSecOps & AI Engineer | Portfolio",
     description:
-      "Ajay Autade is a Computer Science Engineer specializing in DevOps, DevSecOps, and Artificial Intelligence. Expert in AWS, Docker, Kubernetes, Terraform, CI/CD, and MLOps. Based in Maharashtra, India. Open to opportunities.",
+      "Ajay Autade is a DevOps & Cloud Engineer with hands-on expertise in AWS, Kubernetes, Docker, Terraform, CI/CD, Jenkins, ArgoCD, and MLOps. B.Tech CSE graduate, open to opportunities. View portfolio, projects, and resume.",
     url: "https://ajayautade.com",
     siteName: "Ajay Autade — DevOps & Cloud Engineer Portfolio",
     type: "website",
@@ -98,9 +125,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ajay Autade — DevOps, DevSecOps & AI Engineer",
+    title: "Ajay Autade — DevOps, DevSecOps & AI Engineer | Portfolio",
     description:
-      "Computer Science Engineer specializing in DevOps, DevSecOps, and AI. Expert in AWS, Docker, Kubernetes, Terraform, CI/CD, and MLOps. Open to opportunities.",
+      "DevOps & Cloud Engineer | AWS, Kubernetes, Docker, Terraform, CI/CD, MLOps | B.Tech CSE | Open to opportunities. View portfolio and resume.",
     creator: "@ajayautade",
   },
   robots: {
@@ -148,7 +175,7 @@ export default function RootLayout({
                 familyName: "Autade",
                 jobTitle: "DevOps & Cloud Engineer",
                 description:
-                  "Ajay Autade is a Computer Science Engineer from India specializing in DevOps, DevSecOps, and Artificial Intelligence. He is a B.Tech CSE graduate from MGM's Jawaharlal Nehru Engineering College (MGM JNEC), Chhatrapati Sambhajinagar, Maharashtra. He builds resilient cloud infrastructure, automates CI/CD pipelines, implements security-first DevSecOps practices, and develops MLOps solutions — consistently delivering high-quality, production-grade engineering output.",
+                  "Ajay Autade is a results-driven DevOps & Cloud Engineer from India with hands-on expertise in Kubernetes, Docker, AWS, Terraform, Jenkins, GitHub Actions, ArgoCD, CI/CD, and MLOps. B.Tech CSE graduate from MGM's Jawaharlal Nehru Engineering College (MGM JNEC), Chhatrapati Sambhajinagar, Maharashtra. He builds resilient cloud infrastructure, automates CI/CD pipelines, implements security-first DevSecOps practices, and develops MLOps solutions.",
                 url: "https://ajayautade.com",
                 image: "https://ajayautade.com/profile.png",
                 email: "contact@ajayautade.com",
@@ -225,6 +252,7 @@ export default function RootLayout({
                   "Google Cloud Platform (GCP)",
                   "Docker",
                   "Kubernetes",
+                  "Helm",
                   "Terraform",
                   "Ansible",
                   "CI/CD Pipelines",
@@ -236,6 +264,7 @@ export default function RootLayout({
                   "Prometheus",
                   "Grafana",
                   "Python",
+                  "FastAPI",
                   "Linux",
                   "Shell Scripting",
                   "Nginx",
@@ -243,18 +272,23 @@ export default function RootLayout({
                   "Network Security",
                   "Computer Science",
                   "Software Engineering",
+                  "MongoDB",
+                  "MySQL",
+                  "AWS EKS",
+                  "AWS ECR",
+                  "AWS VPC",
                 ],
                 hasOccupation: {
                   "@type": "Occupation",
                   name: "DevOps Engineer",
                   description:
-                    "Designs and implements cloud infrastructure, CI/CD pipelines, DevSecOps practices, and MLOps solutions. Specializes in AWS, Docker, Kubernetes, Terraform, and automation.",
+                    "Designs and implements cloud infrastructure, CI/CD pipelines, DevSecOps practices, and MLOps solutions. Specializes in AWS, Docker, Kubernetes, Terraform, Helm, and automation.",
                   occupationLocation: {
                     "@type": "Country",
                     name: "India",
                   },
                   skills:
-                    "AWS, Docker, Kubernetes, Terraform, CI/CD, Jenkins, GitHub Actions, ArgoCD, Python, Linux, Grafana, Prometheus, DevSecOps, MLOps, Ansible",
+                    "AWS, Docker, Kubernetes, Helm, Terraform, CI/CD, Jenkins, GitHub Actions, ArgoCD, Python, Linux, Grafana, Prometheus, DevSecOps, MLOps, Ansible, MongoDB, MySQL, FastAPI",
                 },
               },
               {
@@ -264,7 +298,7 @@ export default function RootLayout({
                 url: "https://ajayautade.com",
                 name: "Ajay Autade — DevOps & Cloud Engineer Portfolio",
                 description:
-                  "Official portfolio website of Ajay Autade, a Computer Science Engineer specializing in DevOps, DevSecOps, AI, and cloud infrastructure. Based in Maharashtra, India.",
+                  "Official portfolio website of Ajay Autade, a DevOps & Cloud Engineer specializing in AWS, Kubernetes, Docker, Terraform, CI/CD, and MLOps. Based in Maharashtra, India. Open to opportunities.",
                 publisher: {
                   "@id": "https://ajayautade.com/#person",
                 },
@@ -281,6 +315,72 @@ export default function RootLayout({
                 },
                 dateCreated: "2026-06-11",
                 dateModified: new Date().toISOString().split("T")[0],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://ajayautade.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "About",
+                    item: "https://ajayautade.com/#about",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Experience",
+                    item: "https://ajayautade.com/#experience",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Projects",
+                    item: "https://ajayautade.com/#projects",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 5,
+                    name: "Contact",
+                    item: "https://ajayautade.com/#contact",
+                  },
+                ],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: [
+                  {
+                    "@type": "Question",
+                    name: "Who is Ajay Autade?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "Ajay Autade is a DevOps & Cloud Engineer from Chhatrapati Sambhajinagar, Maharashtra, India. He is a B.Tech CSE graduate from MGM's Jawaharlal Nehru Engineering College (MGM JNEC) with hands-on expertise in AWS, Kubernetes, Docker, Terraform, CI/CD, and MLOps.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "What does Ajay Autade do?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "Ajay Autade specializes in DevOps engineering — designing cloud infrastructure on AWS, building CI/CD pipelines with Jenkins and GitHub Actions, orchestrating containers with Kubernetes and Docker, implementing Infrastructure as Code with Terraform, and setting up monitoring with Prometheus and Grafana.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "Is Ajay Autade available for hire?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "Yes, Ajay Autade is currently open to DevOps Engineer, Cloud Engineer, and Platform Engineer opportunities. You can reach him at contact@ajayautade.com or through his portfolio website at ajayautade.com.",
+                    },
+                  },
+                ],
               },
             ]),
           }}
