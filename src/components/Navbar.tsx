@@ -5,13 +5,27 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Terminal as TerminalIcon, FileText } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import TerminalModal from "./TerminalModal";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { navLinks, personalInfo } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
+
+const navTranslationKeys: Record<string, string> = {
+  Home: "nav.home",
+  About: "nav.about",
+  Experience: "nav.experience",
+  Skills: "nav.skills",
+  Certificates: "nav.certificates",
+  Projects: "nav.projects",
+  Pipeline: "nav.pipeline",
+  Contact: "nav.contact",
+};
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,7 +123,7 @@ export default function Navbar() {
                       }}
                     />
                   )}
-                  <span className="relative z-10">{link.name}</span>
+                  <span className="relative z-10">{t(navTranslationKeys[link.name] || link.name)}</span>
                 </a>
               ))}
               <div className="ml-2 flex items-center gap-2">
@@ -127,8 +141,9 @@ export default function Navbar() {
                   className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md bg-primary text-white hover:bg-primary/90 transition-colors"
                 >
                   <FileText className="h-4 w-4" />
-                  Resume
+                  {t("nav.resume")}
                 </a>
+                <LanguageSwitcher />
                 <ThemeToggle />
               </div>
             </div>
@@ -142,6 +157,7 @@ export default function Navbar() {
               >
                 <TerminalIcon className="h-4 w-4" />
               </button>
+              <LanguageSwitcher />
               <ThemeToggle />
               <button
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
@@ -197,7 +213,7 @@ export default function Navbar() {
                       : "text-text-secondary hover:text-text-primary"
                   }`}
                 >
-                  {link.name}
+                  {t(navTranslationKeys[link.name] || link.name)}
                 </motion.a>
               ))}
               
@@ -212,7 +228,7 @@ export default function Navbar() {
                 className="flex w-full max-w-xs items-center justify-center gap-2.5 rounded-xl bg-primary py-4 px-6 text-base font-semibold text-white transition-colors hover:bg-primary/90 mt-8 shadow-lg"
               >
                 <FileText className="h-5 w-5" />
-                Download Resume
+                {t("nav.downloadResume")}
               </motion.a>
             </nav>
           </motion.div>
