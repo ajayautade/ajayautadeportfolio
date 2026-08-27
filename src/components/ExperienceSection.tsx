@@ -6,9 +6,22 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { experiences } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
+
+const expDescKeys: Record<number, { role: string; descs: string[] }> = {
+  0: {
+    role: "experience.exp1.role",
+    descs: ["experience.exp1.desc1", "experience.exp1.desc2", "experience.exp1.desc3"],
+  },
+  1: {
+    role: "experience.exp2.role",
+    descs: ["experience.exp2.desc1", "experience.exp2.desc2", "experience.exp2.desc3"],
+  },
+};
 
 export default function ExperienceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -22,8 +35,8 @@ export default function ExperienceSection() {
       <div className="section-container">
         <ScrollReveal>
           <SectionHeading
-            title="Experience"
-            subtitle="Professional internship experience and contributions"
+            title={t("experience.title")}
+            subtitle={t("experience.subtitle")}
           />
         </ScrollReveal>
 
@@ -37,58 +50,61 @@ export default function ExperienceSection() {
             className="absolute left-4 top-0 w-0.5 bg-gradient-to-b from-primary via-accent to-success md:left-6 origin-top z-0 shadow-[0_0_8px_rgba(79,70,229,0.5)]" 
           />
 
-          {experiences.map((exp, index) => (
-            <ScrollReveal key={exp.company} delay={index * 0.15}>
-              <div className="relative mb-10 pl-10 md:pl-14">
-                {/* Timeline Dot */}
-                <div className="absolute left-[13px] top-6 h-3 w-3 rounded-full bg-primary md:left-[21px] timeline-dot-glow" />
+          {experiences.map((exp, index) => {
+            const keys = expDescKeys[index];
+            return (
+              <ScrollReveal key={exp.company} delay={index * 0.15}>
+                <div className="relative mb-10 pl-10 md:pl-14">
+                  {/* Timeline Dot */}
+                  <div className="absolute left-[13px] top-6 h-3 w-3 rounded-full bg-primary md:left-[21px] timeline-dot-glow" />
 
-                <div className="card p-5 sm:p-6 relative z-10 border border-border/50 bg-surface/80 backdrop-blur-sm">
-                  {/* Header */}
-                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <Building2 className="h-4 w-4 text-primary" />
-                        <h3 className="text-base font-semibold text-text-primary">
-                          {exp.company}
-                        </h3>
+                  <div className="card p-5 sm:p-6 relative z-10 border border-border/50 bg-surface/80 backdrop-blur-sm">
+                    {/* Header */}
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <Building2 className="h-4 w-4 text-primary" />
+                          <h3 className="text-base font-semibold text-text-primary">
+                            {exp.company}
+                          </h3>
+                        </div>
+                        <p className="mt-0.5 text-sm font-medium text-primary">
+                          {keys ? t(keys.role) : exp.role}
+                        </p>
                       </div>
-                      <p className="mt-0.5 text-sm font-medium text-primary">
-                        {exp.role}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-1.5 rounded-full bg-surface-elevated px-3 py-1 self-start">
-                      <Calendar className="h-3 w-3 text-text-tertiary" />
-                      <span className="text-xs font-medium text-text-secondary">
-                        {exp.duration}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Body */}
-                  <ul className="mt-4 space-y-2">
-                    {exp.description.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
-                        <span className="text-sm text-text-secondary leading-relaxed">
-                          {item}
+                      <div className="flex items-center gap-1.5 rounded-full bg-surface-elevated px-3 py-1 self-start">
+                        <Calendar className="h-3 w-3 text-text-tertiary" />
+                        <span className="text-xs font-medium text-text-secondary">
+                          {exp.duration}
                         </span>
-                      </li>
-                    ))}
-                  </ul>
+                      </div>
+                    </div>
 
-                  {/* Tech Tags */}
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {exp.technologies.map((tech) => (
-                      <span key={tech} className="tech-pill">
-                        {tech}
-                      </span>
-                    ))}
+                    {/* Body */}
+                    <ul className="mt-4 space-y-2">
+                      {exp.description.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
+                          <span className="text-sm text-text-secondary leading-relaxed">
+                            {keys ? t(keys.descs[i]) : item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Tech Tags */}
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {exp.technologies.map((tech) => (
+                        <span key={tech} className="tech-pill">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ScrollReveal>
-          ))}
+              </ScrollReveal>
+            );
+          })}
         </div>
       </div>
     </section>

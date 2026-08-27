@@ -4,38 +4,41 @@ import { MapPin, GraduationCap, Briefcase } from "lucide-react";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { personalInfo } from "@/lib/data";
-
-const infoCards = [
-  {
-    icon: MapPin,
-    label: "Location",
-    value: personalInfo.location,
-    color: "text-accent",
-  },
-  {
-    icon: GraduationCap,
-    label: "Education",
-    value: personalInfo.education.degree,
-    subValue: personalInfo.education.college,
-    color: "text-primary",
-  },
-  {
-    icon: Briefcase,
-    label: "Status",
-    value: "Open to Opportunities",
-    subValue: "DevOps Engineer",
-    color: "text-success",
-  },
-];
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function AboutSection() {
+  const { t } = useLanguage();
+
+  const infoCards = [
+    {
+      icon: MapPin,
+      label: t("about.location"),
+      value: personalInfo.location,
+      color: "text-accent",
+    },
+    {
+      icon: GraduationCap,
+      label: t("about.educationLabel"),
+      value: personalInfo.education.degree,
+      subValue: personalInfo.education.college,
+      color: "text-primary",
+    },
+    {
+      icon: Briefcase,
+      label: t("about.status"),
+      value: t("about.openToOpportunities"),
+      subValue: "DevOps Engineer",
+      color: "text-success",
+    },
+  ];
+
   return (
     <section id="about" className="py-12 sm:py-20 lg:py-24">
       <div className="section-container">
         <ScrollReveal>
           <SectionHeading
-            title="About Me"
-            subtitle="Get to know the engineer behind the pipelines"
+            title={t("about.title")}
+            subtitle={t("about.subtitle")}
           />
         </ScrollReveal>
 
@@ -44,23 +47,20 @@ export default function AboutSection() {
           <ScrollReveal delay={0.1}>
             <div className="space-y-4">
               <p className="text-base leading-relaxed text-text-primary/80">
-                {personalInfo.bio}
+                {t("about.bio")}
               </p>
               <p className="text-sm leading-relaxed text-text-secondary">
-                With a B.Tech in Computer Science and Engineering from MGM&apos;s
-                Jawaharlal Nehru Engineering College, I bring a strong
-                foundation in software engineering principles combined with
-                hands-on DevOps expertise.
+                {t("about.education")}
               </p>
 
               {/* How I Work */}
               <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 hover:opacity-100 transition-opacity duration-500" />
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
-                  How I Work
+                  {t("about.howIWork")}
                 </p>
                 <p className="text-sm leading-relaxed text-text-secondary italic">
-                  &ldquo;{personalInfo.philosophy}&rdquo;
+                  &ldquo;{t("about.philosophy")}&rdquo;
                 </p>
               </div>
             </div>

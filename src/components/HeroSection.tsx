@@ -7,6 +7,14 @@ import ParticleNetwork from "./ui/ParticleNetwork";
 import { ArrowDown, FileText, Eye } from "lucide-react";
 import Image from "next/image";
 import { personalInfo, stats } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
+
+const statTranslationKeys: Record<string, string> = {
+  "Dockerized Apps": "hero.statDockerized",
+  "CI/CD Pipelines": "hero.statPipelines",
+  "Cloud Providers": "hero.statCloud",
+  "Uptime Achieved": "hero.statUptime",
+};
 
 function AnimatedCounter({ value, label, suffix = "+" }: { value: number; label: string; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -37,6 +45,8 @@ function AnimatedCounter({ value, label, suffix = "+" }: { value: number; label:
 }
 
 export default function HeroSection() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="home"
@@ -64,7 +74,7 @@ export default function HeroSection() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
               </span>
               <span className="text-xs font-medium text-text-secondary">
-                Open to opportunities
+                {t("hero.status")}
               </span>
             </motion.div>
 
@@ -74,7 +84,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
             >
-              Hi, I&apos;m{" "}
+              {t("hero.greeting")}{" "}
               <span className="gradient-text">{personalInfo.name}</span>
             </motion.h1>
 
@@ -120,11 +130,11 @@ export default function HeroSection() {
                 }}
               >
                 <Eye className="h-4 w-4" />
-                View Projects
+                {t("hero.viewProjects")}
               </a>
               <a href="/resume.pdf" download="Ajay_Autade_DevOps_Engineer_Resume.pdf" className="btn-outline">
                 <FileText className="h-4 w-4" />
-                Download Resume
+                {t("hero.downloadResume")}
               </a>
             </motion.div>
 
@@ -139,7 +149,7 @@ export default function HeroSection() {
                 <AnimatedCounter
                   key={stat.label}
                   value={stat.value}
-                  label={stat.label}
+                  label={t(statTranslationKeys[stat.label] || stat.label)}
                   suffix={stat.label === "Uptime Achieved" ? "%" : "+"}
                 />
               ))}
@@ -188,7 +198,7 @@ export default function HeroSection() {
           transition={{ repeat: Infinity, duration: 2 }}
           className="flex flex-col items-center gap-1"
         >
-          <span className="text-[10px] text-text-tertiary">Scroll</span>
+          <span className="text-[10px] text-text-tertiary">{t("hero.scroll")}</span>
           <ArrowDown className="h-3 w-3 text-text-tertiary" />
         </motion.div>
       </motion.div>

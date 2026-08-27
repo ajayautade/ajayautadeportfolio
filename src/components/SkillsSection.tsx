@@ -20,20 +20,34 @@ import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import RadarChart from "./ui/RadarChart";
 import { skillCategories } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Cloud, Box, GitBranch, Code, Monitor, Activity,
   RefreshCw, Terminal, Network, Blocks, Cog, Wifi, Database,
 };
 
+const categoryTranslationKeys: Record<string, string> = {
+  "Cloud & Infrastructure": "skills.cloud",
+  "Containerization & Orchestration": "skills.container",
+  "CI/CD & Automation": "skills.cicd",
+  "Monitoring & Observability": "skills.monitoring",
+  "Version Control": "skills.vcs",
+  "Scripting & Programming": "skills.scripting",
+  "Databases": "skills.databases",
+  "OS & Networking": "skills.os",
+};
+
 export default function SkillsSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="skills" className="py-12 sm:py-20 lg:py-24">
       <div className="section-container">
         <ScrollReveal>
           <SectionHeading
-            title="Skills & Technologies"
-            subtitle="Tools and technologies I work with"
+            title={t("skills.title")}
+            subtitle={t("skills.subtitle")}
           />
         </ScrollReveal>
 
@@ -42,7 +56,7 @@ export default function SkillsSection() {
           <ScrollReveal delay={0.1}>
             <div className="card p-6 sm:p-8">
               <h3 className="text-sm font-semibold text-text-primary mb-4 text-center uppercase tracking-wider">
-                Proficiency Overview
+                {t("skills.proficiency")}
               </h3>
               <RadarChart />
             </div>
@@ -60,7 +74,7 @@ export default function SkillsSection() {
                         <CategoryIcon className="h-4 w-4" />
                       </div>
                       <h3 className="text-sm font-semibold text-text-primary">
-                        {category.title}
+                        {t(categoryTranslationKeys[category.title] || category.title)}
                       </h3>
                     </div>
                     <div className="flex flex-wrap gap-2">

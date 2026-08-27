@@ -4,6 +4,7 @@ import { Cloud, Network, Blocks, BookOpen } from "lucide-react";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { certifications } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const iconMap: Record<string, React.ElementType> = {
   Cloud,
@@ -12,13 +13,15 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 export default function CertificationsSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="certifications" className="py-12 sm:py-20 lg:py-24">
       <div className="section-container">
         <ScrollReveal>
           <SectionHeading
-            title="Certifications"
-            subtitle="Currently preparing for industry-recognized credentials"
+            title={t("certs.title")}
+            subtitle={t("certs.subtitle")}
           />
         </ScrollReveal>
 
@@ -57,7 +60,7 @@ export default function CertificationsSection() {
                     {cert.status === "earned" ? (
                       <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-success">
                         <span className="h-1.5 w-1.5 rounded-full bg-success" />
-                        Earned {cert.date}
+                        {t("certs.earned")} {cert.date}
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-primary">
@@ -65,7 +68,7 @@ export default function CertificationsSection() {
                           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
                           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
                         </span>
-                        In Progress
+                        {t("certs.inProgress")}
                       </span>
                     )}
                   </div>
