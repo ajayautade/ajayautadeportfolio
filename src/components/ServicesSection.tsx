@@ -3,60 +3,63 @@
 import { Cloud, GitBranch, Activity, Server, Shield, Workflow } from "lucide-react";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const services = [
   {
+    id: "cloud",
     icon: Cloud,
-    title: "Cloud Infrastructure",
-    description:
-      "Design and deploy scalable AWS architectures with Terraform and Ansible for reliable, cost-effective cloud environments.",
+    titleKey: "services.cloud.title",
+    descKey: "services.cloud.desc",
     color: "from-blue-500/20 to-cyan-500/10",
   },
   {
+    id: "cicd",
     icon: Workflow,
-    title: "CI/CD Pipelines",
-    description:
-      "Automate your entire build-test-deploy workflow with Jenkins, GitHub Actions, and ArgoCD for rapid, reliable releases.",
+    titleKey: "services.cicd.title",
+    descKey: "services.cicd.desc",
     color: "from-purple-500/20 to-indigo-500/10",
   },
   {
+    id: "container",
     icon: Server,
-    title: "Container Orchestration",
-    description:
-      "Containerize applications with Docker and orchestrate at scale using Kubernetes and AWS EKS for maximum uptime.",
+    titleKey: "services.container.title",
+    descKey: "services.container.desc",
     color: "from-green-500/20 to-emerald-500/10",
   },
   {
+    id: "monitoring",
     icon: Activity,
-    title: "Monitoring & Observability",
-    description:
-      "Set up Grafana, Prometheus, and CloudWatch dashboards for full observability into system health and performance.",
+    titleKey: "services.monitoring.title",
+    descKey: "services.monitoring.desc",
     color: "from-orange-500/20 to-amber-500/10",
   },
   {
+    id: "gitops",
     icon: GitBranch,
-    title: "GitOps & Version Control",
-    description:
-      "Implement GitOps workflows with ArgoCD and Git for declarative, auditable infrastructure and application deployments.",
+    titleKey: "services.gitops.title",
+    descKey: "services.gitops.desc",
     color: "from-pink-500/20 to-rose-500/10",
   },
   {
+    id: "security",
     icon: Shield,
-    title: "Security & Reliability",
-    description:
-      "Build secure-by-default infrastructure with IAM best practices, secrets management, and automated compliance checks.",
+    titleKey: "services.security.title",
+    descKey: "services.security.desc",
     color: "from-teal-500/20 to-cyan-500/10",
   },
 ];
 
 export default function ServicesSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="services" className="py-12 sm:py-20 lg:py-24">
       <div className="section-container">
         <ScrollReveal>
           <SectionHeading
-            title="What I Can Do For You"
-            subtitle="Engineering solutions that drive real business impact"
+            title={t("services.title")}
+            subtitle={t("services.subtitle")}
           />
         </ScrollReveal>
 
@@ -64,7 +67,7 @@ export default function ServicesSection() {
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <ScrollReveal key={service.title} delay={index * 0.08}>
+              <ScrollReveal key={service.id} delay={index * 0.08}>
                 <div className="group card p-4 sm:p-6 h-full relative overflow-hidden transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
                   {/* Gradient background on hover */}
                   <div
@@ -79,12 +82,12 @@ export default function ServicesSection() {
 
                     {/* Title */}
                     <h3 className="text-base font-semibold text-text-primary mb-2">
-                      {service.title}
+                      {t(service.titleKey)}
                     </h3>
 
                     {/* Description */}
                     <p className="text-sm leading-relaxed text-text-secondary">
-                      {service.description}
+                      {t(service.descKey)}
                     </p>
                   </div>
                 </div>

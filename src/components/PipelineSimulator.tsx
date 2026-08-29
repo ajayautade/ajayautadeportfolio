@@ -17,6 +17,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
+import { useLanguage } from "@/lib/LanguageContext";
 
 interface PipelineStage {
   id: string;
@@ -152,6 +153,7 @@ export default function PipelineSimulator() {
   });
   const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
   const [activeLogIndex, setActiveLogIndex] = useState(0);
+  const { t } = useLanguage();
 
   const terminalContainerRef = useRef<HTMLDivElement>(null);
   const logsIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -227,8 +229,8 @@ export default function PipelineSimulator() {
       <div className="section-container">
         <ScrollReveal>
           <SectionHeading
-            title="Interactive CI/CD Pipeline"
-            subtitle="Trigger a push and watch my deployment workflow deploy to a mock AWS EKS cluster"
+            title={t("pipeline.title")}
+            subtitle={t("pipeline.subtitle")}
           />
         </ScrollReveal>
 
@@ -240,10 +242,10 @@ export default function PipelineSimulator() {
               <div className="card p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>
                   <h3 className="text-base font-semibold text-text-primary">
-                    Webhook Action Deployment
+                    {t("pipeline.webhookAction")}
                   </h3>
                   <p className="text-xs text-text-tertiary mt-0.5">
-                    Target: AWS Kubernetes Cluster (EKS) · Branch: main
+                    {t("pipeline.target")}
                   </p>
                 </div>
                 
@@ -257,17 +259,17 @@ export default function PipelineSimulator() {
                   {pipelineState === "running" ? (
                     <>
                       <RotateCw className="h-4 w-4 animate-spin text-white" />
-                      Running Pipeline...
+                      {t("pipeline.running")}
                     </>
                   ) : pipelineState === "success" ? (
                     <>
                       <Play className="h-4 w-4 fill-white" />
-                      Re-run Pipeline
+                      {t("pipeline.rerun")}
                     </>
                   ) : (
                     <>
                       <Play className="h-4 w-4 fill-white" />
-                      Trigger Pipeline
+                      {t("pipeline.trigger")}
                     </>
                   )}
                 </button>
@@ -308,7 +310,12 @@ export default function PipelineSimulator() {
                           </div>
                           <div className="flex flex-col sm:items-center sm:text-center">
                             <span className="text-xs font-semibold text-text-primary sm:mt-2 whitespace-nowrap">
-                              {stage.name}
+                              {stage.id === "trigger" ? t("pipeline.stageTrigger") :
+                               stage.id === "lint" ? t("pipeline.stageLint") :
+                               stage.id === "build" ? t("pipeline.stageBuild") :
+                               stage.id === "scan" ? t("pipeline.stageScan") :
+                               stage.id === "deploy" ? t("pipeline.stageDeploy") :
+                               stage.name}
                             </span>
                             <span className="text-[10px] text-text-tertiary">
                               {stage.subtitle}
@@ -369,8 +376,8 @@ export default function PipelineSimulator() {
                   {terminalLogs.length === 0 && (
                     <div className="flex flex-col items-center justify-center h-full text-center text-text-tertiary">
                       <Terminal className="h-8 w-8 opacity-25 mb-2" />
-                      <p>Console idle.</p>
-                      <p className="text-[10px]">Click 'Trigger Pipeline' to start build simulations.</p>
+                      <p>{ t("pipeline.consoleIdle") }</p>
+                      <p className="text-[10px]">{ t("pipeline.consoleHint") }</p>
                     </div>
                   )}
                   {terminalLogs.map((log, index) => {
@@ -413,10 +420,10 @@ export default function PipelineSimulator() {
                 </div>
                 <div className="flex-1">
                   <h4 className="text-sm font-semibold text-text-primary">
-                    Pipeline deployment successful!
+                    {t("pipeline.successTitle")}
                   </h4>
                   <p className="text-xs text-text-secondary mt-1 leading-relaxed">
-                    The Docker image was successfully pushed, scans completed with zero vulnerabilities, and ArgoCD synchronized changes to the EKS cluster. You can verify the deployed mock endpoint.
+                    {t("pipeline.successDesc")}
                   </p>
                 </div>
                 <a
@@ -425,7 +432,7 @@ export default function PipelineSimulator() {
                   rel="noopener noreferrer"
                   className="btn-outline flex items-center justify-center py-2 px-4 text-xs gap-1.5 hover:bg-success hover:border-success hover:text-white"
                 >
-                  View GitHub Profile
+                  {t("pipeline.viewGithub")}
                   <ExternalLink className="h-3.5 w-3.5" />
                 </a>
               </div>

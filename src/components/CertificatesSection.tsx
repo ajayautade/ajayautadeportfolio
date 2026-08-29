@@ -6,6 +6,7 @@ import { Award, ShieldCheck, Calendar, ChevronDown, ChevronUp } from "lucide-rea
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { earnedCertificates } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const INITIAL_SHOW_COUNT = 6;
 
@@ -89,8 +90,10 @@ const platformConfig: Record<
 
 function CertificateCard({
   cert,
+  t,
 }: {
   cert: (typeof earnedCertificates)[number];
+  t: (key: string, replacements?: Record<string, string | number>) => string;
 }) {
   const config = platformConfig[cert.platform] || platformConfig.other;
   const { Logo } = config;
@@ -126,7 +129,7 @@ function CertificateCard({
       <div className="mt-3 flex items-center gap-2">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-success">
           <span className="h-1.5 w-1.5 rounded-full bg-success" />
-          Earned {cert.date}
+          {t("certs.earned")} {cert.date}
         </span>
       </div>
 
@@ -151,7 +154,7 @@ function CertificateCard({
           className="btn-outline flex-1 text-xs py-2 gap-1.5"
         >
           <ShieldCheck className="h-3.5 w-3.5" />
-          Verify Credential
+          {t("certificates.verify")}
         </a>
         <span className="flex items-center gap-1 text-[10px] text-text-tertiary">
           <Calendar className="h-3 w-3" />
@@ -168,6 +171,7 @@ export default function CertificatesSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [showAll, setShowAll] = useState(false);
+  const { t } = useLanguage();
 
   const hasMore = earnedCertificates.length > INITIAL_SHOW_COUNT;
   const hiddenCount = earnedCertificates.length - INITIAL_SHOW_COUNT;
@@ -203,8 +207,8 @@ export default function CertificatesSection() {
       <div className="section-container">
         <ScrollReveal>
           <SectionHeading
-            title="Certificates & Credentials"
-            subtitle="Verified course completions from leading learning platforms"
+            title={t("certificates.title")}
+            subtitle={t("certificates.subtitle")}
           />
         </ScrollReveal>
 
@@ -222,7 +226,7 @@ export default function CertificatesSection() {
                   className="snap-center shrink-0"
                   style={{ width: "85%" }}
                 >
-                  <CertificateCard cert={cert} />
+                  <CertificateCard cert={cert} t={t} />
                 </div>
               ))}
             </div>
@@ -258,7 +262,7 @@ export default function CertificatesSection() {
             {/* Always-visible first batch */}
             {earnedCertificates.slice(0, INITIAL_SHOW_COUNT).map((cert, index) => (
               <ScrollReveal key={cert.credentialId} delay={index * 0.08}>
-                <CertificateCard cert={cert} />
+                <CertificateCard cert={cert} t={t} />
               </ScrollReveal>
             ))}
 
@@ -273,7 +277,7 @@ export default function CertificatesSection() {
                     exit={{ opacity: 0, y: 20, scale: 0.95 }}
                     transition={{ duration: 0.35, ease: "easeOut", delay: index * 0.05 }}
                   >
-                    <CertificateCard cert={cert} />
+                    <CertificateCard cert={cert} t={t} />
                   </motion.div>
                 ))}
             </AnimatePresence>
@@ -290,12 +294,12 @@ export default function CertificatesSection() {
                   {showAll ? (
                     <>
                       <ChevronUp className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
-                      Show Less
+                      {t("certificates.showLess")}
                     </>
                   ) : (
                     <>
                       <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-                      Show {hiddenCount} More Certificates
+                      {t("certificates.showMore", { count: hiddenCount })}
                     </>
                   )}
                 </button>
@@ -313,9 +317,9 @@ export default function CertificatesSection() {
               </div>
               <div className="text-sm">
                 <span className="font-semibold text-text-primary">
-                  {earnedCertificates.length} Certificates
+                  {t("certificates.summary", { count: earnedCertificates.length })}
                 </span>
-                <span className="text-text-tertiary"> · All verified & validated</span>
+                <span className="text-text-tertiary"> {t("certificates.verified")}</span>
               </div>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { ExternalLink } from "lucide-react";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { projects, personalInfo } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -14,9 +15,16 @@ function GithubIcon({ className }: { className?: string }) {
   );
 }
 
+const projectDescKeys: Record<number, { desc: string; longDesc: string }> = {
+  0: { desc: "projects.proj1.desc", longDesc: "projects.proj1.longDesc" },
+  1: { desc: "projects.proj2.desc", longDesc: "projects.proj2.longDesc" },
+  2: { desc: "projects.proj3.desc", longDesc: "projects.proj3.longDesc" },
+};
+
 export default function ProjectsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { t } = useLanguage();
 
   const handleScroll = useCallback(() => {
     const container = scrollRef.current;
@@ -44,13 +52,73 @@ export default function ProjectsSection() {
     container.scrollTo({ left: cardWidth * index, behavior: "smooth" });
   };
 
+  const renderProjectCard = (project: typeof projects[number], index: number) => {
+    const keys = projectDescKeys[index];
+    return (
+      <>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-elevated text-text-secondary">
+            <GithubIcon className="h-4 w-4" />
+          </div>
+          {project.featured && (
+            <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium text-primary">
+              {t("projects.featured")}
+            </span>
+          )}
+        </div>
+
+        {/* Title & Description */}
+        <h3 className="text-base font-semibold text-text-primary">
+          {project.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-text-secondary flex-1">
+          {keys ? t(keys.longDesc) : project.longDescription}
+        </p>
+
+        {/* Tech Tags */}
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {project.techStack.map((tech) => (
+            <span key={tech} className="tech-pill">
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        {/* Links */}
+        <div className="mt-4 flex gap-2 pt-4 border-t border-border">
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline flex-1 text-xs py-2"
+          >
+            <GithubIcon className="h-3.5 w-3.5" />
+            {t("projects.source")}
+          </a>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary flex-1 text-xs py-2"
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+              {t("projects.demo")}
+            </a>
+          )}
+        </div>
+      </>
+    );
+  };
+
   return (
     <section id="projects" className="py-12 sm:py-20 lg:py-24">
       <div className="section-container">
         <ScrollReveal>
           <SectionHeading
-            title="Featured Projects"
-            subtitle="Real-world projects showcasing DevOps and development skills"
+            title={t("projects.title")}
+            subtitle={t("projects.subtitle")}
           />
         </ScrollReveal>
 
@@ -62,64 +130,13 @@ export default function ProjectsSection() {
               className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-5 px-5 hide-scrollbar"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
-              {projects.map((project) => (
+              {projects.map((project, index) => (
                 <div
                   key={project.title}
                   className="card flex flex-col p-4 snap-center shrink-0"
                   style={{ width: "85%" }}
                 >
-                  {/* Header */}
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-elevated text-text-secondary">
-                      <GithubIcon className="h-4 w-4" />
-                    </div>
-                    {project.featured && (
-                      <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium text-primary">
-                        Featured
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Title & Description */}
-                  <h3 className="text-base font-semibold text-text-primary">
-                    {project.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-text-secondary flex-1">
-                    {project.longDescription}
-                  </p>
-
-                  {/* Tech Tags */}
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {project.techStack.map((tech) => (
-                      <span key={tech} className="tech-pill">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Links */}
-                  <div className="mt-4 flex gap-2 pt-4 border-t border-border">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-outline flex-1 text-xs py-2"
-                    >
-                      <GithubIcon className="h-3.5 w-3.5" />
-                      Source
-                    </a>
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-primary flex-1 text-xs py-2"
-                      >
-                        <ExternalLink className="h-3.5 w-3.5" />
-                        Demo
-                      </a>
-                    )}
-                  </div>
+                  {renderProjectCard(project, index)}
                 </div>
               ))}
             </div>
@@ -154,58 +171,7 @@ export default function ProjectsSection() {
           {projects.map((project, index) => (
             <ScrollReveal key={project.title} delay={index * 0.1}>
               <div className="card flex h-full flex-col p-4 sm:p-5">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-elevated text-text-secondary">
-                    <GithubIcon className="h-4 w-4" />
-                  </div>
-                  {project.featured && (
-                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium text-primary">
-                      Featured
-                    </span>
-                  )}
-                </div>
-
-                {/* Title & Description */}
-                <h3 className="text-base font-semibold text-text-primary">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-text-secondary flex-1">
-                  {project.longDescription}
-                </p>
-
-                {/* Tech Tags */}
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {project.techStack.map((tech) => (
-                    <span key={tech} className="tech-pill">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="mt-4 flex gap-2 pt-4 border-t border-border">
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-outline flex-1 text-xs py-2"
-                  >
-                    <GithubIcon className="h-3.5 w-3.5" />
-                    Source
-                  </a>
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary flex-1 text-xs py-2"
-                    >
-                      <ExternalLink className="h-3.5 w-3.5" />
-                      Demo
-                    </a>
-                  )}
-                </div>
+                {renderProjectCard(project, index)}
               </div>
             </ScrollReveal>
           ))}
@@ -221,7 +187,7 @@ export default function ProjectsSection() {
               className="btn-outline inline-flex"
             >
               <GithubIcon className="h-4 w-4" />
-              View All on GitHub
+              {t("projects.viewAll")}
             </a>
           </div>
         </ScrollReveal>

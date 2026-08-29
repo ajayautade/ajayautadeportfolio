@@ -4,14 +4,15 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { GitCommit, Container, Rocket, Server, Clock, Code } from "lucide-react";
 import ScrollReveal from "./ui/ScrollReveal";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const funFacts = [
-  { icon: GitCommit, value: 500, suffix: "+", label: "Git Commits", color: "text-green-400" },
-  { icon: Rocket, value: 50, suffix: "+", label: "CI/CD Pipelines", color: "text-blue-400" },
-  { icon: Container, value: 30, suffix: "+", label: "Dockerized Apps", color: "text-cyan-400" },
-  { icon: Server, value: 99.9, suffix: "%", label: "Uptime Target", color: "text-purple-400", decimals: 1 },
-  { icon: Code, value: 15, suffix: "+", label: "Tools Mastered", color: "text-orange-400" },
-  { icon: Clock, value: 1000, suffix: "+", label: "Hours of DevOps", color: "text-pink-400" },
+  { id: "commits", icon: GitCommit, value: 500, suffix: "+", labelKey: "stats.commits", label: "Git Commits", color: "text-green-400" },
+  { id: "pipelines", icon: Rocket, value: 50, suffix: "+", labelKey: "stats.pipelines", label: "CI/CD Pipelines", color: "text-blue-400" },
+  { id: "dockerized", icon: Container, value: 30, suffix: "+", labelKey: "stats.dockerized", label: "Dockerized Apps", color: "text-cyan-400" },
+  { id: "uptime", icon: Server, value: 99.9, suffix: "%", labelKey: "stats.uptime", label: "Uptime Target", color: "text-purple-400", decimals: 1 },
+  { id: "tools", icon: Code, value: 15, suffix: "+", labelKey: "stats.tools", label: "Tools Mastered", color: "text-orange-400" },
+  { id: "hours", icon: Clock, value: 1000, suffix: "+", labelKey: "stats.hours", label: "Hours of DevOps", color: "text-pink-400" },
 ];
 
 function AnimatedNumber({
@@ -65,6 +66,8 @@ function AnimatedNumber({
 }
 
 export default function StatsSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-12 sm:py-20 lg:py-24 relative overflow-hidden">
       {/* Subtle background accent */}
@@ -74,10 +77,10 @@ export default function StatsSection() {
         <ScrollReveal>
           <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl font-bold text-primary">
-              By The Numbers
+              {t("stats.title")}
             </h2>
             <p className="mt-2 text-sm text-text-tertiary">
-              Quantifying impact through code, pipelines, and infrastructure
+              {t("stats.subtitle")}
             </p>
           </div>
         </ScrollReveal>
@@ -86,7 +89,7 @@ export default function StatsSection() {
           {funFacts.map((fact, index) => {
             const Icon = fact.icon;
             return (
-              <ScrollReveal key={fact.label} delay={index * 0.08}>
+              <ScrollReveal key={fact.id} delay={index * 0.08}>
                 <motion.div
                   whileHover={{ y: -4, scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 300 }}
@@ -103,7 +106,7 @@ export default function StatsSection() {
                     />
                   </div>
                   <div className="text-[9px] sm:text-[11px] text-text-tertiary font-medium uppercase tracking-wider">
-                    {fact.label}
+                    {t(fact.labelKey)}
                   </div>
                 </motion.div>
               </ScrollReveal>
