@@ -97,7 +97,9 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
       case "contact":
         output = (
           <div>
-            <p><span className="text-accent">Email:</span> <a href={`mailto:${personalInfo.email}`} className="hover:underline">{personalInfo.email}</a></p>
+            <p><span className="text-accent">Primary Email:</span> <a href={`mailto:${personalInfo.email}`} className="hover:underline">{personalInfo.email}</a></p>
+            <p><span className="text-accent">Secondary Email:</span> <a href={`mailto:${personalInfo.secondaryEmail}`} className="hover:underline">{personalInfo.secondaryEmail}</a></p>
+            <p><span className="text-accent">Phone:</span> <a href={`tel:+91${personalInfo.phone}`} className="hover:underline">+91 {personalInfo.phone}</a></p>
             <p><span className="text-accent">LinkedIn:</span> <a href={personalInfo.linkedin} target="_blank" rel="noreferrer" className="hover:underline">{personalInfo.linkedin}</a></p>
             <p><span className="text-accent">GitHub:</span> <a href={personalInfo.github} target="_blank" rel="noreferrer" className="hover:underline">{personalInfo.github}</a></p>
           </div>

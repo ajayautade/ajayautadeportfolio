@@ -2,6 +2,7 @@
 
 import { Heart, Mail } from "lucide-react";
 import { personalInfo, navLinks } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -19,8 +20,20 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
+const navTranslationKeys: Record<string, string> = {
+  Home: "nav.home",
+  About: "nav.about",
+  Experience: "nav.experience",
+  Skills: "nav.skills",
+  Certificates: "nav.certificates",
+  Projects: "nav.projects",
+  Pipeline: "nav.pipeline",
+  Contact: "nav.contact",
+};
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="border-t border-border relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
@@ -29,7 +42,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4">
-              <a onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="text-sm font-semibold text-text-primary">
+              <a onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="text-sm font-semibold text-text-primary cursor-pointer">
                 {personalInfo.name}
               </a>
               <div className="hidden sm:flex gap-3">
@@ -37,9 +50,9 @@ export default function Footer() {
                   <a
                     key={link.name}
                     href={link.href} onClick={(e) => { e.preventDefault(); const el = document.querySelector(link.href); if (el) { const y = el.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top: y, behavior: "smooth" }); } }}
-                    className="text-xs text-text-tertiary hover:text-text-primary transition-colors"
+                    className="text-xs text-text-tertiary hover:text-text-primary transition-colors cursor-pointer"
                   >
-                    {link.name}
+                    {t(navTranslationKeys[link.name] || link.name)}
                   </a>
                 ))}
               </div>
@@ -52,7 +65,7 @@ export default function Footer() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
               </span>
               <span className="text-[10px] font-medium text-text-secondary uppercase tracking-wider">
-                All Systems Operational
+                {t("footer.allSystems")}
               </span>
             </div>
           </div>
@@ -91,8 +104,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-6 text-center">
           <p className="text-xs text-text-tertiary flex items-center justify-center gap-1">
-            &copy; {new Date().getFullYear()} {personalInfo.name}. Built with
-            Next.js &{" "}
+            &copy; {new Date().getFullYear()} {personalInfo.name}. {t("footer.builtWith")}{" "}
             <Heart className="inline h-3 w-3 text-red-500 fill-red-500" />
           </p>
         </div>

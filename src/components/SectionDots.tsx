@@ -3,11 +3,24 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
+
+const navTranslationKeys: Record<string, string> = {
+  Home: "nav.home",
+  About: "nav.about",
+  Experience: "nav.experience",
+  Skills: "nav.skills",
+  Certificates: "nav.certificates",
+  Projects: "nav.projects",
+  Pipeline: "nav.pipeline",
+  Contact: "nav.contact",
+};
 
 export default function SectionDots() {
   const [activeSection, setActiveSection] = useState("home");
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredDot, setHoveredDot] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,6 +67,7 @@ export default function SectionDots() {
             const sectionId = link.href.replace("#", "");
             const isActive = activeSection === sectionId;
             const isHovered = hoveredDot === sectionId;
+            const label = t(navTranslationKeys[link.name] || link.name);
 
             return (
               <button
@@ -62,7 +76,7 @@ export default function SectionDots() {
                 onTouchStart={() => setHoveredDot(sectionId)}
                 onTouchEnd={() => setTimeout(() => setHoveredDot(null), 800)}
                 className="relative flex items-center gap-2 touch-manipulation"
-                aria-label={`Go to ${link.name}`}
+                aria-label={`Go to ${label}`}
               >
                 {/* Tooltip label */}
                 <AnimatePresence>
@@ -74,7 +88,7 @@ export default function SectionDots() {
                       transition={{ duration: 0.15 }}
                       className="text-[10px] font-medium text-text-secondary bg-surface/90 backdrop-blur-sm border border-border rounded-md px-2 py-0.5 whitespace-nowrap pointer-events-none"
                     >
-                      {link.name}
+                      {label}
                     </motion.span>
                   )}
                 </AnimatePresence>

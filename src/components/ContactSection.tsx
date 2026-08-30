@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Mail,
   Phone,
@@ -16,6 +16,7 @@ import {
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { personalInfo } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -45,6 +46,7 @@ export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitCount, setSubmitCount] = useState(0);
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
+  const { t } = useLanguage();
 
   // Sanitize input — strip HTML tags and limit length
   const sanitize = (input: string, maxLength: number = 500) => {
@@ -112,8 +114,8 @@ export default function ContactSection() {
       <div className="section-container relative z-10">
         <ScrollReveal>
           <SectionHeading
-            title="Let's Work Together"
-            subtitle="Looking for a DevOps Engineer who can hit the ground running? Let's talk."
+            title={t("contact.title")}
+            subtitle={t("contact.subtitle")}
           />
         </ScrollReveal>
 
@@ -127,18 +129,18 @@ export default function ContactSection() {
                   <span className="relative inline-flex h-3 w-3 rounded-full bg-success" />
                 </span>
                 <span className="text-sm font-semibold text-success">
-                  Available for Hire
+                  {t("contact.available")}
                 </span>
               </div>
               <div className="hidden sm:block h-4 w-px bg-border" />
               <div className="flex items-center gap-2 text-text-secondary">
                 <Clock className="h-3.5 w-3.5" />
-                <span className="text-xs">Responds within 24 hours</span>
+                <span className="text-xs">{t("contact.responseTime")}</span>
               </div>
               <div className="hidden sm:block h-4 w-px bg-border" />
               <div className="flex items-center gap-2 text-text-secondary">
                 <Calendar className="h-3.5 w-3.5" />
-                <span className="text-xs">Can start immediately</span>
+                <span className="text-xs">{t("contact.canStart")}</span>
               </div>
             </div>
           </div>
@@ -157,9 +159,12 @@ export default function ContactSection() {
                 <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
               <div className="min-w-0">
-                <h3 className="text-sm font-semibold text-text-primary">Email Me</h3>
+                <h3 className="text-sm font-semibold text-text-primary">{t("contact.emailMe")}</h3>
                 <p className="text-xs text-text-tertiary truncate">
                   {personalInfo.email}
+                </p>
+                <p className="text-[11px] text-text-tertiary/80 truncate">
+                  {personalInfo.secondaryEmail}
                 </p>
               </div>
             </motion.a>
@@ -177,10 +182,10 @@ export default function ContactSection() {
               </div>
               <div className="min-w-0">
                 <h3 className="text-sm font-semibold text-text-primary">
-                  Connect on LinkedIn
+                  {t("contact.connectLinkedin")}
                 </h3>
                 <p className="text-xs text-text-tertiary">
-                  Let&apos;s grow our network
+                  {t("contact.growNetwork")}
                 </p>
               </div>
             </motion.a>
@@ -198,10 +203,10 @@ export default function ContactSection() {
               </div>
               <div className="min-w-0">
                 <h3 className="text-sm font-semibold text-text-primary">
-                  Check My Code
+                  {t("contact.checkCode")}
                 </h3>
                 <p className="text-xs text-text-tertiary">
-                  Open-source projects &amp; contributions
+                  {t("contact.openSource")}
                 </p>
               </div>
             </motion.a>
@@ -218,10 +223,10 @@ export default function ContactSection() {
               {/* Header */}
               <div className="text-center mb-8">
                 <h3 className="text-xl font-bold text-text-primary">
-                  Send a Message
+                  {t("contact.sendMessage")}
                 </h3>
                 <p className="mt-2 text-sm text-text-tertiary">
-                  Have a specific role in mind? Tell me about it.
+                  {t("contact.sendMessageHint")}
                 </p>
               </div>
 
@@ -244,7 +249,7 @@ export default function ContactSection() {
                       htmlFor="contact-name"
                       className="mb-2 block text-xs font-semibold uppercase tracking-wider text-text-tertiary"
                     >
-                      Name
+                      {t("contact.labelName")}
                     </label>
                     <input
                       type="text"
@@ -256,7 +261,7 @@ export default function ContactSection() {
                         setFormState((s) => ({ ...s, name: e.target.value }))
                       }
                       className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all"
-                      placeholder="Your name"
+                      placeholder={t("contact.placeholderName")}
                     />
                   </div>
                   <div>
@@ -264,7 +269,7 @@ export default function ContactSection() {
                       htmlFor="contact-email"
                       className="mb-2 block text-xs font-semibold uppercase tracking-wider text-text-tertiary"
                     >
-                      Email
+                      {t("contact.labelEmail")}
                     </label>
                     <input
                       type="email"
@@ -276,7 +281,7 @@ export default function ContactSection() {
                         setFormState((s) => ({ ...s, email: e.target.value }))
                       }
                       className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all"
-                      placeholder="you@company.com"
+                      placeholder={t("contact.placeholderEmail")}
                     />
                   </div>
                 </div>
@@ -286,7 +291,7 @@ export default function ContactSection() {
                     htmlFor="contact-subject"
                     className="mb-2 block text-xs font-semibold uppercase tracking-wider text-text-tertiary"
                   >
-                    Subject
+                    {t("contact.labelSubject")}
                   </label>
                   <input
                     type="text"
@@ -298,7 +303,7 @@ export default function ContactSection() {
                       setFormState((s) => ({ ...s, subject: e.target.value }))
                     }
                     className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all"
-                    placeholder="Job Opportunity — DevOps Engineer"
+                    placeholder={t("contact.placeholderSubject")}
                   />
                 </div>
 
@@ -307,7 +312,7 @@ export default function ContactSection() {
                     htmlFor="contact-message"
                     className="mb-2 block text-xs font-semibold uppercase tracking-wider text-text-tertiary"
                   >
-                    Message
+                    {t("contact.labelMessage")}
                   </label>
                   <textarea
                     id="contact-message"
@@ -319,7 +324,7 @@ export default function ContactSection() {
                       setFormState((s) => ({ ...s, message: e.target.value }))
                     }
                     className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all resize-none"
-                    placeholder="Hi Ajay, we have an opening for a DevOps Engineer and I'd love to discuss..."
+                    placeholder={t("contact.placeholderMessage")}
                   />
                 </div>
 
@@ -344,17 +349,17 @@ export default function ContactSection() {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Sending...
+                        {t("contact.sending")}
                       </>
                     ) : isSubmitted ? (
                       <>
                         <CheckCircle2 className="h-5 w-5" />
-                        Message Sent Successfully!
+                        {t("contact.sent")}
                       </>
                     ) : (
                       <>
                         <Send className="h-4 w-4" />
-                        Send Message
+                        {t("contact.send")}
                         <ArrowRight className="h-4 w-4" />
                       </>
                     )}
@@ -363,13 +368,20 @@ export default function ContactSection() {
               </form>
 
               {/* Contact details footer */}
-              <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-xs text-text-tertiary">
+              <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-text-tertiary">
                 <a
                   href={`mailto:${personalInfo.email}`}
                   className="flex items-center gap-1.5 hover:text-primary transition-colors"
                 >
                   <Mail className="h-3.5 w-3.5" />
                   {personalInfo.email}
+                </a>
+                <a
+                  href={`mailto:${personalInfo.secondaryEmail}`}
+                  className="flex items-center gap-1.5 hover:text-primary transition-colors"
+                >
+                  <Mail className="h-3.5 w-3.5" />
+                  {personalInfo.secondaryEmail}
                 </a>
                 <a
                   href={`tel:+91${personalInfo.phone}`}
