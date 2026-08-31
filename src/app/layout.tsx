@@ -106,6 +106,17 @@ export const metadata: Metadata = {
     "Graduate DevOps Engineer",
 
     // Multi-Language Regional Keywords
+    // 🇩🇪 German (Germany, Austria, Switzerland)
+    "DevOps Ingenieur",
+    "Cloud Architekt AWS",
+    "DevOps Freiberufler",
+    "DevOps Berater",
+    "DevOps Portfolio",
+    "Kubernetes Experte",
+    "CI/CD Automatisierung",
+    "Infrastructure as Code",
+    "Cloud Ingenieur",
+
     // 🇪🇸 Spanish (Spain, Mexico, Latin America)
     "Ingeniero DevOps",
     "Ingeniero Cloud AWS",
@@ -175,6 +186,7 @@ export const metadata: Metadata = {
     canonical: "https://ajayautade.com",
     languages: {
       "en-US": "https://ajayautade.com",
+      "de-DE": "https://ajayautade.com",
       "es-ES": "https://ajayautade.com",
       "fr-FR": "https://ajayautade.com",
       "pt-BR": "https://ajayautade.com",
@@ -191,7 +203,7 @@ export const metadata: Metadata = {
     siteName: "Ajay Autade — DevOps & Cloud Engineer Portfolio",
     type: "website",
     locale: "en_US",
-    alternateLocale: ["es_ES", "fr_FR", "pt_BR", "mr_IN", "hi_IN", "zh_CN", "en_IN"],
+    alternateLocale: ["de_DE", "es_ES", "fr_FR", "pt_BR", "mr_IN", "hi_IN", "zh_CN", "en_IN"],
   },
   twitter: {
     card: "summary_large_image",
@@ -261,6 +273,7 @@ export default function RootLayout({
                 nationality: "Indian",
                 knowsLanguage: [
                   "English",
+                  "German",
                   "Spanish",
                   "French",
                   "Portuguese",
@@ -427,7 +440,7 @@ export default function RootLayout({
                 publisher: {
                   "@id": "https://ajayautade.com/#person",
                 },
-                inLanguage: ["en", "es", "fr", "pt", "mr", "hi", "zh"],
+                inLanguage: ["en", "de", "es", "fr", "pt", "mr", "hi", "zh"],
               },
               {
                 "@context": "https://schema.org",

@@ -1,4 +1,4 @@
-export type Language = "en" | "es" | "fr" | "pt" | "mr" | "hi" | "zh";
+export type Language = "en" | "es" | "fr" | "pt" | "mr" | "hi" | "zh" | "de";
 
 export interface LanguageOption {
   code: Language;
@@ -9,6 +9,7 @@ export interface LanguageOption {
 
 export const languages: LanguageOption[] = [
   { code: "en", name: "English", nativeName: "English", flag: "🇬🇧" },
+  { code: "de", name: "German", nativeName: "Deutsch", flag: "🇩🇪" },
   { code: "es", name: "Spanish", nativeName: "Español", flag: "🇪🇸" },
   { code: "fr", name: "French", nativeName: "Français", flag: "🇫🇷" },
   { code: "pt", name: "Portuguese", nativeName: "Português", flag: "🇧🇷" },
@@ -1024,8 +1025,174 @@ const zh: TranslationDict = {
   "footer.builtWith": "使用Next.js和",
 };
 
+const de: TranslationDict = {
+  // ── Nav ──
+  "nav.home": "Startseite",
+  "nav.about": "Über mich",
+  "nav.experience": "Erfahrung",
+  "nav.skills": "Fähigkeiten",
+  "nav.certificates": "Zertifikate",
+  "nav.projects": "Projekte",
+  "nav.pipeline": "Pipeline",
+  "nav.contact": "Kontakt",
+  "nav.resume": "Lebenslauf",
+  "nav.downloadResume": "Lebenslauf herunterladen",
+
+  // ── Hero ──
+  "hero.status": "Offen für neue Chancen",
+  "hero.greeting": "Hallo, ich bin",
+  "hero.viewProjects": "Projekte ansehen",
+  "hero.downloadResume": "Lebenslauf herunterladen",
+  "hero.scroll": "Scrollen",
+  "hero.statDockerized": "Docker-Apps",
+  "hero.statPipelines": "CI/CD-Pipelines",
+  "hero.statCloud": "Cloud-Anbieter",
+  "hero.statUptime": "Verfügbarkeit",
+
+  // ── About ──
+  "about.title": "Über Mich",
+  "about.subtitle": "Lernen Sie den Ingenieur hinter den Pipelines kennen",
+  "about.bio": "Ich automatisiere zeitaufwändige Aufgaben, damit Entwicklerteams schneller ausliefern können. Vom Aufbau von Kubernetes-Clustern bis hin zu stabilen CI/CD-Pipelines — ich sorge dafür, dass Infrastruktur nahtlos hinter einer erstklassigen Entwicklererfahrung funktioniert.",
+  "about.education": "Mit einem B.Tech in Informatik und Ingenieurwesen vom MGM Jawaharlal Nehru Engineering College verbinde ich fundierte Software-Engineering-Prinzipien mit praktischer DevOps-Expertise.",
+  "about.howIWork": "Meine Arbeitsweise",
+  "about.philosophy": "Ich setze auf Infrastructure as Code, GitOps-gesteuerte Bereitstellungen und Monitoring-First-Design. Jede Pipeline ist reproduzierbar, jeder Server austauschbar und jedes Deployment reibungslos.",
+  "about.location": "Standort",
+  "about.educationLabel": "Ausbildung",
+  "about.status": "Status",
+  "about.openToOpportunities": "Offen für Angebote",
+
+  // ── Experience ──
+  "experience.title": "Berufserfahrung",
+  "experience.subtitle": "Praktika und berufliche Beiträge",
+  "experience.exp1.role": "DevOps Engineering Praktikant",
+  "experience.exp1.desc1": "Automatisierte AWS-Infrastrukturbereitstellung (EC2, S3, VPC, IAM) mit Terraform, wodurch die manuelle Einrichtungszeit von Stunden auf Minuten verkürzt wurde",
+  "experience.exp1.desc2": "Containerisierte 4+ Anwendungen mit Docker und stellte sie auf Kubernetes-Clustern bereit – für hohe Skalierbarkeit und unterbrechungsfreie Deployments",
+  "experience.exp1.desc3": "Entwickelte und implementierte End-to-End-CI/CD-Pipelines mit Jenkins und GitHub Actions und senkte die Release-Zeiten bei 4+ Anwendungen um 60%",
+  "experience.exp2.role": "Software-Entwickler Praktikant",
+  "experience.exp2.desc1": "Entwickelte skalierbare RESTful APIs für einen nahtlosen, sicheren Datenaustausch zwischen verteilten Anwendungskomponenten und verbesserte die Systemintegration",
+  "experience.exp2.desc2": "Aktive Teilnahme an funktionsübergreifenden Code-Reviews, Architekturplanungen und Pair-Programming zur Einhaltung strenger Qualitätsstandards",
+  "experience.exp2.desc3": "Entwickelte und implementierte End-to-End-CI/CD-Pipelines mit Jenkins und GitHub Actions und senkte die Release-Zeiten bei 4+ Anwendungen um 60%",
+
+  // ── Skills ──
+  "skills.title": "Fähigkeiten & Technologien",
+  "skills.subtitle": "Tools und Technologien, mit denen ich arbeite",
+  "skills.proficiency": "Kompetenzübersicht",
+  "skills.cloud": "Cloud & Infrastruktur",
+  "skills.container": "Containerisierung & Orchestrierung",
+  "skills.cicd": "CI/CD & Automatisierung",
+  "skills.monitoring": "Monitoring & Observability",
+  "skills.vcs": "Versionskontrolle",
+  "skills.scripting": "Scripting & Programmierung",
+  "skills.databases": "Datenbanken",
+  "skills.os": "Betriebssysteme & Netzwerke",
+
+  // ── Certifications ──
+  "certs.title": "Zertifizierungen",
+  "certs.subtitle": "Aktuelle Vorbereitung auf branchenweit anerkannte Nachweise",
+  "certs.earned": "Erworben",
+  "certs.inProgress": "In Vorbereitung",
+
+  // ── Certificates ──
+  "certificates.title": "Zertifikate & Nachweise",
+  "certificates.subtitle": "Verifizierte Kursabschlüsse führender Lernplattformen",
+  "certificates.verify": "Zertifikat überprüfen",
+  "certificates.showMore": "{count} weitere Zertifikate anzeigen",
+  "certificates.showLess": "Weniger anzeigen",
+  "certificates.summary": "{count} Zertifikate",
+  "certificates.verified": "· Alle verifiziert & validiert",
+
+  // ── Projects ──
+  "projects.title": "Ausgewählte Projekte",
+  "projects.subtitle": "Praxisprojekte, die DevOps- und Entwicklungsfähigkeiten demonstrieren",
+  "projects.featured": "Highlight",
+  "projects.source": "Quellcode",
+  "projects.demo": "Demo",
+  "projects.viewAll": "Alle auf GitHub ansehen",
+  "projects.proj1.desc": "Zero-Touch ML-Deployment-Pipeline — von 45 Min auf ~8 Min Code-to-Production auf AWS EKS",
+  "projects.proj1.longDesc": "Aufbau einer Zero-Touch-Bereitstellungspipeline mit GitHub Actions und ArgoCD, wodurch die Bereitstellungszeit auf AWS EKS von 45 auf ~8 Minuten verkürzt wurde. Reduzierte ML-Docker-Images um 73% (3GB→800MB) durch Multi-Stage-Builds, konfigurierte Kubernetes HPA für Auto-Scaling (2→10 Pods) basierend auf CPU/Memory-Auslastung und überwachte 9 Echtzeit-Inferenzmetriken via Prometheus + Grafana.",
+  "projects.proj2.desc": "Cloud-native Web-App auf AWS EKS mit Dual-Pipeline-CI/CD und 5-Service-Monitoring-Stack",
+  "projects.proj2.longDesc": "Entwickelte einen dualen GitHub Actions Workflow mit Trivy-Sicherheitsscans und ArgoCD zur automatischen Synchronisierung von Kubernetes-Manifesten alle 3 Minuten. Bereitstellung eines AWS EKS Clusters via modularem Terraform und Helm mit HPA-Skalierung (2→10 Pods bei 70% CPU / 80% RAM). Entwarf einen 5-Service-Monitoring-Stack mit 4 benutzerdefinierten PromQL-Alarmregeln.",
+  "projects.proj3.desc": "Django-App mit Docker Compose, automatisierten Tests und CI/CD-Pipeline",
+  "projects.proj3.longDesc": "Full-Stack-Django-Notizenanwendung mit Benutzerauthentifizierung, bereitgestellt mit Docker Compose in separaten Web- und Datenbank-Containern. Enthält eine GitHub Actions CI-Pipeline für automatisiertes Testen und Linting bei jedem Push.",
+
+  // ── Pipeline ──
+  "pipeline.title": "Interaktive CI/CD-Pipeline",
+  "pipeline.subtitle": "Lösen Sie einen Push aus und beobachten Sie den Deployment-Workflow auf einem simulierten AWS EKS Cluster",
+  "pipeline.webhookAction": "Webhook-Aktions-Bereitstellung",
+  "pipeline.target": "Ziel: AWS Kubernetes Cluster (EKS) · Branch: main",
+  "pipeline.trigger": "Pipeline starten",
+  "pipeline.running": "Pipeline läuft...",
+  "pipeline.rerun": "Pipeline erneut ausführen",
+  "pipeline.consoleIdle": "Konsole im Leerlauf.",
+  "pipeline.consoleHint": "Klicken Sie auf 'Pipeline starten', um die Simulation zu beginnen.",
+  "pipeline.successTitle": "Pipeline-Bereitstellung erfolgreich!",
+  "pipeline.successDesc": "Das Docker-Image wurde erfolgreich übertragen, Sicherheitsscans wurden ohne Schwachstellen abgeschlossen und ArgoCD hat die Änderungen im EKS-Cluster synchronisiert. Sie können den simulierten Endpunkt überprüfen.",
+  "pipeline.viewGithub": "GitHub-Profil ansehen",
+  "pipeline.stageTrigger": "Webhook Trigger",
+  "pipeline.stageLint": "Lint & Test",
+  "pipeline.stageBuild": "Build Image",
+  "pipeline.stageScan": "Security Scan",
+  "pipeline.stageDeploy": "GitOps Deploy",
+
+  // ── Stats ──
+  "stats.title": "In Zahlen",
+  "stats.subtitle": "Messbare Ergebnisse durch Code, Pipelines und Infrastruktur",
+  "stats.commits": "Git Commits",
+  "stats.pipelines": "CI/CD-Pipelines",
+  "stats.dockerized": "Docker-Apps",
+  "stats.uptime": "Verfügbarkeitsziel",
+  "stats.tools": "Beherrschte Tools",
+  "stats.hours": "DevOps-Stunden",
+
+  // ── Services ──
+  "services.title": "Was ich für Sie tun kann",
+  "services.subtitle": "Engineering-Lösungen mit messbarem geschäftlichem Mehrwert",
+  "services.cloud.title": "Cloud-Infrastruktur",
+  "services.cloud.desc": "Konzeption und Bereitstellung skalierbarer AWS-Architekturen mit Terraform und Ansible für zuverlässige, kosteneffiziente Cloud-Umgebungen.",
+  "services.cicd.title": "CI/CD-Pipelines",
+  "services.cicd.desc": "Automatisieren Sie Ihren gesamten Build-Test-Deploy-Workflow mit Jenkins, GitHub Actions und ArgoCD für schnelle, verlässliche Releases.",
+  "services.container.title": "Container-Orchestrierung",
+  "services.container.desc": "Containerisieren Sie Anwendungen mit Docker und orchestrieren Sie diese skalierbar mit Kubernetes und AWS EKS für maximale Uptime.",
+  "services.monitoring.title": "Monitoring & Observability",
+  "services.monitoring.desc": "Einrichtung von Grafana-, Prometheus- und CloudWatch-Dashboards für vollständigen Einblick in Systemgesundheit und Leistung.",
+  "services.gitops.title": "GitOps & Versionskontrolle",
+  "services.gitops.desc": "Implementierung von GitOps-Workflows mit ArgoCD und Git für deklarative, nachvollziehbare Infrastruktur- und App-Deployments.",
+  "services.security.title": "Sicherheit & Zuverlässigkeit",
+  "services.security.desc": "Aufbau standardmäßig sicherer Infrastruktur mit IAM Best Practices, Secrets Management und automatisierten Compliance-Checks.",
+
+  // ── Contact ──
+  "contact.title": "Lassen Sie uns zusammenarbeiten",
+  "contact.subtitle": "Suchen Sie einen DevOps-Ingenieur, der sofort einsatzbereit ist? Sprechen wir darüber.",
+  "contact.available": "Verfügbar für Projekte & Festanstellung",
+  "contact.responseTime": "Antwortet innerhalb von 24 Stunden",
+  "contact.canStart": "Sofort einsatzbereit",
+  "contact.emailMe": "E-Mail senden",
+  "contact.connectLinkedin": "Auf LinkedIn vernetzen",
+  "contact.growNetwork": "Netzwerk erweitern",
+  "contact.checkCode": "Code ansehen",
+  "contact.openSource": "Open-Source-Projekte & Beiträge",
+  "contact.sendMessage": "Nachricht senden",
+  "contact.sendMessageHint": "Haben Sie eine konkrete Position? Erzählen Sie mir davon.",
+  "contact.labelName": "Name",
+  "contact.labelEmail": "E-Mail",
+  "contact.labelSubject": "Betreff",
+  "contact.labelMessage": "Nachricht",
+  "contact.placeholderName": "Ihr Name",
+  "contact.placeholderEmail": "name@unternehmen.de",
+  "contact.placeholderSubject": "Karrierechance — DevOps Engineer",
+  "contact.placeholderMessage": "Hallo Ajay, wir haben eine offene Position als DevOps Engineer und möchten uns gerne mit dir austauschen...",
+  "contact.sending": "Wird gesendet...",
+  "contact.sent": "Nachricht erfolgreich gesendet!",
+  "contact.send": "Nachricht absenden",
+
+  // ── Footer ──
+  "footer.allSystems": "Alle Systeme betriebsbereit",
+  "footer.builtWith": "Erstellt mit Next.js &",
+};
+
 export const translations: Record<Language, TranslationDict> = {
   en,
+  de,
   es,
   fr,
   pt,
