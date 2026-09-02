@@ -180,6 +180,16 @@ const en: TranslationDict = {
   "contact.sent": "Message Sent Successfully!",
   "contact.send": "Send Message",
 
+  // ── Nav (Deep Dives) ──
+  "nav.deepDives": "Deep Dives",
+
+  // ── Technical Screening / Deep Dives ──
+  "screening.title": "Technical Deep Dives",
+  "screening.subtitle": "Real answers to real engineering questions — from my projects, my internships, and my mistakes",
+  "screening.searchPlaceholder": "Search questions, tools, or topics...",
+  "screening.noResults": "No questions match your search. Try a different keyword.",
+  "screening.questionsAnswered": "questions answered with real project examples",
+
   // ── Footer ──
   "footer.allSystems": "All Systems Operational",
   "footer.builtWith": "Built with Next.js &",
@@ -321,6 +331,12 @@ const es: TranslationDict = {
   "contact.sending": "Enviando...",
   "contact.sent": "¡Mensaje Enviado Exitosamente!",
   "contact.send": "Enviar Mensaje",
+  "nav.deepDives": "Inmersiones",
+  "screening.title": "Inmersiones Técnicas",
+  "screening.subtitle": "Respuestas reales a preguntas reales de ingeniería — de mis proyectos, mis prácticas y mis errores",
+  "screening.searchPlaceholder": "Buscar preguntas, herramientas o temas...",
+  "screening.noResults": "Ninguna pregunta coincide con tu búsqueda. Prueba con otra palabra clave.",
+  "screening.questionsAnswered": "preguntas respondidas con ejemplos de proyectos reales",
   "footer.allSystems": "Todos los Sistemas Operativos",
   "footer.builtWith": "Hecho con Next.js y",
 };
@@ -461,6 +477,12 @@ const fr: TranslationDict = {
   "contact.sending": "Envoi en cours...",
   "contact.sent": "Message Envoyé avec Succès !",
   "contact.send": "Envoyer le Message",
+  "nav.deepDives": "Approfondissements",
+  "screening.title": "Approfondissements Techniques",
+  "screening.subtitle": "Des réponses concrètes aux vraies questions d'ingénierie — tirées de mes projets, stages et erreurs",
+  "screening.searchPlaceholder": "Rechercher des questions, outils ou sujets...",
+  "screening.noResults": "Aucune question ne correspond à votre recherche. Essayez un autre mot-clé.",
+  "screening.questionsAnswered": "questions avec des exemples de projets concrets",
   "footer.allSystems": "Tous les Systèmes Opérationnels",
   "footer.builtWith": "Construit avec Next.js et",
 };
@@ -601,6 +623,12 @@ const pt: TranslationDict = {
   "contact.sending": "Enviando...",
   "contact.sent": "Mensagem Enviada com Sucesso!",
   "contact.send": "Enviar Mensagem",
+  "nav.deepDives": "Imersões",
+  "screening.title": "Imersões Técnicas",
+  "screening.subtitle": "Respostas reais para perguntas reais de engenharia — dos meus projetos, estágios e erros",
+  "screening.searchPlaceholder": "Pesquisar perguntas, ferramentas ou tópicos...",
+  "screening.noResults": "Nenhuma pergunta corresponde à sua pesquisa. Tente outra palavra-chave.",
+  "screening.questionsAnswered": "perguntas respondidas com exemplos reais de projetos",
   "footer.allSystems": "Todos os Sistemas Operacionais",
   "footer.builtWith": "Feito com Next.js e",
 };
@@ -741,6 +769,12 @@ const mr: TranslationDict = {
   "contact.sending": "पाठवत आहे...",
   "contact.sent": "संदेश यशस्वीरित्या पाठवला!",
   "contact.send": "संदेश पाठवा",
+  "nav.deepDives": "सखोल विश्लेषण",
+  "screening.title": "तांत्रिक सखोल विश्लेषण",
+  "screening.subtitle": "खऱ्या अभियांत्रिकी प्रश्नांची खरी उत्तरे — माझ्या प्रकल्पांतून, इंटर्नशिपमधून आणि चुकांमधून",
+  "screening.searchPlaceholder": "प्रश्न, साधने किंवा विषय शोधा...",
+  "screening.noResults": "तुमच्या शोधाशी कोणताही प्रश्न जुळत नाही. दुसरा शब्द वापरून पहा.",
+  "screening.questionsAnswered": "प्रश्नांची उत्तरे खऱ्या प्रकल्पाच्या उदाहरणांसह",
   "footer.allSystems": "सर्व सिस्टम कार्यरत",
   "footer.builtWith": "Next.js आणि सह तयार केले",
 };
@@ -881,6 +915,12 @@ const hi: TranslationDict = {
   "contact.sending": "भेज रहे हैं...",
   "contact.sent": "संदेश सफलतापूर्वक भेजा गया!",
   "contact.send": "संदेश भेजें",
+  "nav.deepDives": "गहन विश्लेषण",
+  "screening.title": "तकनीकी गहन विश्लेषण",
+  "screening.subtitle": "असली इंजीनियरिंग प्रश्नों के असली उत्तर — मेरे प्रोजेक्ट्स, इंटर्नशिप और गलतियों से",
+  "screening.searchPlaceholder": "प्रश्न, उपकरण या विषय खोजें...",
+  "screening.noResults": "आपकी खोज से कोई प्रश्न मेल नहीं खाता। कोई दूसरा कीवर्ड आज़माएं।",
+  "screening.questionsAnswered": "प्रश्नों के उत्तर वास्तविक प्रोजेक्ट उदाहरणों के साथ",
   "footer.allSystems": "सभी सिस्टम चालू",
   "footer.builtWith": "Next.js और से बनाया",
 };
@@ -1021,6 +1061,12 @@ const zh: TranslationDict = {
   "contact.sending": "发送中...",
   "contact.sent": "消息发送成功！",
   "contact.send": "发送消息",
+  "nav.deepDives": "深度解析",
+  "screening.title": "技术深度解析",
+  "screening.subtitle": "真实工程问题的真实回答——来自我的项目、实习和教训",
+  "screening.searchPlaceholder": "搜索问题、工具或主题...",
+  "screening.noResults": "没有匹配您搜索的问题。请尝试其他关键词。",
+  "screening.questionsAnswered": "个问题附有真实项目示例",
   "footer.allSystems": "所有系统正常运行",
   "footer.builtWith": "使用Next.js和",
 };
@@ -1183,7 +1229,13 @@ const de: TranslationDict = {
   "contact.placeholderMessage": "Hallo Ajay, wir haben eine offene Position als DevOps Engineer und möchten uns gerne mit dir austauschen...",
   "contact.sending": "Wird gesendet...",
   "contact.sent": "Nachricht erfolgreich gesendet!",
-  "contact.send": "Nachricht absenden",
+  "contact.send": "Nachricht senden",
+  "nav.deepDives": "Vertiefungen",
+  "screening.title": "Technische Vertiefungen",
+  "screening.subtitle": "Echte Antworten auf echte Engineering-Fragen — aus meinen Projekten, Praktika und Fehlern",
+  "screening.searchPlaceholder": "Fragen, Tools oder Themen suchen...",
+  "screening.noResults": "Keine Fragen entsprechen Ihrer Suche. Versuchen Sie ein anderes Stichwort.",
+  "screening.questionsAnswered": "Fragen mit echten Projektbeispielen beantwortet",
 
   // ── Footer ──
   "footer.allSystems": "Alle Systeme betriebsbereit",
