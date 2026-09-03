@@ -6,10 +6,9 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
-import PipelineSimulator from "@/components/PipelineSimulator";
+import DeepDivesBanner from "@/components/DeepDivesBanner";
 import SkillsSection from "@/components/SkillsSection";
-import CertificationsSection from "@/components/CertificationsSection";
-import CertificatesSection from "@/components/CertificatesSection";
+import CertificationsBanner from "@/components/CertificationsBanner";
 import StatsSection from "@/components/StatsSection";
 import ContactSection from "@/components/ContactSection";
 import ServicesSection from "@/components/ServicesSection";
@@ -44,8 +43,10 @@ export default function Home() {
         {/* 4. Evidence — real projects that demonstrate skills */}
         <ProjectsSection />
 
-        {/* 4.5. Sandbox — interactive CI/CD pipeline simulator */}
-        <PipelineSimulator />
+        <div className="section-divider" />
+
+        {/* 4.5. Teaser CTA — link to dedicated Interactive Lab & Deep Dives page */}
+        <DeepDivesBanner />
 
         <div className="section-divider" />
 
@@ -54,11 +55,8 @@ export default function Home() {
 
         <div className="section-divider" />
 
-        {/* 6. Credibility — certifications in progress */}
-        <CertificationsSection />
-
-        {/* 6.5. Earned certificates from learning platforms */}
-        <CertificatesSection />
+        {/* 6. Credibility — certifications & verified credentials teaser */}
+        <CertificationsBanner />
 
         <div className="section-divider" />
 
