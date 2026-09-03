@@ -16,7 +16,7 @@ export default function CertificationsSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="certifications" className="py-12 sm:py-20 lg:py-24">
+    <section id="industry-certifications" className="py-12 sm:py-20 lg:py-24">
       <div className="section-container">
         <ScrollReveal>
           <SectionHeading
