@@ -408,10 +408,11 @@ export const navLinks = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Experience", href: "#experience" },
-  { name: "Skills", href: "#skills" },
-  { name: "Certificates", href: "#certificates" },
   { name: "Projects", href: "#projects" },
-  { name: "Pipeline", href: "#pipeline" },
+  { name: "Skills", href: "#skills" },
+  { name: "Services", href: "#services" },
+  { name: "Certifications", href: "/certifications" },
+  { name: "Deep Dives", href: "/deep-dives" },
   { name: "Contact", href: "#contact" },
 ];
 

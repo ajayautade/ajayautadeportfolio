@@ -1,5 +1,5 @@
-"use client";
-
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import { Heart, Mail } from "lucide-react";
 import { personalInfo, navLinks } from "@/lib/data";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -26,13 +26,33 @@ const navTranslationKeys: Record<string, string> = {
   Experience: "nav.experience",
   Skills: "nav.skills",
   Certificates: "nav.certificates",
+  Certifications: "certs.title",
   Projects: "nav.projects",
-  Pipeline: "nav.pipeline",
+  Services: "services.title",
+  "Deep Dives": "nav.deepDives",
   Contact: "nav.contact",
 };
 
 export default function Footer() {
   const { t } = useLanguage();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleFooterLinkClick = (href: string) => {
+    if (href.startsWith("/")) {
+      router.push(href);
+      return;
+    }
+    if (pathname !== "/") {
+      router.push("/" + href);
+      return;
+    }
+    const el = document.querySelector(href);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
 
   return (
     <footer className="border-t border-border relative">
@@ -42,14 +62,28 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4">
-              <a onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="text-sm font-semibold text-text-primary cursor-pointer">
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (pathname !== "/") {
+                    router.push("/");
+                  } else {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
+                className="text-sm font-semibold text-text-primary cursor-pointer"
+              >
                 {personalInfo.name}
               </a>
               <div className="hidden sm:flex gap-3">
                 {navLinks.slice(1).map((link) => (
                   <a
                     key={link.name}
-                    href={link.href} onClick={(e) => { e.preventDefault(); const el = document.querySelector(link.href); if (el) { const y = el.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top: y, behavior: "smooth" }); } }}
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleFooterLinkClick(link.href);
+                    }}
                     className="text-xs text-text-tertiary hover:text-text-primary transition-colors cursor-pointer"
                   >
                     {t(navTranslationKeys[link.name] || link.name)}

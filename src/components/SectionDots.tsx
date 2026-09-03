@@ -12,7 +12,7 @@ const navTranslationKeys: Record<string, string> = {
   Skills: "nav.skills",
   Certificates: "nav.certificates",
   Projects: "nav.projects",
-  Pipeline: "nav.pipeline",
+  Services: "services.title",
   Contact: "nav.contact",
 };
 
@@ -22,13 +22,15 @@ export default function SectionDots() {
   const [hoveredDot, setHoveredDot] = useState<string | null>(null);
   const { t } = useLanguage();
 
+  const inPageLinks = navLinks.filter((link) => link.href.startsWith("#"));
+
   useEffect(() => {
     const handleScroll = () => {
       // Show dots after scrolling past the hero
       setIsVisible(window.scrollY > 300);
 
       // Determine active section
-      const sections = navLinks.map((link) => link.href.replace("#", ""));
+      const sections = inPageLinks.map((link) => link.href.replace("#", ""));
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
         if (el) {
@@ -43,7 +45,7 @@ export default function SectionDots() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [inPageLinks]);
 
   const handleDotClick = (href: string) => {
     const el = document.querySelector(href);
@@ -63,7 +65,7 @@ export default function SectionDots() {
           transition={{ duration: 0.3 }}
           className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col items-end gap-3 hidden md:flex"
         >
-          {navLinks.map((link) => {
+          {inPageLinks.map((link) => {
             const sectionId = link.href.replace("#", "");
             const isActive = activeSection === sectionId;
             const isHovered = hoveredDot === sectionId;

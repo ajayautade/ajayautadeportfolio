@@ -1,8 +1,8 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Terminal as TerminalIcon, FileText } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import TerminalModal from "./TerminalModal";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -15,8 +15,10 @@ const navTranslationKeys: Record<string, string> = {
   Experience: "nav.experience",
   Skills: "nav.skills",
   Certificates: "nav.certificates",
+  Certifications: "certs.title",
   Projects: "nav.projects",
-  Pipeline: "nav.pipeline",
+  Services: "services.title",
+  "Deep Dives": "nav.deepDives",
   Contact: "nav.contact",
 };
 
@@ -25,19 +27,33 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
   const { t } = useLanguage();
 
   useEffect(() => {
+    if (pathname === "/deep-dives") {
+      setActiveSection("/deep-dives");
+      return;
+    }
+    if (pathname === "/certifications") {
+      setActiveSection("/certifications");
+      return;
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = navLinks.map((link) => link.href.replace("#", ""));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
+      const inPageSections = navLinks
+        .filter((link) => link.href.startsWith("#"))
+        .map((link) => link.href.replace("#", ""));
+
+      for (let i = inPageSections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(inPageSections[i]);
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= 120) {
-            setActiveSection(sections[i]);
+            setActiveSection(inPageSections[i]);
             break;
           }
         }
@@ -46,7 +62,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   // Prevent scroll when mobile menu is open
   useEffect(() => {
@@ -62,6 +78,20 @@ export default function Navbar() {
 
   const handleNavClick = (href: string) => {
     setIsMobileOpen(false);
+
+    // Route links (e.g. /deep-dives)
+    if (href.startsWith("/")) {
+      router.push(href);
+      return;
+    }
+
+    // Anchor links when not on home page
+    if (pathname !== "/") {
+      router.push("/" + href);
+      return;
+    }
+
+    // Anchor links on home page
     const el = document.querySelector(href);
     if (el) {
       const y = el.getBoundingClientRect().top + window.scrollY - 80;
@@ -76,8 +106,8 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-bg/80 backdrop-blur-lg border-b border-border"
+          isScrolled || pathname !== "/"
+            ? "bg-bg/90 backdrop-blur-lg border-b border-border shadow-sm"
             : "bg-transparent"
         }`}
       >
@@ -98,34 +128,43 @@ export default function Navbar() {
 
             {/* Desktop Nav */}
             <div className="hidden items-center gap-1 md:flex">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }}
-                  className={`relative rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                    activeSection === link.href.replace("#", "")
-                      ? "text-primary"
-                      : "text-text-tertiary hover:text-text-primary"
-                  }`}
-                >
-                  {activeSection === link.href.replace("#", "") && (
-                    <motion.div
-                      layoutId="nav-indicator"
-                      className="absolute inset-0 rounded-md bg-primary/5"
-                      transition={{
-                        type: "spring",
-                        stiffness: 350,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                  <span className="relative z-10">{t(navTranslationKeys[link.name] || link.name)}</span>
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isActive =
+                  activeSection === link.href ||
+                  (link.href.startsWith("#") &&
+                    activeSection === link.href.replace("#", ""));
+
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }}
+                    className={`relative rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                      isActive
+                        ? "text-primary"
+                        : "text-text-tertiary hover:text-text-primary"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-indicator"
+                        className="absolute inset-0 rounded-md bg-primary/5"
+                        transition={{
+                          type: "spring",
+                          stiffness: 350,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                    <span className="relative z-10">
+                      {t(navTranslationKeys[link.name] || link.name)}
+                    </span>
+                  </a>
+                );
+              })}
               <div className="ml-2 flex items-center gap-2">
                 <button
                   onClick={() => setIsTerminalOpen(true)}
@@ -196,26 +235,33 @@ export default function Navbar() {
             </button>
 
             <nav className="flex flex-col items-center gap-2">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }}
-                  className={`rounded-lg px-6 py-3 text-lg font-medium transition-colors ${
-                    activeSection === link.href.replace("#", "")
-                      ? "text-primary"
-                      : "text-text-secondary hover:text-text-primary"
-                  }`}
-                >
-                  {t(navTranslationKeys[link.name] || link.name)}
-                </motion.a>
-              ))}
+              {navLinks.map((link, i) => {
+                const isActive =
+                  activeSection === link.href ||
+                  (link.href.startsWith("#") &&
+                    activeSection === link.href.replace("#", ""));
+
+                return (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }}
+                    className={`rounded-lg px-6 py-3 text-lg font-medium transition-colors ${
+                      isActive
+                        ? "text-primary"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
+                  >
+                    {t(navTranslationKeys[link.name] || link.name)}
+                  </motion.a>
+                );
+              })}
               
               {/* Mobile Resume Button */}
               <motion.a
