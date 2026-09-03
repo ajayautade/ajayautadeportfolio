@@ -3,6 +3,30 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   trailingSlash: false,
+  async redirects() {
+    return [
+      {
+        source: "/pipeline",
+        destination: "/deep-dives",
+        permanent: true,
+      },
+      {
+        source: "/screening",
+        destination: "/deep-dives",
+        permanent: true,
+      },
+      {
+        source: "/credentials",
+        destination: "/certifications",
+        permanent: true,
+      },
+      {
+        source: "/certificates",
+        destination: "/certifications",
+        permanent: true,
+      },
+    ];
+  },
   // Security headers
   async headers() {
     return [
