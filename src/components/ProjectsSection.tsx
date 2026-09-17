@@ -73,7 +73,7 @@ export default function ProjectsSection() {
           {project.title}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-text-secondary flex-1">
-          {keys ? t(keys.longDesc) : project.longDescription}
+          {keys ? t(keys.longDesc) || project.longDescription : project.longDescription}
         </p>
 
         {/* Tech Tags */}

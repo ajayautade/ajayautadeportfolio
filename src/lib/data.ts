@@ -165,6 +165,43 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ajayautade/notes-app-django",
     featured: true,
   },
+  {
+    title: "End-to-End CI/CD Pipeline",
+    description:
+      "Automated DevOps pipeline using Kind, Helm, GitHub Actions, and AWS ECR",
+    longDescription:
+      "Built a complete CI/CD pipeline using GitHub Actions to automate container builds and push them to AWS ECR using Terraform and OIDC authentication. Deployed the application to a local Kubernetes cluster (Kind) using Helm charts for scalable and manageable deployments.",
+    techStack: [
+      "Kubernetes",
+      "Helm",
+      "GitHub Actions",
+      "AWS ECR",
+      "Terraform",
+      "Docker",
+    ],
+    githubUrl: "https://github.com/ajayautade/End-To-End-CICD-Pipeline",
+    featured: true,
+  },
+  {
+    title: "GitOps ArgoCD Deployment",
+    description:
+      "Continuous Deployment of a containerized application to Kubernetes using GitOps principles",
+    longDescription:
+      "Implemented an end-to-end GitOps workflow using ArgoCD to automatically sync and deploy Kubernetes manifests. Ensures the cluster state always matches the Git repository, providing declarative infrastructure and continuous deployment for containerized applications.",
+    techStack: ["ArgoCD", "Kubernetes", "GitOps", "Docker", "YAML"],
+    githubUrl: "https://github.com/ajayautade/gitops-argocd-app",
+    featured: true,
+  },
+  {
+    title: "S3 Database Backup Automation",
+    description:
+      "Hands-free disaster recovery script for automated database backups and AWS S3 uploads",
+    longDescription:
+      "Developed a robust Bash scripting solution for automated disaster recovery. The script automatically backs up MySQL/MariaDB databases, compresses the SQL dumps, securely uploads them to AWS S3, and rotates out older backups on a cron schedule to save storage costs.",
+    techStack: ["Shell Scripting", "AWS S3", "MySQL/MariaDB", "Linux", "Cron"],
+    githubUrl: "https://github.com/ajayautade/s3-db-backup-automation",
+    featured: true,
+  },
 ];
 
 export interface Experience {
