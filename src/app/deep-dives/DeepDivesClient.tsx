@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Play, Shield, Terminal, Sparkles } from "lucide-react";
+import { ArrowLeft, Play, Shield, Terminal } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import PipelineSimulator from "@/components/PipelineSimulator";
 import TechnicalQASection from "@/components/TechnicalQASection";
@@ -35,7 +35,7 @@ export default function DeepDivesClient() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="max-w-3xl mx-auto text-center"
+            className="max-w-4xl lg:max-w-5xl mx-auto text-center"
           >
             {/* Back to Portfolio Link */}
             <div className="mb-6 flex justify-center">
@@ -50,25 +50,14 @@ export default function DeepDivesClient() {
               </Link>
             </div>
 
-            {/* Glowing Category Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold mb-4 shadow-[0_0_15px_rgba(59,130,246,0.15)]">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>DevSecOps Sandbox & Technical Screening</span>
-            </div>
-
             {/* Main Title */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
               <span className="gradient-text">Interactive CI/CD</span> &amp;{" "}
               <span className="text-text-primary">Technical Deep Dives</span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="mt-4 text-sm sm:text-base text-text-secondary max-w-2xl mx-auto leading-relaxed">
-              Test my real GitOps automation workflow against a live simulated AWS EKS cluster, or explore 15 in-depth architectural solutions to senior technical screening questions.
-            </p>
-
             {/* Quick-Jump Action Buttons */}
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-8 mb-4 sm:mb-6 flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={() => scrollToSection("pipeline")}
                 className="btn-primary text-xs py-2.5 px-4 cursor-pointer"

@@ -40,7 +40,7 @@ export default function ExperienceSection() {
           />
         </ScrollReveal>
 
-        <div ref={containerRef} className="relative mx-auto w-full max-w-3xl">
+        <div ref={containerRef} className="relative mx-auto w-full">
           {/* Static Timeline Line Background */}
           <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border md:left-6" />
           

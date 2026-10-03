@@ -136,6 +136,10 @@ export default function HeroSection() {
                 <FileText className="h-4 w-4" />
                 {t("hero.downloadResume")}
               </a>
+              <a href="/coverletter" className="btn-outline">
+                <FileText className="h-4 w-4" />
+                Cover Letter
+              </a>
             </motion.div>
 
             {/* Stats */}

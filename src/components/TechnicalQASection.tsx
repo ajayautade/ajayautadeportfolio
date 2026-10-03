@@ -351,7 +351,7 @@ export default function TechnicalQASection() {
         </ScrollReveal>
 
         {/* Questions grid */}
-        <div className="space-y-3 max-w-3xl mx-auto">
+        <div className="space-y-3 max-w-5xl mx-auto">
           <AnimatePresence mode="popLayout">
             {filteredQuestions.map((qa, index) => (
               <ScrollReveal key={qa.id} delay={index * 0.05}>

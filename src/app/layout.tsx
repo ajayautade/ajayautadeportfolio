@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s — Ajay Autade",
   },
   description:
-    "Ajay Autade is a DevOps & Cloud Engineer from India with hands-on expertise in AWS, Kubernetes, Docker, Terraform, CI/CD, Jenkins, GitHub Actions, ArgoCD, and MLOps. B.Tech CSE graduate from MGM JNEC, Maharashtra. View portfolio, projects, and resume. Open to opportunities.",
+    "Ajay Autade is a DevOps & Cloud Engineer from India with hands-on expertise in AWS, Kubernetes, Docker, Terraform, CI/CD, Jenkins, GitHub Actions, ArgoCD, and MLOps. B.Tech CSE graduate. View portfolio, projects, and resume. Open to opportunities.",
   keywords: [
     // Name-based & Branding (Core global identity)
     "Ajay Autade",
@@ -488,6 +488,12 @@ export default function RootLayout({
                     name: "Contact",
                     item: "https://ajayautade.com/#contact",
                   },
+                  {
+                    "@type": "ListItem",
+                    position: 6,
+                    name: "Cover Letter",
+                    item: "https://ajayautade.com/coverletter",
+                  },
                 ],
               },
               {
@@ -499,7 +505,7 @@ export default function RootLayout({
                     name: "Who is Ajay Autade?",
                     acceptedAnswer: {
                       "@type": "Answer",
-                      text: "Ajay Autade is an expert DevOps & Cloud Engineer from Chhatrapati Sambhajinagar, Maharashtra, India. He holds a B.Tech in CSE from MGM's Jawaharlal Nehru Engineering College (MGM JNEC) and specializes in AWS, Kubernetes, Docker, Terraform, CI/CD, DevSecOps, and MLOps.",
+                      text: "Ajay Autade is an expert DevOps & Cloud Engineer from Chhatrapati Sambhajinagar, Maharashtra, India. He holds a B.Tech in CSE and specializes in AWS, Kubernetes, Docker, Terraform, CI/CD, DevSecOps, and MLOps.",
                     },
                   },
                   {

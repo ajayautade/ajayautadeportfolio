@@ -121,7 +121,7 @@ export default function ContactSection() {
 
         {/* Availability Banner */}
         <ScrollReveal delay={0.1}>
-          <div className="mx-auto max-w-2xl mb-10">
+          <div className="mx-auto mb-10">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 rounded-2xl border border-success/20 bg-success/5 p-4 sm:p-5">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-3 w-3">
@@ -148,7 +148,7 @@ export default function ContactSection() {
 
         {/* Quick Actions */}
         <ScrollReveal delay={0.15}>
-          <div className="mx-auto max-w-3xl mb-10 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="mx-auto mb-10 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <motion.a
               href={`mailto:${personalInfo.email}`}
               className="group card p-4 sm:p-5 flex flex-row sm:flex-col items-center sm:items-center text-left sm:text-center gap-3 sm:gap-0 hover:border-primary/40 transition-all duration-300"
@@ -215,7 +215,7 @@ export default function ContactSection() {
 
         {/* Send a Message Form */}
         <ScrollReveal delay={0.2}>
-          <div className="mx-auto max-w-2xl">
+          <div className="w-full">
             <div className="card p-6 sm:p-8 relative overflow-hidden">
               {/* Top gradient bar */}
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-accent to-success" />

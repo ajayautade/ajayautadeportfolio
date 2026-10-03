@@ -27,7 +27,7 @@ export default function CertificationsClient() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="max-w-3xl mx-auto text-center"
+            className="max-w-4xl lg:max-w-5xl mx-auto text-center"
           >
             {/* Back to Portfolio Link */}
             <div className="mb-6 flex justify-center">
@@ -53,11 +53,6 @@ export default function CertificationsClient() {
               <span className="gradient-text">Certifications</span> &amp;{" "}
               <span className="text-text-primary">Verified Credentials</span>
             </h1>
-
-            {/* Subtitle */}
-            <p className="mt-4 text-sm sm:text-base text-text-secondary max-w-2xl mx-auto leading-relaxed">
-              Targeted preparation for top industry certifications (AWS Solutions Architect, CKA, Terraform Associate) combined with 15+ verified course credentials from IBM, DeepLearning.AI, Coursera, and Udemy.
-            </p>
 
             {/* Credibility Stats Pills */}
             <div className="mt-7 flex flex-wrap items-center justify-center gap-3">

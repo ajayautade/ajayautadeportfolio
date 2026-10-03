@@ -438,7 +438,7 @@ What I bring that someone with 10 years might not: I have zero legacy habits. I'
 
 I'm also hungry in a way that experienced engineers sometimes aren't. I'm currently preparing for three certifications simultaneously — AWS Solutions Architect, CKA, and Terraform Associate — because I want the depth, not just the breadth.
 
-And practically speaking, I bring strong fundamentals from my CS degree at MGM JNEC — data structures, networking, OS internals — which means I can debug at the system level, not just the YAML level.
+And practically speaking, I bring strong fundamentals from my Computer Science degree — data structures, networking, OS internals — which means I can debug at the system level, not just the YAML level.
 
 I'm not pretending to know everything. I haven't managed a 500-person infrastructure team. But for a team that needs someone who can design, build, secure, and monitor cloud infrastructure from day one — I can do that, and I've proven it.`,
     techTags: [

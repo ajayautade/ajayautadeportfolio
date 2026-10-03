@@ -14,7 +14,6 @@ export const personalInfo = {
     "I believe in Infrastructure as Code, GitOps-driven deployments, and monitoring-first design. Every pipeline I build is reproducible, every server is disposable, and every deployment is a non-event.",
   education: {
     degree: "B.Tech in Computer Science and Engineering",
-    college: "MGM's Jawaharlal Nehru Engineering College",
     status: "Graduate",
   },
 };

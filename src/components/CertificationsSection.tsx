@@ -25,12 +25,12 @@ export default function CertificationsSection() {
           />
         </ScrollReveal>
 
-        <div className="mx-auto max-w-3xl grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {certifications.map((cert, index) => {
             const Icon = iconMap[cert.icon] || BookOpen;
             return (
               <ScrollReveal key={cert.name} delay={index * 0.1}>
-                <div className="card p-4 sm:p-5 flex flex-col items-center text-center group relative overflow-hidden">
+                <div className="card p-5 sm:p-6 flex flex-col items-center text-center group relative overflow-hidden h-full">
                   {/* Subtle top accent */}
                   <div
                     className={`absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r ${
