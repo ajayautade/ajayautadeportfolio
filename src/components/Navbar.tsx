@@ -174,14 +174,13 @@ export default function Navbar() {
                 >
                   <TerminalIcon className="h-4 w-4" />
                 </button>
-                <a 
-                  href="/resume.pdf" 
-                  download="Ajay_Autade_DevOps_Engineer_Resume.pdf" 
+                <Link 
+                  href="/resume" 
                   className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md bg-primary text-white hover:bg-primary/90 transition-colors"
                 >
                   <FileText className="h-4 w-4" />
                   {t("nav.resume")}
-                </a>
+                </Link>
                 <LanguageSwitcher />
                 <ThemeToggle />
               </div>
@@ -264,18 +263,29 @@ export default function Navbar() {
               })}
               
               {/* Mobile Resume Button */}
-              <motion.a
-                href="/resume.pdf"
-                download="Ajay_Autade_DevOps_Engineer_Resume.pdf"
-                onClick={() => setIsMobileOpen(false)}
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.05 + 0.1 }}
-                className="flex w-full max-w-xs items-center justify-center gap-2.5 rounded-xl bg-primary py-4 px-6 text-base font-semibold text-white transition-colors hover:bg-primary/90 mt-8 shadow-lg"
+                className="w-full max-w-xs flex flex-col items-center gap-2.5 mt-8"
               >
-                <FileText className="h-5 w-5" />
-                {t("nav.downloadResume")}
-              </motion.a>
+                <Link
+                  href="/resume"
+                  onClick={() => setIsMobileOpen(false)}
+                  className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-primary py-3.5 px-6 text-base font-semibold text-white transition-colors hover:bg-primary/90 shadow-lg"
+                >
+                  <FileText className="h-5 w-5" />
+                  {t("nav.resume")}
+                </Link>
+                <a
+                  href="/ajay_autade_devops_9545034120.pdf"
+                  download="ajay_autade_devops_9545034120.pdf"
+                  onClick={() => setIsMobileOpen(false)}
+                  className="text-xs text-text-secondary hover:text-primary transition-colors py-1 underline underline-offset-4"
+                >
+                  {t("nav.downloadResume")} (PDF)
+                </a>
+              </motion.div>
             </nav>
           </motion.div>
         )}

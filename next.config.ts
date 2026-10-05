@@ -33,10 +33,10 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: [
-          // Prevents clickjacking — blocks your site from being embedded in iframes
+          // Prevents clickjacking from external sites while allowing same-origin embedding for resume preview
           {
             key: "X-Frame-Options",
-            value: "DENY",
+            value: "SAMEORIGIN",
           },
           // Prevents MIME-type sniffing attacks
           {
@@ -68,8 +68,10 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: blob: https:",
+              "frame-src 'self' blob: data:",
+              "object-src 'self' blob: data:",
               "connect-src 'self' https://api.web3forms.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
-              "frame-ancestors 'none'",
+              "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self' https://api.web3forms.com",
               "upgrade-insecure-requests",
@@ -79,6 +81,32 @@ const nextConfig: NextConfig = {
           {
             key: "X-DNS-Prefetch-Control",
             value: "on",
+          },
+        ],
+      },
+      {
+        source: "/resume.pdf",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/pdf",
+          },
+          {
+            key: "Content-Disposition",
+            value: 'inline; filename="ajay_autade_devops_9545034120.pdf"',
+          },
+        ],
+      },
+      {
+        source: "/ajay_autade_devops_9545034120.pdf",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/pdf",
+          },
+          {
+            key: "Content-Disposition",
+            value: 'inline; filename="ajay_autade_devops_9545034120.pdf"',
           },
         ],
       },

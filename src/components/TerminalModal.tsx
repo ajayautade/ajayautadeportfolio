@@ -87,12 +87,19 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
       case "resume":
         // Trigger download
         const a = document.createElement("a");
-        a.href = "/resume.pdf";
-        a.download = "Ajay_Autade_Resume.pdf";
+        a.href = "/ajay_autade_devops_9545034120.pdf";
+        a.download = "ajay_autade_devops_9545034120.pdf";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        output = <p className="text-success">Downloading resume...</p>;
+        output = (
+          <p className="text-success">
+            Downloading resume (ajay_autade_devops_9545034120.pdf)... View online at{" "}
+            <a href="/resume" className="underline text-accent">
+              /resume
+            </a>
+          </p>
+        );
         break;
       case "contact":
         output = (

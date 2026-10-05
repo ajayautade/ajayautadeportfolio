@@ -130,8 +130,8 @@ export default function CoverLetterClient() {
             {/* Actions */}
             <div className="mt-8 mb-4 sm:mb-6 flex flex-wrap items-center justify-center gap-3">
               <a
-                href="/resume.pdf"
-                download="Ajay_Autade_DevOps_Engineer_Resume.pdf"
+                href="/ajay_autade_devops_9545034120.pdf"
+                download="ajay_autade_devops_9545034120.pdf"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-medium text-white hover:bg-primary/90 transition-colors shadow-sm"
               >
                 <Download className="h-3.5 w-3.5" />
@@ -463,8 +463,8 @@ export default function CoverLetterClient() {
                       Get in Touch
                     </Link>
                     <a
-                      href="/resume.pdf"
-                      download="Ajay_Autade_DevOps_Engineer_Resume.pdf"
+                      href="/ajay_autade_devops_9545034120.pdf"
+                      download="ajay_autade_devops_9545034120.pdf"
                       className="btn-outline"
                     >
                       <Download className="h-4 w-4" />

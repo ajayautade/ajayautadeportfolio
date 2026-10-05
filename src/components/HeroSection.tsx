@@ -6,6 +6,7 @@ import IDETyping from "./ui/IDETyping";
 import ParticleNetwork from "./ui/ParticleNetwork";
 import { ArrowDown, FileText, Eye } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { personalInfo, stats } from "@/lib/data";
 import { useLanguage } from "@/lib/LanguageContext";
 
@@ -132,10 +133,10 @@ export default function HeroSection() {
                 <Eye className="h-4 w-4" />
                 {t("hero.viewProjects")}
               </a>
-              <a href="/resume.pdf" download="Ajay_Autade_DevOps_Engineer_Resume.pdf" className="btn-outline">
+              <Link href="/resume" className="btn-outline">
                 <FileText className="h-4 w-4" />
-                {t("hero.downloadResume")}
-              </a>
+                {t("nav.resume")}
+              </Link>
               <a href="/coverletter" className="btn-outline">
                 <FileText className="h-4 w-4" />
                 Cover Letter
