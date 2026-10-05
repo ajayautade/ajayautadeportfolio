@@ -366,13 +366,9 @@ export default function ResumeClient() {
             <div className="space-y-6">
               <div className="p-6 rounded-2xl border border-border bg-surface text-center">
                 <FileText className="h-12 w-12 text-primary mx-auto mb-3" />
-                <h3 className="text-base font-bold text-text-primary">
+                <h3 className="text-base font-bold text-text-primary mb-4">
                   Official PDF Resume
                 </h3>
-                <p className="text-xs text-text-secondary mt-1 mb-5">
-                  Formatted specifically for recruiters and ATS systems with
-                  single-page layout.
-                </p>
 
                 <a
                   href={RESUME_FILE_PATH}
