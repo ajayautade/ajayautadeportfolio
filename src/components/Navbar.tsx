@@ -79,6 +79,10 @@ export default function Navbar() {
       if (e.key === "Escape") {
         setIsMobileOpen(false);
       }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsTerminalOpen((prev) => !prev);
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -180,11 +184,15 @@ export default function Navbar() {
               <div className="ml-2 flex items-center gap-2">
                 <button
                   onClick={() => setIsTerminalOpen(true)}
-                  className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-text-tertiary hover:text-text-primary hover:border-primary/50 transition-colors"
-                  aria-label="Open Terminal"
-                  title="Open Terminal"
+                  className="hidden sm:inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-border bg-surface-elevated/80 text-text-secondary hover:text-text-primary hover:border-primary/50 transition-all text-xs shadow-xs"
+                  aria-label="Open Interactive Terminal"
+                  title="Open Terminal (⌘K)"
                 >
-                  <TerminalIcon className="h-4 w-4" />
+                  <TerminalIcon className="h-3.5 w-3.5 text-primary" />
+                  <span className="hidden lg:inline text-[11px] font-medium">Terminal</span>
+                  <kbd className="hidden lg:inline-flex items-center rounded border border-border/80 bg-surface px-1.5 py-0.5 text-[9px] font-mono text-text-tertiary">
+                    ⌘K
+                  </kbd>
                 </button>
                 <LanguageSwitcher />
                 <ThemeToggle />
