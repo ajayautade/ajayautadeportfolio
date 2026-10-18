@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import IDETyping from "./ui/IDETyping";
 import ParticleNetwork from "./ui/ParticleNetwork";
-import { ArrowDown, Eye, Sparkles } from "lucide-react";
+import { ArrowDown, Eye, Sparkles, Copy, Check, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { personalInfo, stats } from "@/lib/data";
@@ -51,14 +51,24 @@ function AnimatedCounter({ value, label, suffix = "+" }: { value: number; label:
 
 export default function HeroSection() {
   const { t } = useLanguage();
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(personalInfo.email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2200);
+  };
 
   return (
     <section
       id="home"
-      className="relative min-h-[100dvh] flex flex-col justify-center pt-20 sm:pt-24 pb-8 sm:pb-12"
+      className="relative min-h-[100dvh] flex flex-col justify-center pt-20 sm:pt-24 pb-8 sm:pb-12 overflow-hidden bg-grid-mesh"
     >
+      {/* Ambient Radial Spotlight Layer */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-primary/15 via-indigo-500/10 to-accent/15 blur-[130px] pointer-events-none -z-10" />
+
       {/* Particle network background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <ParticleNetwork />
         <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-accent/5 blur-3xl" />
@@ -117,16 +127,16 @@ export default function HeroSection() {
               <IDETyping />
             </motion.div>
 
-            {/* Buttons */}
+            {/* Buttons & Quick Contact Action */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="mt-5 flex flex-wrap gap-3 justify-center lg:justify-start items-center"
+              className="mt-5 flex flex-wrap gap-2.5 sm:gap-3 justify-center lg:justify-start items-center"
             >
               <a 
                 href="#projects" 
-                className="btn-primary flex items-center gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/35"
+                className="btn-primary flex items-center gap-2 shadow-lg shadow-primary/25 hover:shadow-primary/40 font-semibold"
                 onClick={(e) => {
                   e.preventDefault();
                   const el = document.querySelector("#projects");
@@ -142,11 +152,31 @@ export default function HeroSection() {
 
               <Link 
                 href="/services" 
-                className="btn-outline border-primary/40 bg-surface/60 text-text-primary hover:bg-primary/10 hover:border-primary flex items-center gap-2 shadow-sm"
+                className="btn-outline border-primary/40 bg-surface/70 text-text-primary hover:bg-primary/10 hover:border-primary flex items-center gap-2 shadow-xs"
               >
                 <Sparkles className="h-4 w-4 text-primary" />
                 <span>Engineering Services</span>
               </Link>
+
+              {/* 1-Click Copy Email Micro-interaction */}
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="btn-outline border-border/80 bg-surface/50 text-text-secondary hover:text-text-primary hover:border-border text-xs py-2 px-3 flex items-center gap-1.5 transition-all cursor-pointer"
+                title="Click to copy email address"
+              >
+                {copiedEmail ? (
+                  <>
+                    <Check className="h-3.5 w-3.5 text-success" />
+                    <span className="text-success font-medium">Copied Email!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3.5 w-3.5 text-text-tertiary" />
+                    <span className="text-[11px] font-mono">{personalInfo.email}</span>
+                  </>
+                )}
+              </button>
             </motion.div>
 
             {/* Stats */}
