@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { ExternalLink } from "lucide-react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { ExternalLink, Layers, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import ScrollReveal from "./ui/ScrollReveal";
 import SectionHeading from "./ui/SectionHeading";
 import { projects, personalInfo } from "@/lib/data";
@@ -21,9 +22,17 @@ const projectDescKeys: Record<number, { desc: string; longDesc: string }> = {
   2: { desc: "projects.proj3.desc", longDesc: "projects.proj3.longDesc" },
 };
 
+const projectCategories = [
+  { id: "all", label: "All Projects" },
+  { id: "cicd", label: "CI/CD & GitOps" },
+  { id: "k8s", label: "Kubernetes & Cloud" },
+  { id: "web", label: "Full-Stack & Web" },
+];
+
 export default function ProjectsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const { t } = useLanguage();
 
   const handleScroll = useCallback(() => {
@@ -112,6 +121,26 @@ export default function ProjectsSection() {
     );
   };
 
+  const filteredProjects = useMemo(() => {
+    if (selectedCategory === "all") return projects;
+    if (selectedCategory === "cicd") {
+      return projects.filter((p) =>
+        p.techStack.some((tech) => ["GitHub Actions", "ArgoCD", "GitOps", "Jenkins"].includes(tech))
+      );
+    }
+    if (selectedCategory === "k8s") {
+      return projects.filter((p) =>
+        p.techStack.some((tech) => ["Kubernetes", "Helm", "AWS ECR", "AWS S3", "Terraform"].includes(tech))
+      );
+    }
+    if (selectedCategory === "web") {
+      return projects.filter((p) =>
+        p.techStack.some((tech) => ["Django", "Python", "Docker Compose", "PostgreSQL"].includes(tech))
+      );
+    }
+    return projects;
+  }, [selectedCategory]);
+
   return (
     <section id="projects" className="py-12 sm:py-20 lg:py-24">
       <div className="section-container">
@@ -122,6 +151,38 @@ export default function ProjectsSection() {
           />
         </ScrollReveal>
 
+        {/* Category Filter Pills (Pattern from Vercel & Stripe) */}
+        <ScrollReveal delay={0.1}>
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-8 sm:mb-10">
+            {projectCategories.map((cat) => {
+              const isSelected = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer select-none ${
+                    isSelected
+                      ? "text-primary"
+                      : "text-text-secondary hover:text-text-primary bg-surface/80 border border-border"
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.div
+                      layoutId="active-project-cat"
+                      className="absolute inset-0 rounded-full bg-primary/15 border border-primary/40 shadow-xs"
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-1.5">
+                    {cat.id === "all" && <Layers className="h-3.5 w-3.5" />}
+                    {cat.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </ScrollReveal>
+
         {/* Mobile: Horizontal swipeable carousel */}
         <div className="sm:hidden">
           <ScrollReveal>
@@ -130,7 +191,7 @@ export default function ProjectsSection() {
               className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-5 px-5 hide-scrollbar"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
-              {projects.map((project, index) => (
+              {filteredProjects.map((project, index) => (
                 <div
                   key={project.title}
                   className="card flex flex-col p-4 snap-center shrink-0"
@@ -152,11 +213,11 @@ export default function ProjectsSection() {
                 <svg viewBox="0 0 16 16" fill="currentColor" className="h-3.5 w-3.5"><path d="M10.5 3L6 8l4.5 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
               <span className="text-xs font-medium text-text-tertiary tabular-nums">
-                {activeIndex + 1} <span className="text-text-tertiary/50">/</span> {projects.length}
+                {activeIndex + 1} <span className="text-text-tertiary/50">/</span> {filteredProjects.length}
               </span>
               <button
-                onClick={() => scrollToCard(Math.min(projects.length - 1, activeIndex + 1))}
-                disabled={activeIndex === projects.length - 1}
+                onClick={() => scrollToCard(Math.min(filteredProjects.length - 1, activeIndex + 1))}
+                disabled={activeIndex === filteredProjects.length - 1}
                 className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-text-tertiary disabled:opacity-30 transition-opacity"
                 aria-label="Next project"
               >
@@ -166,17 +227,25 @@ export default function ProjectsSection() {
           </ScrollReveal>
         </div>
 
-        {/* Desktop: Grid layout */}
-        <div className="hidden sm:grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <ScrollReveal key={project.title} delay={index * 0.1}>
-              <div className="card flex h-full flex-col p-5 sm:p-6 hover:border-primary/40 hover:-translate-y-1.5 transition-all duration-300 relative group overflow-hidden shadow-sm hover:shadow-lg hover:shadow-primary/5">
+        {/* Desktop: Grid layout with Motion Layout Animation */}
+        <motion.div layout className="hidden sm:grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.25 }}
+                className="card flex h-full flex-col p-5 sm:p-6 hover:border-primary/40 hover:-translate-y-1.5 transition-all duration-300 relative group overflow-hidden shadow-sm hover:shadow-lg hover:shadow-primary/5"
+              >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-indigo-500 to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 {renderProjectCard(project, index)}
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
         {/* View All */}
         <ScrollReveal>
