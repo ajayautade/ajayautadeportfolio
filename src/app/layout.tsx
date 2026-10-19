@@ -440,6 +440,14 @@ export default function RootLayout({
                 publisher: {
                   "@id": "https://ajayautade.com/#person",
                 },
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: "https://ajayautade.com/?q={search_term_string}",
+                  },
+                  "query-input": "required name=search_term_string",
+                },
                 inLanguage: ["en", "de", "es", "fr", "pt", "mr", "hi", "zh"],
               },
               {
@@ -491,8 +499,8 @@ export default function RootLayout({
                   {
                     "@type": "ListItem",
                     position: 6,
-                    name: "Cover Letter",
-                    item: "https://ajayautade.com/coverletter",
+                    name: "Resume & Cover Letter",
+                    item: "https://ajayautade.com/resume",
                   },
                 ],
               },

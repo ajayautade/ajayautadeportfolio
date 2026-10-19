@@ -1,71 +1,132 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, ArrowLeft, User, Mail, Phone, FileText, Check } from "lucide-react";
+import {
+  X,
+  Send,
+  ArrowLeft,
+  User,
+  Mail,
+  Building,
+  Globe,
+  Clock,
+  ShieldCheck,
+  Copy,
+  CheckCheck,
+  FileCode,
+  CheckCircle2,
+} from "lucide-react";
 import { useCart } from "./CartProvider";
-import { formatPrice } from "@/lib/services-data";
 
 export default function CheckoutForm() {
-  const { state, closeCheckout, totalPrice, clearCart } = useCart();
+  const { state, closeCheckout, clearCart } = useCart();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+    company: "",
+    timezone: "US Eastern (EST/EDT)",
+    preferredChannel: "Slack Channel / Huddle",
+    timeline: "Within 1–2 Weeks",
+    requireNda: true,
     projectDescription: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const { isCheckoutOpen } = state;
+  // Handle Escape key & body scroll lock
+  // Use effect for keyboard Escape and body scroll lock
+  useEffect(() => {
+    if (isCheckoutOpen) {
+      document.body.style.overflow = "hidden";
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          closeCheckout();
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isCheckoutOpen, closeCheckout]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const value =
+      e.target.type === "checkbox"
+        ? (e.target as HTMLInputElement).checked
+        : e.target.value;
+    setFormData((prev) => ({ ...prev, [e.target.name]: value }));
+  };
+
+  const getEmailBody = () => {
+    const itemsList = state.items
+      .map(
+        (item) =>
+          `• ${item.name} [${item.type.toUpperCase()}]${
+            item.deliveryEstimate ? ` — Est: ${item.deliveryEstimate}` : ""
+          }`
+      )
+      .join("\n");
+
+    return `Hi Ajay,
+
+We would like to request a formal technical proposal and Statement of Work (SOW) for an engineering engagement.
+
+--- CONFIGURED SCOPE & CAPABILITIES ---
+${itemsList || "• Full Architecture Consultation & Scoping"}
+
+--- ORGANIZATION DETAILS ---
+Name: ${formData.name}
+Organization / Company: ${formData.company || "N/A"}
+Work Email: ${formData.email}
+Timezone / Region: ${formData.timezone}
+Preferred Communication Channel: ${formData.preferredChannel}
+Target Start / Completion Horizon: ${formData.timeline}
+Mutual NDA Requested Prior to Kickoff: ${formData.requireNda ? "YES" : "NO"}
+
+--- PROJECT OBJECTIVES & ARCHITECTURE SPECIFICATIONS ---
+${formData.projectDescription || "Please provide recommendations based on the selected capabilities above."}
+
+Looking forward to your architecture proposal and scheduling our initial technical discovery session.
+
+Best regards,
+${formData.name}`.trim();
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Build the email body
-    const itemsList = state.items
-      .map((item) => `• ${item.name} (${item.type}) — ${formatPrice(item.price)}`)
-      .join("\n");
-
-    const emailBody = `
-Hi Ajay,
-
-I'd like to inquire about your DevOps services.
-
---- ORDER SUMMARY ---
-${itemsList}
-
-Total: ${formatPrice(totalPrice)}
-
---- MY DETAILS ---
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-
---- PROJECT DESCRIPTION ---
-${formData.projectDescription}
-
-Looking forward to hearing from you!
-    `.trim();
-
+    const emailBody = getEmailBody();
     const subject = encodeURIComponent(
-      `DevOps Service Inquiry — ${formatPrice(totalPrice)}`
+      `[SOW & Proposal Request] Engineering Engagement — ${
+        formData.company || formData.name
+      }`
     );
     const body = encodeURIComponent(emailBody);
     const mailtoUrl = `mailto:contact@ajayautade.com?subject=${subject}&body=${body}`;
 
-    // Open the email client
     window.open(mailtoUrl, "_blank");
     setIsSubmitted(true);
   };
 
-  const handleDone = () => {
-    setIsSubmitted(false);
+  const handleCopyInquiry = () => {
+    navigator.clipboard.writeText(getEmailBody());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
+  const handleReset = () => {
     clearCart();
-    closeCheckout();
+    setIsSubmitted(false);
   };
 
   return (
@@ -78,202 +139,294 @@ Looking forward to hearing from you!
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeCheckout}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md"
           />
 
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 z-50 w-auto sm:w-full sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-bg border border-border rounded-2xl shadow-2xl"
-          >
-            {/* Header */}
-            <div className="sticky top-0 z-10 bg-bg border-b border-border p-5 flex items-center justify-between">
-              <div className="flex items-center gap-3">
+          {/* Modal Container */}
+          <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="w-full max-w-2xl bg-bg border border-border rounded-2xl shadow-2xl overflow-hidden pointer-events-auto my-8 max-h-[90vh] flex flex-col"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 border-b border-border bg-surface-elevated/40">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <FileCode className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-bold text-text-primary">
+                      {isSubmitted
+                        ? "Proposal Request Ready"
+                        : "Request Statement of Work & Proposal"}
+                    </h2>
+                    <p className="text-xs text-text-secondary">
+                      {isSubmitted
+                        ? "Your technical scope brief has been prepared"
+                        : "Review your configured capabilities and submit your project requirements"}
+                    </p>
+                  </div>
+                </div>
+
                 <button
                   onClick={closeCheckout}
                   className="flex h-8 w-8 items-center justify-center rounded-lg border border-border hover:bg-surface-elevated transition-colors"
+                  aria-label="Close modal"
                 >
-                  <ArrowLeft className="h-4 w-4" />
+                  <X className="h-4 w-4" />
                 </button>
-                <h2 className="text-lg font-bold text-text-primary">Checkout</h2>
               </div>
-              <button
-                onClick={closeCheckout}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-border hover:bg-surface-elevated transition-colors"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
 
-            {isSubmitted ? (
-              /* Success State */
-              <div className="p-8 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10 mx-auto mb-4">
-                  <Check className="h-8 w-8 text-green-400" />
-                </div>
-                <h3 className="text-xl font-bold text-text-primary mb-2">
-                  Inquiry Sent!
-                </h3>
-                <p className="text-sm text-text-secondary max-w-sm mx-auto mb-6">
-                  Your service inquiry has been sent via email. I&apos;ll get back to you
-                  within 24 hours with a detailed proposal.
-                </p>
-                <button
-                  onClick={handleDone}
-                  className="px-6 py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-colors"
-                >
-                  Done
-                </button>
-              </div>
-            ) : (
-              <div className="p-5 sm:p-6">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  {/* Order Summary */}
-                  <div>
-                    <h3 className="text-sm font-semibold text-text-primary mb-3 uppercase tracking-wider">
-                      Order Summary
-                    </h3>
-                    <div className="space-y-2">
-                      {state.items.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex items-center justify-between py-2 border-b border-border/50"
-                        >
-                          <div>
-                            <p className="text-sm font-medium text-text-primary">
-                              {item.name}
-                            </p>
-                            <p className="text-[10px] text-text-tertiary uppercase">
-                              {item.type}
-                            </p>
-                          </div>
-                          <p className="text-sm font-semibold text-text-primary">
-                            {formatPrice(item.price)}
-                          </p>
-                        </div>
-                      ))}
+              {/* Body */}
+              <div className="flex-1 overflow-y-auto p-6 sm:p-8">
+                {isSubmitted ? (
+                  <div className="text-center py-6 space-y-6">
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-success/15 text-success">
+                      <CheckCircle2 className="h-10 w-10" />
                     </div>
-                    <div className="flex items-center justify-between mt-4 pt-3 border-t border-border">
-                      <span className="text-sm font-semibold text-text-secondary">
-                        Total
-                      </span>
-                      <span className="text-xl font-bold text-primary">
-                        {formatPrice(totalPrice)}
-                      </span>
+
+                    <div>
+                      <h3 className="text-xl font-bold text-text-primary">
+                        Your Proposal Request is Ready!
+                      </h3>
+                      <p className="mt-2 text-sm text-text-secondary max-w-md mx-auto leading-relaxed">
+                        Your default email client should have opened with your full technical specification. If not, copy the formatted scope brief below and email it to{" "}
+                        <strong className="text-text-primary">contact@ajayautade.com</strong>.
+                      </p>
+                    </div>
+
+                    {/* Pre-formatted block for copying */}
+                    <div className="p-4 rounded-xl bg-surface border border-border text-left">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-text-tertiary">
+                          Formatted Technical Scope Brief
+                        </span>
+                        <button
+                          type="button"
+                          onClick={handleCopyInquiry}
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                        >
+                          {copied ? (
+                            <>
+                              <CheckCheck className="h-3.5 w-3.5" />
+                              <span>Copied to Clipboard!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="h-3.5 w-3.5" />
+                              <span>Copy Brief</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                      <pre className="text-xs text-text-secondary font-mono whitespace-pre-wrap max-h-48 overflow-y-auto p-3 rounded-lg bg-surface-elevated">
+                        {getEmailBody()}
+                      </pre>
+                    </div>
+
+                    <div className="pt-4 flex items-center justify-center gap-3">
+                      <button
+                        onClick={handleReset}
+                        className="btn-outline text-xs px-5 py-2.5"
+                      >
+                        Start New Scope Brief
+                      </button>
+                      <button
+                        onClick={closeCheckout}
+                        className="btn-primary text-xs px-6 py-2.5"
+                      >
+                        Done
+                      </button>
                     </div>
                   </div>
-
-                  {/* Form */}
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <h3 className="text-sm font-semibold text-text-primary mb-3 uppercase tracking-wider">
-                      Your Details
-                    </h3>
-
-                    {/* Name */}
-                    <div>
-                      <label
-                        htmlFor="checkout-name"
-                        className="text-xs text-text-tertiary font-medium mb-1.5 flex items-center gap-1.5"
-                      >
-                        <User className="h-3 w-3" />
-                        Name
-                      </label>
-                      <input
-                        id="checkout-name"
-                        name="name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Your name"
-                        className="w-full px-4 py-2.5 rounded-lg bg-surface border border-border text-text-primary text-sm placeholder:text-text-tertiary focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-colors"
-                      />
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Scope Overview Card */}
+                    <div className="p-4 rounded-xl bg-surface-elevated/70 border border-border/80">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-text-tertiary block mb-2">
+                        Configured Capabilities ({state.items.length})
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {state.items.map((item) => (
+                          <span
+                            key={item.id}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface border border-border text-xs font-medium text-text-primary"
+                          >
+                            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                            <span>{item.name}</span>
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-                    {/* Email */}
-                    <div>
-                      <label
-                        htmlFor="checkout-email"
-                        className="text-xs text-text-tertiary font-medium mb-1.5 flex items-center gap-1.5"
-                      >
-                        <Mail className="h-3 w-3" />
-                        Email
-                      </label>
-                      <input
-                        id="checkout-email"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="you@example.com"
-                        className="w-full px-4 py-2.5 rounded-lg bg-surface border border-border text-text-primary text-sm placeholder:text-text-tertiary focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-colors"
-                      />
+                    {/* Inputs Grid */}
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div>
+                        <label className="block text-xs font-bold text-text-primary mb-1.5">
+                          Full Name <span className="text-red-400">*</span>
+                        </label>
+                        <div className="relative">
+                          <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-tertiary" />
+                          <input
+                            type="text"
+                            name="name"
+                            required
+                            placeholder="e.g. Sarah Jenkins"
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-surface text-text-primary placeholder:text-text-tertiary text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-text-primary mb-1.5">
+                          Work Email <span className="text-red-400">*</span>
+                        </label>
+                        <div className="relative">
+                          <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-tertiary" />
+                          <input
+                            type="email"
+                            name="email"
+                            required
+                            placeholder="sarah@company.com"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-surface text-text-primary placeholder:text-text-tertiary text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-text-primary mb-1.5">
+                          Company / Organization
+                        </label>
+                        <div className="relative">
+                          <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-tertiary" />
+                          <input
+                            type="text"
+                            name="company"
+                            placeholder="Acme Technologies Inc."
+                            value={formData.company}
+                            onChange={handleChange}
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-surface text-text-primary placeholder:text-text-tertiary text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-text-primary mb-1.5">
+                          Timezone / Region
+                        </label>
+                        <div className="relative">
+                          <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-tertiary" />
+                          <select
+                            name="timezone"
+                            value={formData.timezone}
+                            onChange={handleChange}
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-surface text-text-primary text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                          >
+                            <option value="US Eastern (EST/EDT)">US Eastern (EST/EDT)</option>
+                            <option value="US Pacific (PST/PDT)">US Pacific (PST/PDT)</option>
+                            <option value="US Central / Mountain (CST/MST)">US Central / Mountain (CST/MST)</option>
+                            <option value="Europe / UK (GMT/BST)">Europe / UK (GMT/BST)</option>
+                            <option value="Central Europe (CET/CEST)">Central Europe (CET/CEST)</option>
+                            <option value="Asia / India (IST)">Asia / India (IST)</option>
+                            <option value="Asia-Pacific (SGT/JST/AEST)">Asia-Pacific (SGT / JST / AEST)</option>
+                            <option value="Other Global Region">Other Global Region</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-text-primary mb-1.5">
+                          Preferred Communication Channel
+                        </label>
+                        <select
+                          name="preferredChannel"
+                          value={formData.preferredChannel}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-text-primary text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                        >
+                          <option value="Slack Channel / Huddle">Dedicated Slack Channel / Huddle</option>
+                          <option value="Google Meet / Zoom Call">Google Meet / Zoom Video Call</option>
+                          <option value="Microsoft Teams">Microsoft Teams</option>
+                          <option value="Email / Async">Email / Async Documentation</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-text-primary mb-1.5">
+                          Target Timeline
+                        </label>
+                        <select
+                          name="timeline"
+                          value={formData.timeline}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-text-primary text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                        >
+                          <option value="Immediate / Emergency Sprint (1–3 Days)">Immediate Sprint (1–3 Days)</option>
+                          <option value="Within 1–2 Weeks">Within 1–2 Weeks</option>
+                          <option value="Within 2–4 Weeks">Within 2–4 Weeks</option>
+                          <option value="Long-term Ongoing Retainer">Long-Term Retainer / Monthly SRE</option>
+                        </select>
+                      </div>
                     </div>
 
-                    {/* Phone */}
                     <div>
-                      <label
-                        htmlFor="checkout-phone"
-                        className="text-xs text-text-tertiary font-medium mb-1.5 flex items-center gap-1.5"
-                      >
-                        <Phone className="h-3 w-3" />
-                        Phone
-                      </label>
-                      <input
-                        id="checkout-phone"
-                        name="phone"
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="+91 XXXXXXXXXX"
-                        className="w-full px-4 py-2.5 rounded-lg bg-surface border border-border text-text-primary text-sm placeholder:text-text-tertiary focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-colors"
-                      />
-                    </div>
-
-                    {/* Project Description */}
-                    <div>
-                      <label
-                        htmlFor="checkout-project"
-                        className="text-xs text-text-tertiary font-medium mb-1.5 flex items-center gap-1.5"
-                      >
-                        <FileText className="h-3 w-3" />
-                        Project Description
+                      <label className="block text-xs font-bold text-text-primary mb-1.5">
+                        Technical Requirements &amp; Existing Tech Stack
                       </label>
                       <textarea
-                        id="checkout-project"
                         name="projectDescription"
-                        required
+                        rows={3}
+                        placeholder="Brief overview of your architecture, goals, existing cloud provider (AWS/GCP), code repositories, or specific bottlenecks..."
                         value={formData.projectDescription}
                         onChange={handleChange}
-                        placeholder="Tell me about your project..."
-                        rows={3}
-                        className="w-full px-4 py-2.5 rounded-lg bg-surface border border-border text-text-primary text-sm placeholder:text-text-tertiary focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-colors resize-none"
+                        className="w-full p-3.5 rounded-xl border border-border bg-surface text-text-primary placeholder:text-text-tertiary text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary resize-none leading-relaxed"
                       />
                     </div>
 
-                    {/* Submit */}
-                    <button
-                      type="submit"
-                      className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm hover:opacity-90 transition-opacity shadow-lg shadow-primary/20"
-                    >
-                      <Send className="h-4 w-4" />
-                      Send Inquiry
-                    </button>
+                    {/* NDA Checkbox */}
+                    <div className="flex items-center gap-2.5 p-3 rounded-xl bg-surface-elevated/60 border border-border">
+                      <input
+                        type="checkbox"
+                        id="requireNda"
+                        name="requireNda"
+                        checked={formData.requireNda}
+                        onChange={handleChange}
+                        className="h-4 w-4 rounded text-primary focus:ring-primary border-border bg-surface cursor-pointer"
+                      />
+                      <label
+                        htmlFor="requireNda"
+                        className="text-xs text-text-secondary cursor-pointer select-none"
+                      >
+                        <strong className="text-text-primary">Request Mutual NDA:</strong> Please provide a standard mutual Non-Disclosure Agreement before technical repository access.
+                      </label>
+                    </div>
 
-                    <p className="text-[10px] text-text-tertiary text-center">
-                      This will open your email client with a pre-filled message.
-                      No payment is collected at this stage.
+                    {/* Submit Actions */}
+                    <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+                      <button
+                        type="submit"
+                        className="btn-primary w-full py-3 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
+                      >
+                        <Send className="h-4 w-4" />
+                        <span>Submit Architecture Proposal Request</span>
+                      </button>
+                    </div>
+
+                    <p className="text-[11px] text-center text-text-tertiary">
+                      All communications are strictly confidential. We respond with a tailored Statement of Work within 24 hours.
                     </p>
                   </form>
-                </div>
+                )}
               </div>
-            )}
-          </motion.div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>

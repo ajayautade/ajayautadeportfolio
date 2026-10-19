@@ -65,7 +65,7 @@ export default function IDETyping() {
   }, [currentLineIndex, currentCharIndex]);
 
   return (
-    <div className="hidden sm:block w-full max-w-md mx-auto lg:mx-0 mt-6 rounded-xl overflow-hidden border border-border bg-[#0d0d0d] shadow-2xl font-mono text-xs sm:text-sm text-left">
+    <div className="hidden sm:block w-full max-w-lg lg:max-w-xl mx-auto lg:mx-0 mt-6 rounded-xl overflow-hidden border border-border bg-[#0d0d0d] shadow-2xl font-mono text-xs sm:text-sm text-left">
       {/* IDE Header */}
       <div className="flex items-center gap-2 px-4 py-2 border-b border-white/10 bg-[#1a1a1a]">
         <div className="flex gap-1.5">
@@ -81,8 +81,8 @@ export default function IDETyping() {
         </div>
       </div>
 
-      {/* IDE Body */}
-      <div className="p-4 min-h-[180px]">
+      {/* IDE Body — fixed height ensures zero layout shift while code types */}
+      <div className="p-4 h-[300px] overflow-hidden">
         {displayedLines.map((line, i) => (
           <div key={i} className="flex leading-relaxed">
             <span className="w-6 text-text-tertiary select-none opacity-50 text-right mr-3">

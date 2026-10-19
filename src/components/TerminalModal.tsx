@@ -34,8 +34,17 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          onClose();
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   // Scroll within the terminal body only — no page scroll
   useEffect(() => {
@@ -53,11 +62,28 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
         output = (
           <div className="flex flex-col gap-1">
             <p>Available commands:</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">whoami</span>  - Display information about me</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">skills</span>  - List my technical skills</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">resume</span>  - Download my resume</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">contact</span> - Show contact information</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">clear</span>   - Clear the terminal screen</p>
+            <p className="text-text-tertiary"><span className="text-accent font-medium">whoami</span>    - Display information about me</p>
+            <p className="text-text-tertiary"><span className="text-accent font-medium">skills</span>    - List my technical skills</p>
+            <p className="text-text-tertiary"><span className="text-accent font-medium">services</span>  - Engineering practices &amp; consulting</p>
+            <p className="text-text-tertiary"><span className="text-accent font-medium">contact</span>   - Show contact information</p>
+            <p className="text-text-tertiary"><span className="text-accent font-medium">clear</span>     - Clear the terminal screen</p>
+          </div>
+        );
+        break;
+      case "services":
+        output = (
+          <div className="flex flex-col gap-1">
+            <p className="text-primary font-medium">Engineering Practices &amp; Solutions:</p>
+            <p className="text-text-secondary">• Cloud Architecture &amp; AWS Infrastructure (IaC)</p>
+            <p className="text-text-secondary">• GitOps CI/CD Delivery Engines (GitHub Actions, ArgoCD)</p>
+            <p className="text-text-secondary">• Event-Driven Business Automation (n8n, Python)</p>
+            <p className="text-text-secondary">• High-Performance Web &amp; Full-Stack SaaS Platforms</p>
+            <p className="text-text-tertiary mt-1">
+              Explore full practice specifications at:{" "}
+              <a href="/services" className="text-accent underline">
+                /services
+              </a>
+            </p>
           </div>
         );
         break;

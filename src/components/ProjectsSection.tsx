@@ -166,11 +166,12 @@ export default function ProjectsSection() {
           </ScrollReveal>
         </div>
 
-        {/* Desktop: Grid layout (unchanged) */}
+        {/* Desktop: Grid layout */}
         <div className="hidden sm:grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <ScrollReveal key={project.title} delay={index * 0.1}>
-              <div className="card flex h-full flex-col p-4 sm:p-5">
+              <div className="card flex h-full flex-col p-5 sm:p-6 hover:border-primary/40 hover:-translate-y-1.5 transition-all duration-300 relative group overflow-hidden shadow-sm hover:shadow-lg hover:shadow-primary/5">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-indigo-500 to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 {renderProjectCard(project, index)}
               </div>
             </ScrollReveal>

@@ -55,8 +55,8 @@ export default function ExperienceSection() {
             return (
               <ScrollReveal key={exp.company} delay={index * 0.15}>
                 <div className="relative mb-10 pl-10 md:pl-14">
-                  {/* Timeline Dot */}
-                  <div className="absolute left-[13px] top-6 h-3 w-3 rounded-full bg-primary md:left-[21px] timeline-dot-glow" />
+                  {/* Timeline Dot — centered directly on the 2px CI/CD line */}
+                  <div className="absolute left-4 md:left-6 top-6 h-3 w-3 -translate-x-[5px] rounded-full bg-primary timeline-dot-glow" />
 
                   <div className="card p-5 sm:p-6 relative z-10 border border-border/50 bg-surface/80 backdrop-blur-sm">
                     {/* Header */}

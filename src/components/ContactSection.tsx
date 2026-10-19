@@ -44,6 +44,7 @@ export default function ContactSection() {
   const [honeypot, setHoneypot] = useState(""); // Anti-spam honeypot
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [submitCount, setSubmitCount] = useState(0);
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const { t } = useLanguage();
@@ -58,6 +59,7 @@ export default function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
 
     // Honeypot check — if filled, it's a bot
     if (honeypot) {
@@ -69,6 +71,7 @@ export default function ContactSection() {
     // Rate limiting — max 3 submissions per 5 minutes
     const now = Date.now();
     if (now - lastSubmitTime < 300000 && submitCount >= 3) {
+      setErrorMessage("Submission limit reached. Please email directly at contact@ajayautade.com");
       return;
     }
 
@@ -99,9 +102,11 @@ export default function ContactSection() {
         setTimeout(() => setIsSubmitted(false), 5000);
       } else {
         console.error("Web3Forms Error:", result);
+        setErrorMessage("Unable to submit form. Please send an email directly to contact@ajayautade.com.");
       }
     } catch (error) {
       console.error("Error submitting form", error);
+      setErrorMessage("Network issue submitting form. Please send an email directly to contact@ajayautade.com.");
     } finally {
       setIsSubmitting(false);
     }
@@ -256,6 +261,7 @@ export default function ContactSection() {
                       id="contact-name"
                       required
                       maxLength={100}
+                      suppressHydrationWarning
                       value={formState.name}
                       onChange={(e) =>
                         setFormState((s) => ({ ...s, name: e.target.value }))
@@ -276,6 +282,7 @@ export default function ContactSection() {
                       id="contact-email"
                       required
                       maxLength={254}
+                      suppressHydrationWarning
                       value={formState.email}
                       onChange={(e) =>
                         setFormState((s) => ({ ...s, email: e.target.value }))
@@ -298,6 +305,7 @@ export default function ContactSection() {
                     id="contact-subject"
                     required
                     maxLength={200}
+                    suppressHydrationWarning
                     value={formState.subject}
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, subject: e.target.value }))
@@ -319,6 +327,7 @@ export default function ContactSection() {
                     required
                     maxLength={2000}
                     rows={5}
+                    suppressHydrationWarning
                     value={formState.message}
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, message: e.target.value }))
@@ -327,6 +336,15 @@ export default function ContactSection() {
                     placeholder={t("contact.placeholderMessage")}
                   />
                 </div>
+
+                {errorMessage && (
+                  <div className="mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-500">
+                    <span>{errorMessage}</span>{" "}
+                    <a href={`mailto:${personalInfo.email}`} className="font-bold underline ml-1">
+                      Click to Email Directly
+                    </a>
+                  </div>
+                )}
 
                 {/* Submit Button */}
                 <motion.button

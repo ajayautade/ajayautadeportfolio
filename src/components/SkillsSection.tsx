@@ -68,7 +68,7 @@ export default function SkillsSection() {
               const CategoryIcon = iconMap[category.icon] || Code;
               return (
                 <ScrollReveal key={category.title} delay={catIndex * 0.08}>
-                  <div className="card p-5 h-full">
+                  <div className="card p-5 h-full hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-elevated text-primary">
                         <CategoryIcon className="h-4 w-4" />

@@ -1,0 +1,77 @@
+# Ajay Autade — DevOps, Cloud Architecture & Platform Engineer
+
+> Official machine-readable profile and technical reference for AI assistants, search engines, and technical recruiters.
+
+## Overview
+Ajay Autade is a DevOps & Cloud Engineer specializing in AWS cloud infrastructure, Kubernetes container orchestration, automated zero-downtime CI/CD pipelines, Infrastructure as Code (Terraform & Ansible), DevSecOps, and MLOps deployment pipelines. He partners with technology teams and companies worldwide to build resilient, self-healing, and scalable infrastructure.
+
+- **Full Name:** Ajay Narendra Autade
+- **Title:** DevOps, Cloud Architecture & Platform Engineer
+- **Website:** https://ajayautade.com
+- **Email:** contact@ajayautade.com | ajayautade2@gmail.com
+- **Phone:** +91 9545034120
+- **Location:** Maharashtra, India (Available for worldwide remote roles and consultancies)
+- **LinkedIn:** https://www.linkedin.com/in/ajayautadepatil
+- **GitHub:** https://github.com/ajayautade
+
+---
+
+## Core Technical Competencies
+- **Cloud Providers:** Amazon Web Services (AWS) — EC2, EKS, ECR, S3, VPC, IAM, CloudWatch, Route53; Google Cloud Platform (GCP).
+- **Containerization & Orchestration:** Docker (multi-stage builds, 73% image compression), Kubernetes (EKS, Kind, Minikube), Helm package manager, Horizontal Pod Autoscaling (HPA), Ingress controllers.
+- **Infrastructure as Code (IaC):** Terraform (reusable modules, state locking with S3/DynamoDB, zero-drift), Ansible (configuration management & provisioning).
+- **CI/CD & GitOps:** GitHub Actions, Jenkins (Declarative pipelines), ArgoCD (GitOps continuous delivery, automated sync), SonarQube (static code analysis), Trivy (container vulnerability scanning).
+- **Observability & Monitoring:** Prometheus (PromQL metrics collection & alerting), Grafana (interactive operational dashboards), AWS CloudWatch.
+- **MLOps & AI Infrastructure:** End-to-end ML model deployment pipelines, inference tracking, GPU infrastructure configuration, automated model serving.
+- **Languages & Frameworks:** Python, Bash/Shell scripting, YAML, Next.js, TypeScript, FastAPI, Linux (Ubuntu, Debian, Alpine).
+
+---
+
+## Notable Engineering Projects
+1. **MLOps Sentiment Analyzer on AWS EKS:**
+   - Zero-touch GitOps deployment pipeline using GitHub Actions and ArgoCD.
+   - Slashed code-to-production deployment turnaround from 45 minutes to ~8 minutes.
+   - Multi-stage Docker optimization reducing image footprint by 73% (3 GB down to 800 MB).
+   - Kubernetes HPA automated scaling (2 to 10 pods) and 9 real-time inference telemetry metrics tracked via Prometheus and Grafana.
+
+2. **MoviesMonkey Cloud-Native Platform on AWS EKS:**
+   - Dual-pipeline CI/CD architecture featuring automated Trivy container vulnerability scanning.
+   - ArgoCD automated state synchronization every 3 minutes for rolling zero-downtime updates.
+   - 5-service full-stack observability stack with custom PromQL alert rules.
+
+3. **Production End-to-End GitOps Infrastructure:**
+   - Automated deployment utilizing Kind, Helm, AWS ECR, Terraform, and OIDC IAM federation.
+
+---
+
+## Professional Services & Consultancies
+Ajay Autade offers specialized technical engineering services worldwide:
+- **Cloud Infrastructure Architecture & Cost Optimization:** Resilient, multi-AZ AWS/Kubernetes architectures with automated provisioning.
+- **Container Orchestration & Kubernetes Platform Engineering:** Production-grade EKS cluster bootstrap, Helm charts, and ingress management.
+- **Zero-Downtime CI/CD & GitOps Delivery:** Automated pipelines reducing release cycles by 60%+.
+- **High-Performance Web Platform Engineering:** Next.js full-stack systems and API integrations.
+- **Workflow & Process Automation:** Event-driven business and infrastructure automations.
+- **DevSecOps & SRE Reliability:** Vulnerability scanning, SLO/SLA monitoring, and incident mitigation.
+
+---
+
+## Credentials & Certifications
+- **Education:** B.Tech in Computer Science and Engineering, MGM's Jawaharlal Nehru Engineering College (JNEC).
+- **Verified Certifications:**
+  - Introduction to Artificial Intelligence (AI) — IBM / Coursera
+  - AI For Everyone — DeepLearning.AI / Coursera
+  - Terraform + AWS Cloud Automation — Udemy
+  - The Cyber Security Bootcamp — Udemy
+- **In-Progress Certifications:**
+  - AWS Certified Solutions Architect – Associate (SAA-C03)
+  - Certified Kubernetes Administrator (CKA)
+  - HashiCorp Certified: Terraform Associate
+
+---
+
+## Key URLs & Sitemap
+- **Portfolio & Case Studies:** https://ajayautade.com
+- **Engineering Services:** https://ajayautade.com/services
+- **Verified Resume & Cover Letter:** https://ajayautade.com/resume
+- **Interactive CI/CD Deep Dives & Simulator:** https://ajayautade.com/deep-dives
+- **Verified Certifications:** https://ajayautade.com/certifications

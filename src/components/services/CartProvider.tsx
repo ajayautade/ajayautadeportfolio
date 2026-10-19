@@ -86,7 +86,6 @@ interface CartContextValue {
   closeDrawer: () => void;
   openCheckout: () => void;
   closeCheckout: () => void;
-  totalPrice: number;
   itemCount: number;
 }
 
@@ -127,7 +126,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [state.items]);
 
-  const totalPrice = state.items.reduce((sum, item) => sum + item.price, 0);
   const itemCount = state.items.length;
 
   const value: CartContextValue = {
@@ -140,7 +138,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     closeDrawer: () => dispatch({ type: "CLOSE_DRAWER" }),
     openCheckout: () => dispatch({ type: "OPEN_CHECKOUT" }),
     closeCheckout: () => dispatch({ type: "CLOSE_CHECKOUT" }),
-    totalPrice,
     itemCount,
   };
 

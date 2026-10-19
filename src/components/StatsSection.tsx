@@ -75,17 +75,17 @@ export default function StatsSection() {
 
       <div className="section-container relative z-10">
         <ScrollReveal>
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-primary">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
               {t("stats.title")}
             </h2>
-            <p className="mt-2 text-sm text-text-tertiary">
+            <p className="mt-2 text-sm text-text-secondary leading-relaxed">
               {t("stats.subtitle")}
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
           {funFacts.map((fact, index) => {
             const Icon = fact.icon;
             return (

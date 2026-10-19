@@ -97,6 +97,22 @@ export default function AboutSection() {
                 <p className="text-sm sm:text-base leading-relaxed text-text-secondary italic">
                   &ldquo;{t("about.philosophy")}&rdquo;
                 </p>
+                <div className="mt-4 flex flex-wrap gap-2 pt-3 border-t border-border/60">
+                  {[
+                    "Immutable Infrastructure (IaC)",
+                    "GitOps Single Source of Truth",
+                    "Zero-Downtime Releases",
+                    "Observability & SLO-Driven Systems",
+                  ].map((principle) => (
+                    <span
+                      key={principle}
+                      className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-surface border border-border text-text-primary flex items-center gap-1.5"
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                      {principle}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

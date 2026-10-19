@@ -89,16 +89,6 @@ export default function Footer() {
                     {t(navTranslationKeys[link.name] || link.name)}
                   </a>
                 ))}
-                <a
-                  href="/coverletter"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleFooterLinkClick("/coverletter");
-                  }}
-                  className="text-xs text-text-tertiary hover:text-text-primary transition-colors cursor-pointer"
-                >
-                  Cover Letter
-                </a>
               </div>
             </div>
 

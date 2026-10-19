@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Terminal as TerminalIcon, FileText } from "lucide-react";
+import { Menu, X, Terminal as TerminalIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import TerminalModal from "./TerminalModal";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -40,6 +39,10 @@ export default function Navbar() {
       setActiveSection("/certifications");
       return;
     }
+    if (pathname === "/services") {
+      setActiveSection("/services");
+      return;
+    }
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -64,15 +67,24 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  // Prevent scroll when mobile menu is open
+  // Prevent scroll when mobile menu is open & handle Escape key
   useEffect(() => {
     if (isMobileOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsMobileOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMobileOpen]);
 
@@ -111,7 +123,7 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="section-container">
+        <div className="w-full max-w-7xl xl:max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="flex h-14 items-center justify-between">
             {/* Logo */}
             <a
@@ -142,7 +154,7 @@ export default function Navbar() {
                       e.preventDefault();
                       handleNavClick(link.href);
                     }}
-                    className={`relative rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                    className={`relative rounded-md px-2 xl:px-3 py-1.5 text-xs font-medium transition-colors ${
                       isActive
                         ? "text-primary"
                         : "text-text-tertiary hover:text-text-primary"
@@ -174,13 +186,6 @@ export default function Navbar() {
                 >
                   <TerminalIcon className="h-4 w-4" />
                 </button>
-                <Link 
-                  href="/resume" 
-                  className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md bg-primary text-white hover:bg-primary/90 transition-colors"
-                >
-                  <FileText className="h-4 w-4" />
-                  {t("nav.resume")}
-                </Link>
                 <LanguageSwitcher />
                 <ThemeToggle />
               </div>
@@ -221,8 +226,8 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-bg flex flex-col items-center justify-center md:hidden overscroll-none"
-            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+            className="fixed inset-0 z-50 bg-bg/98 backdrop-blur-2xl flex flex-col items-center justify-start overflow-y-auto overscroll-contain py-16 px-6 md:hidden"
+            style={{ paddingBottom: 'max(4rem, env(safe-area-inset-bottom))' }}
           >
             {/* Close button — 44px touch target */}
             <button
@@ -261,31 +266,6 @@ export default function Navbar() {
                   </motion.a>
                 );
               })}
-              
-              {/* Mobile Resume Button */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.05 + 0.1 }}
-                className="w-full max-w-xs flex flex-col items-center gap-2.5 mt-8"
-              >
-                <Link
-                  href="/resume"
-                  onClick={() => setIsMobileOpen(false)}
-                  className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-primary py-3.5 px-6 text-base font-semibold text-white transition-colors hover:bg-primary/90 shadow-lg"
-                >
-                  <FileText className="h-5 w-5" />
-                  {t("nav.resume")}
-                </Link>
-                <a
-                  href="/ajay_autade_devops_9545034120.pdf"
-                  download="ajay_autade_devops_9545034120.pdf"
-                  onClick={() => setIsMobileOpen(false)}
-                  className="text-xs text-text-secondary hover:text-primary transition-colors py-1 underline underline-offset-4"
-                >
-                  {t("nav.downloadResume")} (PDF)
-                </a>
-              </motion.div>
             </nav>
           </motion.div>
         )}

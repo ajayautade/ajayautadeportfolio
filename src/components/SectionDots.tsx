@@ -11,18 +11,20 @@ const navTranslationKeys: Record<string, string> = {
   Experience: "nav.experience",
   Skills: "nav.skills",
   Certificates: "nav.certificates",
+  Certifications: "certs.title",
   Projects: "nav.projects",
   Services: "services.title",
   Contact: "nav.contact",
 };
+
+// Stable list of in-page anchor links
+const inPageLinks = navLinks.filter((link) => link.href.startsWith("#"));
 
 export default function SectionDots() {
   const [activeSection, setActiveSection] = useState("home");
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredDot, setHoveredDot] = useState<string | null>(null);
   const { t } = useLanguage();
-
-  const inPageLinks = navLinks.filter((link) => link.href.startsWith("#"));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +47,7 @@ export default function SectionDots() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [inPageLinks]);
+  }, []);
 
   const handleDotClick = (href: string) => {
     const el = document.querySelector(href);

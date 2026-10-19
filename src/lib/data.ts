@@ -446,7 +446,7 @@ export const navLinks = [
   { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#projects" },
   { name: "Skills", href: "#skills" },
-  { name: "Services", href: "#services" },
+  { name: "Services", href: "/services" },
   { name: "Certifications", href: "/certifications" },
   { name: "Deep Dives", href: "/deep-dives" },
   { name: "Contact", href: "#contact" },
