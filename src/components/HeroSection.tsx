@@ -80,7 +80,7 @@ export default function HeroSection() {
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
                 </span>
                 <span className="text-xs font-semibold text-text-primary">
-                  Available for Senior Roles &amp; Consultancies
+                  Available for Junior Roles &amp; Consultancies
                 </span>
                 <span className="text-text-tertiary hidden sm:inline">•</span>
                 <span className="text-text-secondary text-[11px] hidden sm:inline">

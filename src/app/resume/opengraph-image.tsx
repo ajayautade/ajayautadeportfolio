@@ -52,7 +52,7 @@ export default async function Image() {
               fontFamily: "sans-serif",
             }}
           >
-            Verified Candidate Credentials • Available for Senior Roles
+            Verified Candidate Credentials • Available for Junior Roles
           </span>
         </div>
 

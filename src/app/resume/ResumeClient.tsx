@@ -149,7 +149,7 @@ export default function ResumeClient() {
             </Link>
             <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-success/10 text-success text-xs font-medium border border-success/20">
               <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
-              Available for Senior Roles &amp; Consultancies
+              Available for Junior Roles &amp; Consultancies
             </div>
           </div>
 
@@ -478,7 +478,7 @@ export default function ResumeClient() {
                   Dear Hiring Manager &amp; Engineering Leadership,
                 </p>
                 <p className="text-[15px] sm:text-base text-text-secondary leading-relaxed">
-                  I am writing to express my strong interest in senior DevOps, Cloud Architecture, and Platform Engineering roles at your organization. As a computer science engineering professional with hands-on experience designing, automating, and operating cloud-native infrastructure, I am confident that my technical expertise, automation mindset, and focus on operational resilience align with your engineering team&apos;s objectives.
+                  I am writing to express my strong interest in DevOps, Cloud Architecture, and Platform Engineering roles at your organization. As a computer science engineering professional with hands-on experience designing, automating, and operating cloud-native infrastructure, I am confident that my technical expertise, automation mindset, and focus on operational resilience align with your engineering team&apos;s objectives.
                 </p>
               </div>
 
