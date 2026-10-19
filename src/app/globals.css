@@ -57,16 +57,6 @@
   box-sizing: border-box;
 }
 
-/* Bulletproof centering utilities */
-.mx-auto {
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-.text-center {
-  text-align: center !important;
-}
-
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;

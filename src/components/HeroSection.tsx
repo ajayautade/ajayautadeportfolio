@@ -93,7 +93,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl text-text-primary leading-[1.15]"
+              className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl text-text-primary leading-[1.15] text-center lg:text-left"
             >
               <span className="block">
                 {t("hero.greeting")}{" "}
