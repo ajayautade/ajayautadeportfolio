@@ -20,9 +20,15 @@ export default function DeepDivesBanner() {
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-10">
               {/* Left Column: Heading & Description */}
               <div className="max-w-2xl space-y-3">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  <span>Dedicated Engineering Lab</span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold">
+                    <Sparkles className="h-3.5 w-3.5" />
+                    <span>Dedicated Engineering Lab</span>
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/20 text-success text-[11px] font-medium">
+                    <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+                    <span>Live Simulation Ready</span>
+                  </div>
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary">
@@ -34,13 +40,14 @@ export default function DeepDivesBanner() {
                   Want to see my deployment pipelines in action? Test the live interactive simulator deploying to a mock AWS EKS cluster, or read my detailed answers to 15 real-world screening questions covering Kubernetes security, Terraform, Vault, incident post-mortems, and multi-tenant architectures.
                 </p>
 
-                {/* Tech Pills Preview */}
+                {/* Tech Pills Preview with icons */}
                 <div className="flex flex-wrap gap-2 pt-1">
                   {["Interactive Simulator", "AWS EKS", "GitOps / ArgoCD", "Trivy Scans", "15 Screening Q&As", "Incident RCA"].map((tag) => (
                     <span
                       key={tag}
-                      className="text-[11px] font-medium px-2.5 py-0.5 rounded-md bg-surface border border-border text-text-tertiary"
+                      className="text-[11px] font-medium px-2.5 py-1 rounded-md bg-surface border border-border text-text-secondary flex items-center gap-1 shadow-2xs"
                     >
+                      <Terminal className="h-3 w-3 text-primary/70" />
                       {tag}
                     </span>
                   ))}
