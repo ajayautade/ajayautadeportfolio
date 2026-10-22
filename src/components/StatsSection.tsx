@@ -91,21 +91,22 @@ export default function StatsSection() {
             return (
               <ScrollReveal key={fact.id} delay={index * 0.08}>
                 <motion.div
-                  whileHover={{ y: -4, scale: 1.03 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="card p-3 sm:p-5 text-center group hover:border-primary/30"
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                  className="card p-3.5 sm:p-5 text-center group hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden"
                 >
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   <Icon
-                    className={`h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-2 sm:mb-3 ${fact.color} opacity-70 group-hover:opacity-100 transition-opacity`}
+                    className={`h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-2 sm:mb-3 ${fact.color} opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300`}
                   />
-                  <div className={`text-lg sm:text-2xl lg:text-3xl font-bold ${fact.color} mb-1`}>
+                  <div className={`text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight ${fact.color} mb-1 tabular-nums`}>
                     <AnimatedNumber
                       value={fact.value}
                       suffix={fact.suffix}
                       decimals={(fact as { decimals?: number }).decimals}
                     />
                   </div>
-                  <div className="text-[9px] sm:text-[11px] text-text-tertiary font-medium uppercase tracking-wider">
+                  <div className="text-[10px] sm:text-[11px] text-text-tertiary font-semibold uppercase tracking-wider group-hover:text-text-secondary transition-colors">
                     {t(fact.labelKey)}
                   </div>
                 </motion.div>
