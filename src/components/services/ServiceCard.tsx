@@ -27,7 +27,7 @@ import { useCart } from "./CartProvider";
 // ============================================
 
 export function ServicePackageCard({ service }: { service: ServicePackage }) {
-  const { addItem, state } = useCart();
+  const { addItem, state, openConsultation } = useCart();
   const Icon = service.icon;
   const isInCart = state.items.some((i) => i.id === service.id);
 
@@ -207,13 +207,19 @@ export function ServicePackageCard({ service }: { service: ServicePackage }) {
             )}
           </button>
 
-          <a
-            href="mailto:contact@ajayautade.com?subject=Statement%20of%20Work%20Request%20%E2%80%94%20Engagement&body=Hi%20Ajay%2C%0A%0AWe%20are%20interested%20in%20engaging%20your%20team%20for%20a%20technical%20solution.%0A%0ACompany%3A%20%0APreferred%20Tier%20%2F%20Scope%3A%20%0AGoal%20%26%20Timeline%3A%20%0A%0ABest%20regards%2C"
-            className="w-full py-2 text-center text-xs text-text-secondary hover:text-primary transition-colors flex items-center justify-center gap-1"
+          <button
+            type="button"
+            onClick={() =>
+              openConsultation({
+                subject: `Statement of Work Request — ${service.name}`,
+                message: `Hi Ajay,\n\nWe are interested in engaging your team for the ${service.name} engineering engagement.\n\nCompany / Organization:\nTarget Scope / Tier:\nGoals & Timeline:\n\nBest regards,`,
+              })
+            }
+            className="w-full py-2 text-center text-xs text-text-secondary hover:text-primary transition-colors flex items-center justify-center gap-1 cursor-pointer"
           >
             <span>Request Detailed SOW</span>
             <ArrowRight className="h-3 w-3" />
-          </a>
+          </button>
         </div>
       </div>
     </motion.div>

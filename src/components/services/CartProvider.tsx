@@ -13,10 +13,17 @@ import type { CartItem } from "@/lib/services-data";
 // STATE
 // ============================================
 
+export interface ConsultationModalData {
+  subject?: string;
+  message?: string;
+}
+
 interface CartState {
   items: CartItem[];
   isDrawerOpen: boolean;
   isCheckoutOpen: boolean;
+  isConsultationOpen: boolean;
+  consultationData: ConsultationModalData;
 }
 
 // ============================================
@@ -32,6 +39,8 @@ type CartAction =
   | { type: "CLOSE_DRAWER" }
   | { type: "OPEN_CHECKOUT" }
   | { type: "CLOSE_CHECKOUT" }
+  | { type: "OPEN_CONSULTATION"; payload?: ConsultationModalData }
+  | { type: "CLOSE_CONSULTATION" }
   | { type: "HYDRATE"; payload: CartItem[] };
 
 // ============================================
@@ -65,6 +74,18 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       return { ...state, isCheckoutOpen: true, isDrawerOpen: false };
     case "CLOSE_CHECKOUT":
       return { ...state, isCheckoutOpen: false };
+    case "OPEN_CONSULTATION":
+      return {
+        ...state,
+        isConsultationOpen: true,
+        consultationData: action.payload || {},
+      };
+    case "CLOSE_CONSULTATION":
+      return {
+        ...state,
+        isConsultationOpen: false,
+        consultationData: {},
+      };
     case "HYDRATE":
       return { ...state, items: action.payload };
     default:
@@ -86,6 +107,8 @@ interface CartContextValue {
   closeDrawer: () => void;
   openCheckout: () => void;
   closeCheckout: () => void;
+  openConsultation: (data?: ConsultationModalData) => void;
+  closeConsultation: () => void;
   itemCount: number;
 }
 
@@ -102,6 +125,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     items: [],
     isDrawerOpen: false,
     isCheckoutOpen: false,
+    isConsultationOpen: false,
+    consultationData: {},
   });
 
   // Hydrate from localStorage
@@ -138,6 +163,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     closeDrawer: () => dispatch({ type: "CLOSE_DRAWER" }),
     openCheckout: () => dispatch({ type: "OPEN_CHECKOUT" }),
     closeCheckout: () => dispatch({ type: "CLOSE_CHECKOUT" }),
+    openConsultation: (data) =>
+      dispatch({ type: "OPEN_CONSULTATION", payload: data }),
+    closeConsultation: () => dispatch({ type: "CLOSE_CONSULTATION" }),
     itemCount,
   };
 

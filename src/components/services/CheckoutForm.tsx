@@ -16,6 +16,7 @@ import {
   CheckCheck,
   FileCode,
   CheckCircle2,
+  Loader2,
 } from "lucide-react";
 import { useCart } from "./CartProvider";
 
@@ -32,6 +33,8 @@ export default function CheckoutForm() {
     projectDescription: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [copied, setCopied] = useState(false);
 
   const { isCheckoutOpen } = state;
@@ -102,20 +105,49 @@ Best regards,
 ${formData.name}`.trim();
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage("");
 
     const emailBody = getEmailBody();
-    const subject = encodeURIComponent(
-      `[SOW & Proposal Request] Engineering Engagement — ${
-        formData.company || formData.name
-      }`
-    );
-    const body = encodeURIComponent(emailBody);
-    const mailtoUrl = `mailto:contact@ajayautade.com?subject=${subject}&body=${body}`;
+    const subject = `[SOW & Proposal Request] Engineering Engagement — ${
+      formData.company || formData.name
+    }`;
 
-    window.open(mailtoUrl, "_blank");
-    setIsSubmitted(true);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "da2a32de-3577-47d5-aeda-d5322f125776",
+          name: formData.name.slice(0, 100),
+          email: formData.email.slice(0, 254),
+          subject: subject.slice(0, 200),
+          message: emailBody,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setIsSubmitted(true);
+      } else {
+        console.error("Web3Forms error:", result);
+        setErrorMessage(
+          "Unable to submit proposal request online. Please email directly to contact@ajayautade.com."
+        );
+      }
+    } catch (err) {
+      console.error("Error submitting SOW request", err);
+      setErrorMessage(
+        "Network error submitting request. Please email directly to contact@ajayautade.com."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCopyInquiry = () => {
@@ -190,11 +222,10 @@ ${formData.name}`.trim();
 
                     <div>
                       <h3 className="text-xl font-bold text-text-primary">
-                        Your Proposal Request is Ready!
+                        Proposal Request Submitted Successfully!
                       </h3>
                       <p className="mt-2 text-sm text-text-secondary max-w-md mx-auto leading-relaxed">
-                        Your default email client should have opened with your full technical specification. If not, copy the formatted scope brief below and email it to{" "}
-                        <strong className="text-text-primary">contact@ajayautade.com</strong>.
+                        Thank you for submitting your scope brief. Your requirements have been sent directly to Ajay. I will review your specifications and respond with a formal Statement of Work within 24 hours.
                       </p>
                     </div>
 
@@ -408,14 +439,32 @@ ${formData.name}`.trim();
                       </label>
                     </div>
 
+                    {errorMessage && (
+                      <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-500 text-center">
+                        {errorMessage}
+                      </div>
+                    )}
+
                     {/* Submit Actions */}
                     <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
                       <button
                         type="submit"
-                        className="btn-primary w-full py-3 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
+                        disabled={isSubmitting}
+                        className={`btn-primary w-full py-3 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-lg shadow-primary/25 cursor-pointer ${
+                          isSubmitting ? "opacity-75 cursor-not-allowed" : ""
+                        }`}
                       >
-                        <Send className="h-4 w-4" />
-                        <span>Submit Architecture Proposal Request</span>
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            <span>Submitting Proposal Request...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Send className="h-4 w-4" />
+                            <span>Submit Architecture Proposal Request</span>
+                          </>
+                        )}
                       </button>
                     </div>
 

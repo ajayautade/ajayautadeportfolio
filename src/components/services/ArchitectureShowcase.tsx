@@ -18,6 +18,7 @@ import {
   Activity,
   Terminal,
 } from "lucide-react";
+import { useCart } from "./CartProvider";
 
 interface ShowcasePillar {
   id: string;
@@ -113,6 +114,7 @@ const SHOWCASE_PILLARS: ShowcasePillar[] = [
 
 export default function ArchitectureShowcase() {
   const [activeTab, setActiveTab] = useState<string>("cloud-devops");
+  const { openConsultation } = useCart();
 
   const current = SHOWCASE_PILLARS.find((p) => p.id === activeTab) || SHOWCASE_PILLARS[0];
 
@@ -300,13 +302,19 @@ export default function ArchitectureShowcase() {
                       <Sparkles className="h-4 w-4" />
                       <span>Configure Scope for This Practice</span>
                     </a>
-                    <a
-                      href="mailto:contact@ajayautade.com?subject=Technical%20Consultation%20Inquiry&body=Hi%20Ajay%2C%0A%0AWe%20would%20like%20to%20discuss%20an%20engineering%20engagement%20for%20our%20team.%0A%0ACompany%3A%20%0ATechnical%20Focus%20(Cloud%2C%20Automation%2C%20or%20Web)%3A%20%0ACurrent%20Stack%3A%20%0AGoal%20%2F%20Timeline%3A%20%0A%0ABest%20regards%2C"
-                      className="w-full py-2.5 rounded-lg border border-border text-xs sm:text-sm font-medium text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors flex items-center justify-center gap-2"
+                    <button
+                      type="button"
+                      onClick={() =>
+                        openConsultation({
+                          subject: `Architecture Consultation Inquiry — ${current.title}`,
+                          message: `Hi Ajay,\n\nWe would like to discuss an architecture consultation for ${current.title}.\n\nCompany:\nCurrent Stack:\nGoals & Timeline:\n\nBest regards,`,
+                        })
+                      }
+                      className="w-full py-2.5 rounded-lg border border-border text-xs sm:text-sm font-medium text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <span>Request Architecture Consultation</span>
                       <ArrowRight className="h-3.5 w-3.5" />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

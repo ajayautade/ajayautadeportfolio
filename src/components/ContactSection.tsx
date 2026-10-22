@@ -114,6 +114,7 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="py-12 sm:py-20 lg:py-24 relative">
+      <div id="consultation" className="absolute -top-20" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent" />
 
       <div className="section-container relative z-10">

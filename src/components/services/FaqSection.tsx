@@ -4,9 +4,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, HelpCircle, Mail, MessageSquare } from "lucide-react";
 import { serviceFaqs } from "@/lib/services-data";
+import { useCart } from "./CartProvider";
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { openConsultation } = useCart();
 
   const toggle = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
@@ -87,13 +89,20 @@ export default function FaqSection() {
               We typically respond within a few hours across global business hours.
             </p>
           </div>
-          <a
-            href="mailto:contact@ajayautade.com?subject=Quick%20Question%20Regarding%20Services"
-            className="btn-outline text-xs px-4 py-2 flex items-center gap-2 shrink-0"
+          <button
+            type="button"
+            onClick={() =>
+              openConsultation({
+                subject: "Quick Question Regarding Services",
+                message:
+                  "Hi Ajay,\n\nI have a question regarding your engineering services:\n\n",
+              })
+            }
+            className="btn-outline text-xs px-4 py-2 flex items-center gap-2 shrink-0 cursor-pointer"
           >
             <Mail className="h-3.5 w-3.5 text-primary" />
             <span>Ask Ajay Directly</span>
-          </a>
+          </button>
         </div>
       </div>
     </section>

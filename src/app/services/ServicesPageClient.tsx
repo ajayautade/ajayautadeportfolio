@@ -9,8 +9,10 @@ import PackageComparisonTable from "@/components/services/PackageComparisonTable
 import WhyChooseSection from "@/components/services/WhyChooseSection";
 import ProcessSection from "@/components/services/ProcessSection";
 import FaqSection from "@/components/services/FaqSection";
+import ContactSection from "@/components/ContactSection";
 import CartDrawer from "@/components/services/CartDrawer";
 import CheckoutForm from "@/components/services/CheckoutForm";
+import ConsultationModal from "@/components/services/ConsultationModal";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import { ShoppingCart } from "lucide-react";
@@ -28,7 +30,7 @@ function FloatingCartButton() {
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0, opacity: 0 }}
       onClick={toggleDrawer}
-      className="fixed bottom-20 right-4 sm:bottom-6 sm:right-20 z-40 flex items-center gap-2.5 px-5 py-3.5 rounded-full bg-gradient-to-r from-primary to-accent text-white font-bold text-sm shadow-2xl shadow-primary/40 hover:opacity-95 transition-all hover:scale-105 active:scale-95"
+      className="fixed bottom-20 right-4 sm:bottom-6 sm:right-20 z-40 flex items-center gap-2.5 px-5 py-3.5 rounded-full bg-gradient-to-r from-primary to-accent text-white font-bold text-sm shadow-2xl shadow-primary/40 hover:opacity-95 transition-all hover:scale-105 active:scale-95 cursor-pointer"
       aria-label="Open Scope Brief"
     >
       <ShoppingCart className="h-4 w-4" />
@@ -75,13 +77,19 @@ export default function ServicesPageClient() {
         {/* 8. FAQs for Global Engagements */}
         <FaqSection />
 
-        {/* 9. Full Portfolio Footer */}
+        <div className="section-divider" />
+
+        {/* 9. Direct Send a Message & Consultation Section */}
+        <ContactSection />
+
+        {/* 10. Full Portfolio Footer */}
         <Footer />
 
-        {/* 9. Interactive Modals & Floating Cart */}
+        {/* Interactive Modals & Floating Cart */}
         <FloatingCartButton />
         <CartDrawer />
         <CheckoutForm />
+        <ConsultationModal />
         <BackToTop />
       </div>
     </CartProvider>

@@ -19,7 +19,7 @@ import Link from "next/link";
 import { useCart } from "./CartProvider";
 
 export default function ServicesPageHero() {
-  const { itemCount, toggleDrawer } = useCart();
+  const { itemCount, toggleDrawer, openConsultation } = useCart();
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -187,13 +187,20 @@ export default function ServicesPageHero() {
                 <span>Configure Scope Brief</span>
               </button>
 
-              <a
-                href="mailto:contact@ajayautade.com?subject=Technical%20Engagement%20Inquiry&body=Hi%20Ajay%2C%0A%0AWe%20would%20like%20to%20discuss%20an%20engineering%20consultancy%20engagement%20with%20your%20team.%0A%0ACompany%20%2F%20Organization%3A%20%0ALocation%20%2F%20Timezone%3A%20%0ATechnical%20Focus%20(Cloud%20DevOps%2C%20Web%2C%20or%20Workflow%20Automation)%3A%20%0AEstimated%20Timeline%3A%20%0A%0ABest%20regards%2C"
-                className="w-full sm:w-auto px-5 py-3 rounded-lg border border-border text-sm font-medium text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors flex items-center justify-center gap-2"
+              <button
+                type="button"
+                onClick={() =>
+                  openConsultation({
+                    subject: "Technical Engagement Inquiry — Consultation Request",
+                    message:
+                      "Hi Ajay,\n\nWe would like to discuss an engineering consultancy engagement with your team.\n\nCompany / Organization:\nLocation / Timezone:\nTechnical Focus (Cloud DevOps, Web, or Workflow Automation):\nEstimated Timeline:\n\nBest regards,",
+                  })
+                }
+                className="w-full sm:w-auto px-5 py-3 rounded-lg border border-border text-sm font-medium text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Calendar className="h-4 w-4 text-accent" />
                 <span>Request Consultation</span>
-              </a>
+              </button>
             </motion.div>
 
             {/* Trust Highlights Grid - Enterprise Metrics */}
