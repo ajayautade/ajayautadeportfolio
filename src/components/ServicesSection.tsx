@@ -112,9 +112,17 @@ export default function ServicesSection() {
                       <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
                         <Icon className="h-6 w-6" />
                       </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-surface-elevated border border-border text-primary">
-                        {service.priceTag}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        {index < 2 && (
+                          <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30 flex items-center gap-1">
+                            <Sparkles className="h-2.5 w-2.5" />
+                            Core
+                          </span>
+                        )}
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-surface-elevated border border-border text-primary">
+                          {service.priceTag}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Title */}
