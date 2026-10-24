@@ -68,14 +68,20 @@ export default function SkillsSection() {
               const CategoryIcon = iconMap[category.icon] || Code;
               return (
                 <ScrollReveal key={category.title} delay={catIndex * 0.08}>
-                  <div className="card p-5 h-full hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-elevated text-primary">
-                        <CategoryIcon className="h-4 w-4" />
+                  <div className="card p-5 h-full hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 relative group overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-indigo-500 to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-elevated text-primary group-hover:scale-105 transition-transform">
+                          <CategoryIcon className="h-4 w-4" />
+                        </div>
+                        <h3 className="text-sm font-semibold text-text-primary">
+                          {t(categoryTranslationKeys[category.title] || category.title)}
+                        </h3>
                       </div>
-                      <h3 className="text-sm font-semibold text-text-primary">
-                        {t(categoryTranslationKeys[category.title] || category.title)}
-                      </h3>
+                      <span className="text-[10px] font-mono text-text-tertiary px-1.5 py-0.5 rounded bg-surface-elevated border border-border">
+                        {category.skills.length}
+                      </span>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {category.skills.map((skill) => {
