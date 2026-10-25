@@ -177,19 +177,31 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="fixed left-1/2 top-1/2 z-50 w-[95%] max-w-2xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl border border-border bg-[#09090b] shadow-2xl font-mono text-sm sm:text-base text-gray-300"
           >
-            {/* Header bar */}
-            <div className="flex items-center justify-between border-b border-white/10 bg-[#18181b] px-4 py-3">
-              <div className="flex items-center gap-2">
-                <TerminalIcon className="h-4 w-4 text-text-tertiary" />
-                <span className="text-xs font-medium text-text-tertiary">ajay@portfolio ~ zsh</span>
+            {/* Header bar with macOS traffic lights & ESC indicator */}
+            <div className="flex items-center justify-between border-b border-white/10 bg-[#18181b] px-4 py-2.5">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5">
+                  <div className="h-3 w-3 rounded-full bg-red-500/80 cursor-pointer hover:opacity-80 transition-opacity" onClick={onClose} title="Close" />
+                  <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                  <div className="h-3 w-3 rounded-full bg-green-500/80" />
+                </div>
+                <div className="flex items-center gap-1.5 pl-2 border-l border-white/10">
+                  <TerminalIcon className="h-3.5 w-3.5 text-primary" />
+                  <span className="text-xs font-mono text-gray-300">ajay@cloud-engine ~ zsh</span>
+                </div>
               </div>
-              <button
-                onClick={onClose}
-                className="rounded-md p-2 hover:bg-white/10 transition-colors"
-                aria-label="Close terminal"
-              >
-                <X className="h-4 w-4 text-text-tertiary" />
-              </button>
+              <div className="flex items-center gap-2">
+                <kbd className="hidden sm:inline-flex items-center rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] font-mono text-gray-400">
+                  esc
+                </kbd>
+                <button
+                  onClick={onClose}
+                  className="rounded-md p-1.5 hover:bg-white/10 transition-colors"
+                  aria-label="Close terminal"
+                >
+                  <X className="h-3.5 w-3.5 text-gray-400" />
+                </button>
+              </div>
             </div>
 
             {/* Terminal body */}
