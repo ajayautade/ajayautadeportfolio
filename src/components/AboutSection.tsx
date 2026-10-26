@@ -86,6 +86,7 @@ export default function AboutSection() {
         {/* How I Work - Full Width Banner */}
         <ScrollReveal delay={0.25}>
           <div className="mt-8 sm:mt-10 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/[0.07] via-surface to-accent/[0.05] p-5 sm:p-6 lg:p-7 relative overflow-hidden card">
+            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-indigo-500 to-accent opacity-60 pointer-events-none" />
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 relative z-10">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Sparkles className="h-5 w-5" />
@@ -106,7 +107,7 @@ export default function AboutSection() {
                   ].map((principle) => (
                     <span
                       key={principle}
-                      className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-surface border border-border text-text-primary flex items-center gap-1.5"
+                      className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-surface border border-border text-text-primary flex items-center gap-1.5 shadow-2xs hover:border-primary/40 transition-colors cursor-default"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                       {principle}
