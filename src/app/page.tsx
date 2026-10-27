@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
-import ExperienceSection from "@/components/ExperienceSection";
+
 import ProjectsSection from "@/components/ProjectsSection";
 import DeepDivesBanner from "@/components/DeepDivesBanner";
 import SkillsSection from "@/components/SkillsSection";
@@ -32,11 +32,6 @@ export default function Home() {
 
         {/* 2. Context — background & philosophy */}
         <AboutSection />
-
-        <div className="section-divider" />
-
-        {/* 3. Proof of work — what you've done (most important for recruiters) */}
-        <ExperienceSection />
 
         <div className="section-divider" />
 

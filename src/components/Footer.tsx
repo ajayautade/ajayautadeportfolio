@@ -23,7 +23,7 @@ function LinkedinIcon({ className }: { className?: string }) {
 const navTranslationKeys: Record<string, string> = {
   Home: "nav.home",
   About: "nav.about",
-  Experience: "nav.experience",
+
   Skills: "nav.skills",
   Certificates: "nav.certificates",
   Certifications: "certs.title",
