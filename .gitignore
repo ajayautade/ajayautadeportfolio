@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local notes and assistant specifications
+CLAUDE.md
+claude.md
+DESIGN.md
+design.md
+.claude/
+.kilo/
