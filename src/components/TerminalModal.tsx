@@ -23,7 +23,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
       output: (
         <div>
           <p className="text-success">Welcome to {personalInfo.name.toLowerCase()} OS v1.0.0</p>
-          <p className="text-text-tertiary">Type 'help' to see available commands.</p>
+          <p className="text-text-tertiary">Type &apos;help&apos; to see available commands.</p>
         </div>
       ),
     },
@@ -62,25 +62,25 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
         output = (
           <div className="flex flex-col gap-1">
             <p>Available commands:</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">whoami</span>    - Display information about me</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">skills</span>    - List my technical skills</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">services</span>  - Engineering practices &amp; consulting</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">contact</span>   - Show contact information</p>
-            <p className="text-text-tertiary"><span className="text-accent font-medium">clear</span>     - Clear the terminal screen</p>
+            <p className="text-text-tertiary"><span className="text-text-primary font-medium">whoami</span>    - Display information about me</p>
+            <p className="text-text-tertiary"><span className="text-text-primary font-medium">skills</span>    - List my technical skills</p>
+            <p className="text-text-tertiary"><span className="text-text-primary font-medium">services</span>  - Engineering practices &amp; consulting</p>
+            <p className="text-text-tertiary"><span className="text-text-primary font-medium">contact</span>   - Show contact information</p>
+            <p className="text-text-tertiary"><span className="text-text-primary font-medium">clear</span>     - Clear the terminal screen</p>
           </div>
         );
         break;
       case "services":
         output = (
           <div className="flex flex-col gap-1">
-            <p className="text-primary font-medium">Engineering Practices &amp; Solutions:</p>
+            <p className="text-text-primary font-medium">Engineering Practices &amp; Solutions:</p>
             <p className="text-text-secondary">• Cloud Architecture &amp; AWS Infrastructure (IaC)</p>
             <p className="text-text-secondary">• GitOps CI/CD Delivery Engines (GitHub Actions, ArgoCD)</p>
             <p className="text-text-secondary">• Event-Driven Business Automation (n8n, Python)</p>
             <p className="text-text-secondary">• High-Performance Web &amp; Full-Stack SaaS Platforms</p>
             <p className="text-text-tertiary mt-1">
               Explore full practice specifications at:{" "}
-              <a href="/services" className="text-accent underline">
+              <a href="/services" className="text-primary underline">
                 /services
               </a>
             </p>
@@ -90,7 +90,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
       case "whoami":
         output = (
           <div>
-            <p className="text-primary font-medium">{personalInfo.name}</p>
+            <p className="text-text-primary font-medium">{personalInfo.name}</p>
             <p>{personalInfo.title}</p>
             <p className="text-text-tertiary mt-2">{personalInfo.shortBio}</p>
           </div>
@@ -101,7 +101,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
           <div className="flex flex-col gap-2">
             {skillCategories.map((category) => (
               <div key={category.title}>
-                <span className="text-primary">{category.title}:</span>{" "}
+                <span className="text-text-primary">{category.title}:</span>{" "}
                 <span className="text-text-tertiary">
                   {category.skills.map(s => s.name).join(", ")}
                 </span>
@@ -110,31 +110,14 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
           </div>
         );
         break;
-      case "resume":
-        // Trigger download
-        const a = document.createElement("a");
-        a.href = "/ajay_autade_devops_9545034120.pdf";
-        a.download = "ajay_autade_devops_9545034120.pdf";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        output = (
-          <p className="text-success">
-            Downloading resume (ajay_autade_devops_9545034120.pdf)... View online at{" "}
-            <a href="/resume" className="underline text-accent">
-              /resume
-            </a>
-          </p>
-        );
-        break;
       case "contact":
         output = (
           <div>
-            <p><span className="text-accent">Primary Email:</span> <a href={`mailto:${personalInfo.email}`} className="hover:underline">{personalInfo.email}</a></p>
-            <p><span className="text-accent">Secondary Email:</span> <a href={`mailto:${personalInfo.secondaryEmail}`} className="hover:underline">{personalInfo.secondaryEmail}</a></p>
-            <p><span className="text-accent">Phone:</span> <a href={`tel:+91${personalInfo.phone}`} className="hover:underline">+91 {personalInfo.phone}</a></p>
-            <p><span className="text-accent">LinkedIn:</span> <a href={personalInfo.linkedin} target="_blank" rel="noreferrer" className="hover:underline">{personalInfo.linkedin}</a></p>
-            <p><span className="text-accent">GitHub:</span> <a href={personalInfo.github} target="_blank" rel="noreferrer" className="hover:underline">{personalInfo.github}</a></p>
+            <p><span className="text-text-tertiary">Primary Email:</span> <a href={`mailto:${personalInfo.email}`} className="hover:underline">{personalInfo.email}</a></p>
+            <p><span className="text-text-tertiary">Secondary Email:</span> <a href={`mailto:${personalInfo.secondaryEmail}`} className="hover:underline">{personalInfo.secondaryEmail}</a></p>
+            <p><span className="text-text-tertiary">Phone:</span> <a href={`tel:+91${personalInfo.phone}`} className="hover:underline">+91 {personalInfo.phone}</a></p>
+            <p><span className="text-text-tertiary">LinkedIn:</span> <a href={personalInfo.linkedin} target="_blank" rel="noreferrer" className="hover:underline">{personalInfo.linkedin}</a></p>
+            <p><span className="text-text-tertiary">GitHub:</span> <a href={personalInfo.github} target="_blank" rel="noreferrer" className="hover:underline">{personalInfo.github}</a></p>
           </div>
         );
         break;
@@ -144,7 +127,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
       case "":
         break;
       default:
-        output = <p className="text-red-400">Command not found: {trimmedCmd}. Type 'help' for available commands.</p>;
+        output = <p className="text-text-secondary"><span className="text-text-quaternary">zsh:</span> Command not found: {trimmedCmd}. Type &apos;help&apos; for available commands.</p>;
     }
 
     setHistory((prev) => [...prev, { command: cmd, output }]);
@@ -167,39 +150,40 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/60"
           />
 
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.98, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed left-1/2 top-1/2 z-50 w-[95%] max-w-2xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl border border-border bg-[#09090b] shadow-2xl font-mono text-sm sm:text-base text-gray-300"
+            exit={{ opacity: 0, scale: 0.98, y: 8 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="panel fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 overflow-hidden !bg-bg !border-border-strong font-mono text-[13px] leading-relaxed text-text-secondary"
           >
             {/* Header bar with macOS traffic lights & ESC indicator */}
-            <div className="flex items-center justify-between border-b border-white/10 bg-[#18181b] px-4 py-2.5">
+            <div className="flex items-center justify-between border-b border-border bg-surface px-4 py-2.5">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1.5">
-                  <div className="h-3 w-3 rounded-full bg-red-500/80 cursor-pointer hover:opacity-80 transition-opacity" onClick={onClose} title="Close" />
-                  <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
-                  <div className="h-3 w-3 rounded-full bg-green-500/80" />
+                  <div className="h-3 w-3 rounded-full bg-border-strong cursor-pointer hover:bg-text-quaternary transition-colors" onClick={onClose} title="Close" />
+                  <div className="h-3 w-3 rounded-full bg-border-strong" />
+                  <div className="h-3 w-3 rounded-full bg-border-strong" />
                 </div>
-                <div className="flex items-center gap-1.5 pl-2 border-l border-white/10">
-                  <TerminalIcon className="h-3.5 w-3.5 text-primary" />
-                  <span className="text-xs font-mono text-gray-300">ajay@cloud-engine ~ zsh</span>
+                <div className="flex items-center gap-1.5 pl-2 border-l border-border">
+                  <TerminalIcon className="h-3.5 w-3.5 text-text-tertiary" />
+                  <span className="text-xs font-mono text-text-tertiary">ajay@cloud-engine ~ zsh</span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <kbd className="hidden sm:inline-flex items-center rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] font-mono text-gray-400">
+                <kbd className="hidden sm:inline-flex items-center rounded border border-border bg-surface-elevated px-1.5 py-0.5 text-[11px] font-mono text-text-tertiary">
                   esc
                 </kbd>
                 <button
                   onClick={onClose}
-                  className="rounded-md p-1.5 hover:bg-white/10 transition-colors"
+                  className="rounded-md p-2 hover:bg-surface-elevated transition-colors"
                   aria-label="Close terminal"
                 >
-                  <X className="h-3.5 w-3.5 text-gray-400" />
+                  <X className="h-3.5 w-3.5 text-text-tertiary" />
                 </button>
               </div>
             </div>
@@ -213,8 +197,8 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
               {history.map((item, index) => (
                 <div key={index} className="mb-4">
                   {item.command && (
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-accent">➜</span>
+                    <div className="flex items-center gap-2 text-text-primary">
+                      <span className="text-success">➜</span>
                       <span className="text-primary">~</span>
                       <span>{item.command}</span>
                     </div>
@@ -223,8 +207,8 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
                 </div>
               ))}
 
-              <div className="flex items-center gap-2 text-white">
-                <span className="text-accent">➜</span>
+              <div className="flex items-center gap-2 text-text-primary">
+                <span className="text-success">➜</span>
                 <span className="text-primary">~</span>
                 <input
                   ref={inputRef}

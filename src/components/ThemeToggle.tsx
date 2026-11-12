@@ -1,14 +1,15 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Sun, Moon } from "lucide-react";
 
-export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+const subscribe = () => () => {};
 
-  useEffect(() => setMounted(true), []);
+export default function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  // False on the server and during hydration, true afterwards, without an effect.
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
 
   if (!mounted) {
     return (
@@ -23,14 +24,14 @@ export default function ThemeToggle() {
 
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface transition-all hover:border-primary hover:shadow-md"
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface text-text-tertiary transition-colors hover:text-text-primary hover:border-border-strong"
       aria-label="Toggle theme"
     >
-      {theme === "dark" ? (
-        <Sun className="h-4 w-4 text-yellow-400 transition-transform hover:rotate-45" />
+      {resolvedTheme === "dark" ? (
+        <Sun className="h-4 w-4" aria-hidden="true" />
       ) : (
-        <Moon className="h-4 w-4 text-primary transition-transform hover:-rotate-12" />
+        <Moon className="h-4 w-4" aria-hidden="true" />
       )}
     </button>
   );
