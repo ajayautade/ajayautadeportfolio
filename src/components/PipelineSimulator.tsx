@@ -15,15 +15,12 @@ import {
   ChevronRight
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import ScrollReveal from "./ui/ScrollReveal";
-import SectionHeading from "./ui/SectionHeading";
-import { useLanguage } from "@/lib/LanguageContext";
 
 interface PipelineStage {
   id: string;
   name: string;
   subtitle: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   duration: number; // millisecond duration for progress bar
   logs: string[];
 }
@@ -41,27 +38,20 @@ const PIPELINE_STAGES: PipelineStage[] = [
       "➜ Commit: 4a2d8b1 [feat: optimize inference server configuration]",
       "➜ Author: Ajay Autade <contact@ajayautade.com>",
       "🐳 Initializing runner environment...",
-      "✔ Runner provisioned successfully on local Kubernetes agent node-4."
+      "✔ Runner ready."
     ]
   },
   {
     id: "lint",
     name: "Lint & Test",
-    subtitle: "eslint & vitest",
+    subtitle: "flake8, black, pytest",
     icon: Code,
     duration: 2500,
     logs: [
-      "➜ Running static code analysis (ESLint & Prettier)...",
-      "✔ Linter complete: 0 warnings, 0 errors found.",
-      "➜ Launching unit testing framework (Vitest)...",
-      "✓ src/tests/inference.test.ts (4 passed)",
-      "✓ src/tests/pipeline.test.ts (2 passed)",
-      "✓ src/tests/auth.test.ts (3 passed)",
-      "Test Suites: 3 passed, 3 total",
-      "Tests:       9 passed, 9 total",
-      "Snapshots:   0 total",
-      "Time:        1.45s",
-      "✔ Unit testing complete. Code quality checks passed successfully!"
+      "➜ Running flake8 and black --check...",
+      "✔ Lint and formatting checks passed.",
+      "➜ Running pytest...",
+      "✔ Tests passed."
     ]
   },
   {
@@ -89,33 +79,30 @@ const PIPELINE_STAGES: PipelineStage[] = [
       "  ---> Running in f1bc77ab20b9",
       "➜ Step 7/8 : ENTRYPOINT [\"uvicorn\"]",
       "➜ Step 8/8 : CMD [\"app.main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8000\"]",
-      "🐳 Image built: mlops-sentiment-analyzer:4a2d8b1 (Size: 840MB)",
-      "➜ Logging into Amazon ECR Registry...",
-      "➜ Pushing image to 123456789012.dkr.ecr.us-east-1.amazonaws.com/mlops-sentiment-analyzer:latest...",
+      "🐳 Image built: mlops-sentiment-analyzer:4a2d8b1 (multi-stage build)",
+      "➜ Pushing image to the container registry...",
       "  ---> Layer 1/5: Pushed",
       "  ---> Layer 2/5: Pushed",
       "  ---> Layer 3/5: Pushed",
       "  ---> Layer 4/5: Pushed",
       "  ---> Layer 5/5: Pushed",
-      "🐳 Image successfully pushed to Amazon ECR registry."
+      "🐳 Image pushed."
     ]
   },
   {
     id: "scan",
     name: "Security Scan",
-    subtitle: "trivy & snyk",
+    subtitle: "trivy",
     icon: ShieldCheck,
     duration: 2500,
     logs: [
       "🛡 Starting vulnerability scan using Trivy image scanner...",
-      "➜ Scanning image 123456789012.dkr.ecr.us-east-1.amazonaws.com/mlops-sentiment-analyzer:latest...",
+      "➜ Scanning image mlops-sentiment-analyzer:4a2d8b1...",
       "  ---> CRITICAL: 0 vulnerabilities found",
       "  ---> HIGH: 0 vulnerabilities found",
       "  ---> MEDIUM: 2 vulnerabilities found (ignored - system-libs)",
       "  ---> LOW: 5 vulnerabilities found (ignored)",
-      "🛡 Running Snyk code-to-cloud static analysis...",
-      "✔ Snyk security analysis: Codebase conforms to DevSecOps standards.",
-      "✔ Security gates check: SUCCESS. Build verified as safe for deployment."
+      "✔ Scan gate passed (illustrative result)."
     ]
   },
   {
@@ -135,15 +122,14 @@ const PIPELINE_STAGES: PipelineStage[] = [
       "➜ AWS EKS Kubernetes cluster performing rolling update...",
       "➜ Terminating old pods, starting 3 new replica pods...",
       "➜ Health checks (Liveness & Readiness probes): SUCCESS",
-      "✔ Rolling update complete. 0 downtime achieved.",
-      "🎉 Deployment successfully completed! Application is now live."
+      "✔ Rolling update complete.",
+      "🎉 Simulation complete."
     ]
   }
 ];
 
 export default function PipelineSimulator() {
   const [pipelineState, setPipelineState] = useState<"idle" | "running" | "success" | "failed">("idle");
-  const [currentStageIndex, setCurrentStageIndex] = useState<number>(-1);
   const [stageStatuses, setStageStatuses] = useState<Record<string, "idle" | "running" | "success" | "failed">>({
     trigger: "idle",
     lint: "idle",
@@ -152,9 +138,6 @@ export default function PipelineSimulator() {
     deploy: "idle"
   });
   const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
-  const [activeLogIndex, setActiveLogIndex] = useState(0);
-  const { t } = useLanguage();
-
   const terminalContainerRef = useRef<HTMLDivElement>(null);
   const logsIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -175,7 +158,7 @@ export default function PipelineSimulator() {
   const triggerPipeline = async () => {
     // Reset state
     setPipelineState("running");
-    setTerminalLogs(["🚀 Initializing pipeline execution..."]);
+    setTerminalLogs(["🚀 [simulation] Replaying pipeline stages..."]);
     
     const initialStatuses: Record<string, "idle" | "running" | "success" | "failed"> = {};
     PIPELINE_STAGES.forEach(s => { initialStatuses[s.id] = "idle"; });
@@ -184,7 +167,6 @@ export default function PipelineSimulator() {
     // Run stages sequentially
     for (let i = 0; i < PIPELINE_STAGES.length; i++) {
       const stage = PIPELINE_STAGES[i];
-      setCurrentStageIndex(i);
       setStageStatuses(prev => ({ ...prev, [stage.id]: "running" }));
       
       // Simulate logs typing in terminal
@@ -194,7 +176,6 @@ export default function PipelineSimulator() {
     }
 
     setPipelineState("success");
-    setCurrentStageIndex(-1);
   };
 
   const simulateLogsForStage = (stage: PipelineStage): Promise<void> => {
@@ -225,60 +206,57 @@ export default function PipelineSimulator() {
   };
 
   return (
-    <section id="pipeline" className="py-12 sm:py-20 lg:py-24 bg-surface-elevated/20 border-y border-border">
+    <section id="pipeline" className="py-16 sm:py-24">
       <div className="section-container">
-        <ScrollReveal>
-          <SectionHeading
-            title={t("pipeline.title")}
-            subtitle={t("pipeline.subtitle")}
-          />
-        </ScrollReveal>
+        <p className="type-eyebrow text-text-tertiary">Simulation</p>
+        <h2 className="mt-3 type-display-md text-text-primary text-balance">CI/CD pipeline simulator</h2>
+        <p className="mt-4 max-w-2xl type-body-lg text-text-secondary text-pretty">
+          Press the button to replay the stages my MLOps Sentiment Analyzer pipeline goes through. Nothing is
+          deployed: the log lines are scripted to show the order of the steps, not live output.
+        </p>
 
-        <div className="grid gap-6 lg:grid-cols-12 items-start mt-8">
+        <div className="grid gap-6 lg:grid-cols-12 items-start mt-10">
           
           {/* Main Controls & Pipeline Diagram */}
           <div className="lg:col-span-8 space-y-6">
-            <ScrollReveal delay={0.1}>
               <div className="card p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-base font-semibold text-text-primary">
-                    {t("pipeline.webhookAction")}
+                  <h3 className="text-lg font-medium tracking-tight text-text-primary">
+                    Replay a push to main
                   </h3>
                   <p className="text-xs text-text-tertiary mt-0.5">
-                    {t("pipeline.target")}
+                    Scripted demo · no real cluster is touched
                   </p>
                 </div>
                 
                 <button
                   onClick={triggerPipeline}
                   disabled={pipelineState === "running"}
-                  className={`btn-primary py-2.5 px-5 text-sm gap-2 w-full md:w-auto justify-center transition-all ${
+                  className={`btn-primary w-full md:w-auto ${
                     pipelineState === "running" ? "opacity-60 cursor-not-allowed" : ""
                   }`}
                 >
                   {pipelineState === "running" ? (
                     <>
-                      <RotateCw className="h-4 w-4 animate-spin text-white" />
-                      {t("pipeline.running")}
+                      <RotateCw className="h-3.5 w-3.5 animate-spin" />
+                      Running simulation
                     </>
                   ) : pipelineState === "success" ? (
                     <>
-                      <Play className="h-4 w-4 fill-white" />
-                      {t("pipeline.rerun")}
+                      <Play className="h-3.5 w-3.5 fill-current" />
+                      Run again
                     </>
                   ) : (
                     <>
-                      <Play className="h-4 w-4 fill-white" />
-                      {t("pipeline.trigger")}
+                      <Play className="h-3.5 w-3.5 fill-current" />
+                      Run simulation
                     </>
                   )}
                 </button>
               </div>
-            </ScrollReveal>
 
             {/* Pipeline Visual Graph */}
-            <ScrollReveal delay={0.15}>
-              <div className="card p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center overflow-x-auto">
+              <div className="panel p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center overflow-x-auto">
                 <div className="pipeline-stage-graph flex flex-col sm:flex-row items-center gap-2 sm:gap-2 w-full justify-between">
                   
                   {PIPELINE_STAGES.map((stage, idx) => {
@@ -292,12 +270,12 @@ export default function PipelineSimulator() {
                         {/* Node Card */}
                         <div className="flex flex-row sm:flex-col items-center gap-3 sm:gap-0 relative z-10 w-full sm:w-auto">
                           <div 
-                            className={`flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                            className={`flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-lg border transition-colors duration-300 ${
                               isRunning 
-                                ? "border-primary bg-primary/10 shadow-[0_0_12px_rgba(59,130,246,0.3)] animate-pulse" 
+                                ? "border-primary bg-surface-elevated" 
                                 : isSuccess 
-                                ? "border-success bg-success/15 text-success" 
-                                : "border-border bg-surface text-text-tertiary"
+                                ? "border-border-strong bg-surface-elevated text-success" 
+                                : "border-border bg-surface-elevated text-text-tertiary"
                             }`}
                           >
                             {isRunning ? (
@@ -309,15 +287,10 @@ export default function PipelineSimulator() {
                             )}
                           </div>
                           <div className="flex flex-col sm:items-center sm:text-center">
-                            <span className="text-xs font-semibold text-text-primary sm:mt-2 whitespace-nowrap">
-                              {stage.id === "trigger" ? t("pipeline.stageTrigger") :
-                               stage.id === "lint" ? t("pipeline.stageLint") :
-                               stage.id === "build" ? t("pipeline.stageBuild") :
-                               stage.id === "scan" ? t("pipeline.stageScan") :
-                               stage.id === "deploy" ? t("pipeline.stageDeploy") :
-                               stage.name}
+                            <span className="text-xs font-medium text-text-primary sm:mt-2 whitespace-nowrap">
+                              {stage.name}
                             </span>
-                            <span className="text-[10px] text-text-tertiary">
+                            <span className="font-mono text-[11px] text-text-tertiary">
                               {stage.subtitle}
                             </span>
                           </div>
@@ -325,12 +298,12 @@ export default function PipelineSimulator() {
 
                         {/* Connection Line */}
                         {idx < PIPELINE_STAGES.length - 1 && (
-                          <div className="w-0.5 sm:w-full h-6 sm:h-[2px] relative flex items-center justify-center my-0.5 sm:my-0 mx-auto sm:mx-0">
+                          <div className="w-px sm:w-full h-6 sm:h-px relative flex items-center justify-center my-0.5 sm:my-0 mx-auto sm:mx-0">
                             {/* Base line */}
                             <div className="absolute inset-0 bg-border" />
-                            {/* Animated colored indicator */}
+                            {/* Progress indicator */}
                             <div 
-                              className="absolute top-0 left-0 bottom-0 sm:bottom-auto sm:left-0 sm:right-auto sm:h-full bg-gradient-to-b sm:bg-gradient-to-r from-success to-primary transition-all duration-500"
+                              className="absolute top-0 left-0 bottom-0 sm:bottom-auto sm:left-0 sm:right-auto sm:h-full bg-text-tertiary transition-all duration-500"
                               style={{ 
                                 width: isSuccess ? "100%" : "0%",
                                 height: isSuccess ? "100%" : "0%"
@@ -338,7 +311,7 @@ export default function PipelineSimulator() {
                             />
                             {/* Directional arrow — only on desktop */}
                             <ChevronRight className={`absolute hidden sm:block h-3 w-3 -right-1 z-10 transition-colors ${
-                              isSuccess ? "text-primary" : "text-border"
+                              isSuccess ? "text-text-tertiary" : "text-border"
                             }`} />
                           </div>
                         )}
@@ -348,36 +321,34 @@ export default function PipelineSimulator() {
                   
                 </div>
               </div>
-            </ScrollReveal>
           </div>
 
           {/* Console / Console Logs Column */}
           <div className="lg:col-span-4 space-y-6 w-full">
-            <ScrollReveal delay={0.2}>
-              <div className="card border-border bg-[#09090b] overflow-hidden flex flex-col h-[300px] sm:h-[360px] md:h-[420px]">
+              <div className="panel !bg-bg overflow-hidden flex flex-col h-[300px] sm:h-[360px] md:h-[420px]">
                 {/* Console header */}
-                <div className="flex items-center justify-between bg-[#18181b] border-b border-white/10 px-4 py-2">
+                <div className="flex items-center justify-between bg-surface border-b border-border px-4 py-2">
                   <div className="flex items-center gap-2">
                     <Terminal className="h-4 w-4 text-text-tertiary" />
-                    <span className="text-[11px] font-mono text-text-tertiary">runner@github-actions:~</span>
+                    <span className="text-[11px] font-mono text-text-tertiary">simulated-runner:~</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-red-500/80" />
-                    <span className="h-2 w-2 rounded-full bg-yellow-500/80" />
-                    <span className="h-2 w-2 rounded-full bg-green-500/80" />
+                    <span className="h-2 w-2 rounded-full bg-border-strong" />
+                    <span className="h-2 w-2 rounded-full bg-border-strong" />
+                    <span className="h-2 w-2 rounded-full bg-border-strong" />
                   </div>
                 </div>
 
                 {/* Console logs output — ref on the scrollable container for internal-only scrolling */}
                 <div
                   ref={terminalContainerRef}
-                  className="flex-1 overflow-y-auto p-4 font-mono text-xs text-text-secondary space-y-1.5 select-none leading-relaxed"
+                  className="flex-1 overflow-y-auto p-4 font-mono text-xs text-text-tertiary space-y-1.5 select-none leading-relaxed"
                 >
                   {terminalLogs.length === 0 && (
                     <div className="flex flex-col items-center justify-center h-full text-center text-text-tertiary">
                       <Terminal className="h-8 w-8 opacity-25 mb-2" />
-                      <p>{ t("pipeline.consoleIdle") }</p>
-                      <p className="text-[10px]">{ t("pipeline.consoleHint") }</p>
+                      <p>Console idle.</p>
+                      <p className="text-[11px] text-text-quaternary">Press “Run simulation” to start.</p>
                     </div>
                   )}
                   {terminalLogs.map((log, index) => {
@@ -386,10 +357,10 @@ export default function PipelineSimulator() {
                     const isAlert = log.startsWith("🚀") || log.startsWith("🐳") || log.startsWith("🛡");
                     const isError = log.includes("CRITICAL") || log.includes("Error");
 
-                    let textColor = "text-text-secondary";
-                    if (isSuccessLog) textColor = "text-success font-medium";
-                    else if (isAlert) textColor = "text-accent font-medium";
-                    else if (isError) textColor = "text-red-400 font-semibold";
+                    let textColor = "text-text-tertiary";
+                    if (isSuccessLog) textColor = "text-success";
+                    else if (isAlert) textColor = "text-text-primary";
+                    else if (isError) textColor = "text-text-primary font-medium";
 
                     return (
                       <div key={index} className={`${textColor} break-words`}>
@@ -399,7 +370,6 @@ export default function PipelineSimulator() {
                   })}
                 </div>
               </div>
-            </ScrollReveal>
           </div>
           
         </div>
@@ -414,25 +384,25 @@ export default function PipelineSimulator() {
               transition={{ duration: 0.4 }}
               className="mt-6 flex justify-center"
             >
-              <div className="card p-5 max-w-2xl border-success/30 bg-success/5 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
-                  <Cloud className="h-6 w-6" />
+              <div className="card p-6 max-w-2xl flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface-elevated border border-border text-success">
+                  <Cloud className="h-[18px] w-[18px]" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="text-sm font-semibold text-text-primary">
-                    {t("pipeline.successTitle")}
+                  <h4 className="text-base font-medium tracking-tight text-text-primary">
+                    Simulation finished
                   </h4>
-                  <p className="text-xs text-text-secondary mt-1 leading-relaxed">
-                    {t("pipeline.successDesc")}
+                  <p className="text-sm text-text-tertiary mt-1 leading-relaxed">
+                    That was a scripted walkthrough. The real pipeline, with its workflow file, manifests and Terraform, is in the repository.
                   </p>
                 </div>
                 <a
-                  href="https://github.com/ajayautade"
+                  href="https://github.com/ajayautade/mlops-sentiment-analyzer"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-outline flex items-center justify-center py-2 px-4 text-xs gap-1.5 hover:bg-success hover:border-success hover:text-white"
+                  className="btn-outline gap-1.5"
                 >
-                  {t("pipeline.viewGithub")}
+                  View the repository
                   <ExternalLink className="h-3.5 w-3.5" />
                 </a>
               </div>

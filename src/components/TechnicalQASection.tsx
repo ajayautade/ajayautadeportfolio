@@ -17,15 +17,12 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import ScrollReveal from "./ui/ScrollReveal";
-import SectionHeading from "./ui/SectionHeading";
 import {
   technicalQuestions,
   qaCategories,
   type QACategory,
   type TechnicalQA,
 } from "@/lib/technicalQuestionsData";
-import { useLanguage } from "@/lib/LanguageContext";
 
 const categoryIcons: Record<string, React.ElementType> = {
   All: Briefcase,
@@ -34,14 +31,6 @@ const categoryIcons: Record<string, React.ElementType> = {
   "CI/CD & DevSecOps": GitBranch,
   "Incidents & Reliability": AlertTriangle,
   "Career & Culture": Users,
-};
-
-const categoryColors: Record<string, string> = {
-  "Cloud & Architecture": "from-blue-500/20 to-cyan-500/10",
-  "Kubernetes & Security": "from-purple-500/20 to-indigo-500/10",
-  "CI/CD & DevSecOps": "from-green-500/20 to-emerald-500/10",
-  "Incidents & Reliability": "from-orange-500/20 to-amber-500/10",
-  "Career & Culture": "from-pink-500/20 to-rose-500/10",
 };
 
 function QACard({
@@ -54,8 +43,6 @@ function QACard({
   onToggle: () => void;
 }) {
   const [copied, setCopied] = useState(false);
-  const gradientClass =
-    categoryColors[qa.category] || "from-primary/20 to-accent/10";
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -87,18 +74,10 @@ function QACard({
       className="group"
     >
       <div
-        className={`card relative overflow-hidden transition-all duration-300 ${
-          isExpanded
-            ? "border-primary/40 shadow-lg shadow-primary/5"
-            : "hover:border-primary/20 hover:-translate-y-0.5"
+        className={`card relative overflow-hidden ${
+          isExpanded ? "!bg-surface-elevated !border-border-strong" : ""
         }`}
       >
-        {/* Gradient background */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${gradientClass} transition-opacity duration-500 ${
-            isExpanded ? "opacity-100" : "opacity-0 group-hover:opacity-60"
-          }`}
-        />
 
         {/* Question header — always visible */}
         <button
@@ -107,7 +86,7 @@ function QACard({
           aria-expanded={isExpanded}
         >
           {/* Category badge */}
-          <span className="shrink-0 mt-0.5 flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          <span className="shrink-0 mt-0.5 flex h-8 w-8 items-center justify-center rounded-lg bg-surface-elevated border border-border text-text-secondary">
             {(() => {
               const Icon = categoryIcons[qa.category] || Briefcase;
               return <Icon className="h-4 w-4" />;
@@ -116,12 +95,12 @@ function QACard({
 
           <div className="flex-1 min-w-0">
             {/* Category label */}
-            <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-primary/80 mb-1.5">
+            <span className="inline-block type-eyebrow text-text-tertiary mb-1.5">
               {qa.category}
             </span>
 
             {/* Question text */}
-            <h3 className="text-sm sm:text-base font-semibold text-text-primary leading-snug pr-8">
+            <h3 className="text-base font-medium tracking-tight text-text-primary leading-snug pr-8">
               {qa.question}
             </h3>
 
@@ -129,12 +108,12 @@ function QACard({
             {!isExpanded && (
               <div className="mt-2 flex flex-wrap gap-1">
                 {qa.techTags.slice(0, 4).map((tag) => (
-                  <span key={tag} className="tech-pill text-[10px]">
+                  <span key={tag} className="tech-pill">
                     {tag}
                   </span>
                 ))}
                 {qa.techTags.length > 4 && (
-                  <span className="text-[10px] text-text-tertiary font-medium px-1">
+                  <span className="text-xs text-text-tertiary font-medium px-1 self-center">
                     +{qa.techTags.length - 4} more
                   </span>
                 )}
@@ -164,7 +143,7 @@ function QACard({
             >
               <div className="relative z-10 px-5 sm:px-6 pb-5 sm:pb-6">
                 {/* Divider */}
-                <div className="h-px bg-border/60 mb-5" />
+                <div className="h-px bg-border mb-5" />
 
                 {/* Answer text */}
                 <div className="text-sm text-text-secondary leading-relaxed whitespace-pre-line">
@@ -177,9 +156,9 @@ function QACard({
                     {qa.metrics.map((metric) => (
                       <span
                         key={metric}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-xs font-medium text-success"
+                        className="inline-flex items-center gap-1.5 rounded-sm bg-surface border border-border px-2.5 py-0.5 text-xs font-medium text-text-secondary"
                       >
-                        <BarChart3 className="h-3 w-3" />
+                        <BarChart3 className="h-3 w-3 text-success" />
                         {metric}
                       </span>
                     ))}
@@ -213,7 +192,7 @@ function QACard({
                           window.scrollTo({ top: y, behavior: "smooth" });
                         }
                       }}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary-light transition-colors"
                     >
                       <ExternalLink className="h-3 w-3" />
                       See project: {qa.projectRef}
@@ -225,8 +204,8 @@ function QACard({
                     onClick={handleCopy}
                     className={`ml-auto inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
                       copied
-                        ? "bg-success/20 text-success"
-                        : "bg-surface-elevated text-text-secondary hover:text-text-primary hover:bg-surface-elevated/80"
+                        ? "border border-border bg-surface text-success"
+                        : "border border-border bg-surface text-text-secondary hover:text-text-primary hover:border-border-strong"
                     }`}
                   >
                     {copied ? (
@@ -255,7 +234,6 @@ export default function TechnicalQASection() {
   const [activeCategory, setActiveCategory] = useState<QACategory>("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const { t } = useLanguage();
 
   const filteredQuestions = useMemo(() => {
     let result: TechnicalQA[] = technicalQuestions;
@@ -281,18 +259,16 @@ export default function TechnicalQASection() {
   }, [activeCategory, searchQuery]);
 
   return (
-    <section id="screening" className="py-12 sm:py-20 lg:py-24">
+    <section id="screening" className="py-16 sm:py-24 border-t border-border">
       <div className="section-container">
-        <ScrollReveal>
-          <SectionHeading
-            title={t("screening.title")}
-            subtitle={t("screening.subtitle")}
-          />
-        </ScrollReveal>
+        <h2 className="type-display-md text-text-primary text-balance">Screening questions, answered</h2>
+        <p className="mt-4 mb-10 max-w-2xl type-body-lg text-text-secondary text-pretty">
+          How I would answer common DevOps interview questions. Where an answer draws on something I built, it
+          says so; the rest is how I understand the topic and would approach it.
+        </p>
 
         {/* Category Tabs */}
-        <ScrollReveal delay={0.1}>
-          <div className="mb-8 flex flex-wrap gap-2 justify-center">
+          <div className="mb-8 flex flex-wrap gap-2">
             {qaCategories.map((category) => {
               const Icon = categoryIcons[category] || Briefcase;
               const isActive = activeCategory === category;
@@ -309,17 +285,17 @@ export default function TechnicalQASection() {
                     setActiveCategory(category);
                     setExpandedId(null);
                   }}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
+                  className={`inline-flex min-h-9 items-center gap-1.5 rounded-sm px-3.5 py-1.5 text-sm font-medium transition-colors cursor-pointer border ${
                     isActive
-                      ? "bg-primary text-white shadow-md shadow-primary/25"
-                      : "bg-surface-elevated text-text-secondary hover:text-text-primary hover:bg-surface-elevated/80 border border-border/50"
+                      ? "bg-surface-elevated text-text-primary border-border-strong"
+                      : "bg-transparent text-text-tertiary hover:text-text-primary border-transparent"
                   }`}
                 >
                   <Icon className="h-3 w-3" />
                   {category}
                   <span
-                    className={`ml-1 text-[10px] ${
-                      isActive ? "text-white/70" : "text-text-tertiary"
+                    className={`ml-0.5 text-xs tabular-nums ${
+                      isActive ? "text-text-tertiary" : "text-text-quaternary"
                     }`}
                   >
                     ({count})
@@ -328,41 +304,38 @@ export default function TechnicalQASection() {
               );
             })}
           </div>
-        </ScrollReveal>
 
         {/* Search */}
-        <ScrollReveal delay={0.15}>
-          <div className="relative mx-auto max-w-xl mb-8">
+          <div className="relative max-w-xl mb-8">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-text-tertiary" />
             <input
               type="text"
-              placeholder={t("screening.searchPlaceholder")}
+              aria-label="Search questions"
+              placeholder="Search questions, tools or topics"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-border bg-surface/80 backdrop-blur-sm py-2.5 pl-10 pr-4 text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/25 transition-all"
+              className="w-full min-h-11 rounded-lg border border-border bg-surface py-2 pl-10 pr-4 text-base sm:text-sm text-text-primary placeholder:text-text-quaternary focus:border-border-strong focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors"
             />
             {searchQuery && (
-              <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[10px] text-text-tertiary">
+              <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-text-tertiary">
                 {filteredQuestions.length} result
                 {filteredQuestions.length !== 1 ? "s" : ""}
               </span>
             )}
           </div>
-        </ScrollReveal>
 
         {/* Questions grid */}
-        <div className="space-y-3 max-w-5xl mx-auto">
+        <div className="space-y-3 max-w-5xl">
           <AnimatePresence mode="popLayout">
-            {filteredQuestions.map((qa, index) => (
-              <ScrollReveal key={qa.id} delay={index * 0.05}>
+            {filteredQuestions.map((qa) => (
                 <QACard
+                  key={qa.id}
                   qa={qa}
                   isExpanded={expandedId === qa.id}
                   onToggle={() =>
                     setExpandedId(expandedId === qa.id ? null : qa.id)
                   }
                 />
-              </ScrollReveal>
             ))}
           </AnimatePresence>
 
@@ -374,20 +347,18 @@ export default function TechnicalQASection() {
             >
               <Search className="h-8 w-8 text-text-tertiary mx-auto mb-3" />
               <p className="text-sm text-text-secondary">
-                {t("screening.noResults")}
+                No questions match your search. Try a different keyword.
               </p>
             </motion.div>
           )}
         </div>
 
         {/* Footer summary */}
-        <ScrollReveal delay={0.2}>
-          <div className="mt-10 text-center">
+          <div className="mt-10">
             <p className="text-xs text-text-tertiary">
-              {technicalQuestions.length} {t("screening.questionsAnswered")}
+              {technicalQuestions.length} questions answered
             </p>
           </div>
-        </ScrollReveal>
       </div>
     </section>
   );
