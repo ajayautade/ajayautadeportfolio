@@ -20,7 +20,7 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "center",
-          backgroundColor: "#09090b",
+          backgroundColor: "#000000",
           padding: "80px",
         }}
       >
@@ -30,9 +30,9 @@ export default async function Image() {
             alignItems: "center",
             marginBottom: "30px",
             padding: "8px 20px",
-            backgroundColor: "rgba(16, 185, 129, 0.15)",
+            backgroundColor: "#111111",
             borderRadius: "50px",
-            border: "1px solid rgba(16, 185, 129, 0.3)",
+            border: "1px solid #2c2a2d",
           }}
         >
           <div
@@ -40,15 +40,15 @@ export default async function Image() {
               width: "10px",
               height: "10px",
               borderRadius: "50%",
-              backgroundColor: "#10b981",
+              backgroundColor: "#b7c400",
               marginRight: "12px",
             }}
           />
           <span
             style={{
               fontSize: 20,
-              color: "#34d399",
-              fontWeight: 600,
+              color: "#b7c400",
+              fontWeight: 700,
               fontFamily: "sans-serif",
             }}
           >
@@ -61,7 +61,7 @@ export default async function Image() {
             fontSize: 68,
             color: "white",
             lineHeight: 1.15,
-            fontWeight: 800,
+            fontWeight: 700,
             marginBottom: "16px",
             fontFamily: "sans-serif",
           }}
@@ -72,7 +72,7 @@ export default async function Image() {
         <h2
           style={{
             fontSize: 38,
-            color: "#3b82f6",
+            color: "#c99aab",
             fontWeight: 700,
             marginBottom: "24px",
             fontFamily: "sans-serif",
@@ -84,7 +84,7 @@ export default async function Image() {
         <p
           style={{
             fontSize: 26,
-            color: "#a1a1aa",
+            color: "#89868a",
             maxWidth: "920px",
             lineHeight: 1.4,
             fontFamily: "sans-serif",
@@ -98,10 +98,10 @@ export default async function Image() {
           <div
             style={{
               padding: "10px 22px",
-              backgroundColor: "#1e293b",
+              backgroundColor: "#111111",
               borderRadius: "10px",
-              border: "1px solid #334155",
-              color: "#e2e8f0",
+              border: "1px solid #2c2a2d",
+              color: "#ffffff",
               fontSize: 19,
               fontFamily: "sans-serif",
             }}
@@ -111,10 +111,10 @@ export default async function Image() {
           <div
             style={{
               padding: "10px 22px",
-              backgroundColor: "#1e293b",
+              backgroundColor: "#111111",
               borderRadius: "10px",
-              border: "1px solid #334155",
-              color: "#e2e8f0",
+              border: "1px solid #2c2a2d",
+              color: "#ffffff",
               fontSize: 19,
               fontFamily: "sans-serif",
             }}
@@ -124,11 +124,11 @@ export default async function Image() {
           <div
             style={{
               padding: "10px 22px",
-              backgroundColor: "#059669",
+              backgroundColor: "#c99aab",
               borderRadius: "10px",
               color: "white",
               fontSize: 19,
-              fontWeight: "bold",
+              fontWeight: 700,
               fontFamily: "sans-serif",
             }}
           >
