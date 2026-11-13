@@ -43,13 +43,6 @@ export default function SiteHeader() {
 
   return (
     <>
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-sm focus:bg-white focus:px-4 focus:py-2 focus:text-black"
-      >
-        Skip to content
-      </a>
-
       <header className="stage fixed inset-x-0 top-0 z-50 border-b border-border">
         <div className="section-container flex h-16 items-center justify-between gap-6">
           <Link
