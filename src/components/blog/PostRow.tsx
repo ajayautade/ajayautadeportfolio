@@ -16,7 +16,7 @@ export default function PostRow({ post, headingLevel = "h2" }: { post: PostMeta;
       </p>
       <div>
         <Title className="type-headline sm:type-display-md text-text-primary text-balance">
-          <Link href={`/blog/${post.slug}`} className="hover:underline decoration-2 underline-offset-4">
+          <Link href={`/blog/${post.slug}`} className="block py-2 hover:underline decoration-2 underline-offset-4">
             {post.title}
           </Link>
         </Title>

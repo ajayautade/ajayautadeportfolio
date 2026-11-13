@@ -12,7 +12,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <>
       <nav aria-label="Breadcrumb">
-        <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 type-eyebrow text-text-tertiary">
+        <ol className="flex flex-wrap items-center gap-x-2 type-eyebrow text-text-tertiary">
           {trail.map((item, i) => {
             const last = i === trail.length - 1;
             return (
@@ -23,7 +23,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
                   </span>
                 ) : (
                   <>
-                    <Link href={item.path} className="hover:text-text-primary transition-colors">
+                    <Link href={item.path} className="tap hover:text-text-primary transition-colors">
                       {item.name}
                     </Link>
                     <span aria-hidden="true">/</span>

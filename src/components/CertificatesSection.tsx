@@ -95,7 +95,7 @@ function CertificateCard({ cert }: { cert: (typeof earnedCertificates)[number] }
           <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
           <span className="sr-only"> for {cert.name} (opens in a new tab)</span>
         </a>
-        <p className="mt-1 font-mono text-[11px] text-text-quaternary break-all">ID {cert.credentialId}</p>
+        <p className="mt-1 font-mono text-xs text-text-quaternary break-all">ID {cert.credentialId}</p>
       </div>
     </li>
   );

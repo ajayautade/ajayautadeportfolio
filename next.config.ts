@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   trailingSlash: false,
+  // Serve AVIF first, then WebP, sized per device
+  images: { formats: ["image/avif", "image/webp"] },
   async redirects() {
     return [
       {

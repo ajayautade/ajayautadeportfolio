@@ -16,7 +16,7 @@ export default function CtaBand({
   secondary,
 }: CtaBandProps) {
   return (
-    <section className="stage py-20 sm:py-28 border-b border-border">
+    <section className="stage py-16 sm:py-28 border-b border-border">
       <div className="section-container">
         <h2 className="type-display-lg text-text-primary max-w-3xl text-balance">{title}</h2>
         <p className="mt-5 max-w-xl type-body-lg text-text-secondary text-pretty">{text}</p>

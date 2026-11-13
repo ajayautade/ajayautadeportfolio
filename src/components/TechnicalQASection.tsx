@@ -285,7 +285,7 @@ export default function TechnicalQASection() {
                     setActiveCategory(category);
                     setExpandedId(null);
                   }}
-                  className={`inline-flex min-h-9 items-center gap-1.5 rounded-sm px-3.5 py-1.5 text-sm font-medium transition-colors cursor-pointer border ${
+                  className={`inline-flex min-h-11 items-center gap-1.5 rounded-sm px-3.5 py-1.5 text-sm font-medium transition-colors cursor-pointer border ${
                     isActive
                       ? "bg-surface-elevated text-text-primary border-border-strong"
                       : "bg-transparent text-text-tertiary hover:text-text-primary border-transparent"

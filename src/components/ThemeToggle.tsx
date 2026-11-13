@@ -14,7 +14,7 @@ export default function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface transition-colors"
+        className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-surface transition-colors"
         aria-label="Toggle theme"
       >
         <div className="h-4 w-4" />
@@ -25,7 +25,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface text-text-tertiary transition-colors hover:text-text-primary hover:border-border-strong"
+      className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-surface text-text-tertiary transition-colors hover:text-text-primary hover:border-border-strong"
       aria-label="Toggle theme"
     >
       {resolvedTheme === "dark" ? (

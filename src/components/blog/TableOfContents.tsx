@@ -2,10 +2,10 @@ import type { Heading } from "./Prose";
 
 function Items({ headings }: { headings: Heading[] }) {
   return (
-    <ol className="space-y-3">
+    <ol className="lg:space-y-3">
       {headings.map((h) => (
         <li key={h.id}>
-          <a href={`#${h.id}`} className="block text-sm leading-snug text-text-tertiary hover:text-text-primary transition-colors">
+          <a href={`#${h.id}`} className="flex min-h-11 items-center lg:block lg:min-h-0 text-sm leading-snug text-text-tertiary hover:text-text-primary transition-colors">
             {h.title}
           </a>
         </li>

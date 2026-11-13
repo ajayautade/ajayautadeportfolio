@@ -54,17 +54,17 @@ export default function ContactPage() {
               <h2 className="type-eyebrow text-text-tertiary">Direct</h2>
               <ul className="mt-4 space-y-3 text-lg font-medium">
                 <li>
-                  <a href={`mailto:${site.email}`} className="text-text-primary underline decoration-primary decoration-2 underline-offset-4 break-all">
+                  <a href={`mailto:${site.email}`} className="tap text-text-primary underline decoration-primary decoration-2 underline-offset-4 break-all">
                     {site.email}
                   </a>
                 </li>
                 <li>
-                  <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="text-text-primary hover:text-primary transition-colors">
+                  <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="tap text-text-primary hover:text-primary transition-colors">
                     LinkedIn
                   </a>
                 </li>
                 <li>
-                  <a href={site.github} target="_blank" rel="noopener noreferrer" className="text-text-primary hover:text-primary transition-colors">
+                  <a href={site.github} target="_blank" rel="noopener noreferrer" className="tap text-text-primary hover:text-primary transition-colors">
                     GitHub
                   </a>
                 </li>

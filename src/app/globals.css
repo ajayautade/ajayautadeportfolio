@@ -32,7 +32,7 @@
   --color-text: #000000;               /* ink */
   --color-text-secondary: #3b393d;     /* muted-ink */
   --color-text-tertiary: #6b686d;      /* derived, AA on white */
-  --color-text-quaternary: #89868a;    /* border grey as faint text */
+  --color-text-quaternary: #737075;    /* derived: faint text, AA on white */
 
   --color-border: #d8d6d9;             /* derived: hairline */
   --color-border-strong: #89868a;      /* border */
@@ -56,7 +56,7 @@
   --color-text: #ffffff;
   --color-text-secondary: #cfcdd0;     /* derived */
   --color-text-tertiary: #89868a;      /* border grey, AA on black */
-  --color-text-quaternary: #5f5c61;    /* derived */
+  --color-text-quaternary: #827f84;    /* derived: faint text, AA on black */
 
   --color-border: #2c2a2d;             /* derived: hairline on black */
   --color-border-strong: #57545a;      /* derived */
@@ -113,7 +113,7 @@
    ============================================ */
 @utility type-display-xl {
   /* hero-display: 4.5rem / 700 / 0.9 / -0.04em */
-  font-size: clamp(2.75rem, 5vw + 1rem, 4.5rem);
+  font-size: clamp(2.375rem, 4.6vw + 1.45rem, 4.5rem);
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.04em;
@@ -352,15 +352,39 @@ h1, h2, h3, h4 {
 .tech-pill {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.5rem;
+  padding: 0.3125rem 0.5rem;
   border-radius: 4px;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   background: var(--color-surface-elevated);
   color: var(--color-text-secondary);
+}
+
+/* ============================================
+   TAP TARGET — standalone text links and small
+   controls get a 44px hit area on touch screens
+   and phone widths, without changing how they
+   look on desktop. Not for links inside a sentence.
+   ============================================ */
+@media (pointer: coarse), (max-width: 1023px) {
+  .tap {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+}
+
+/* Pressed feedback for touch, where there is no hover */
+.btn-outline:active,
+.btn-ghost:active {
+  background: var(--color-surface-elevated);
+}
+a:active {
+  opacity: 0.7;
 }
 
 /* ============================================

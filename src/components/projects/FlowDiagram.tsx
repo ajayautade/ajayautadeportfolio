@@ -61,7 +61,7 @@ export default function FlowDiagram({ diagram, id }: { diagram: ProjectDiagram; 
                         <span className="leading-tight">
                           <span className="block text-sm font-medium text-text-primary">{node.label}</span>
                           {node.note && (
-                            <span className="block font-mono text-[11px] text-text-tertiary">{node.note}</span>
+                            <span className="block font-mono text-xs text-text-tertiary">{node.note}</span>
                           )}
                         </span>
                       </div>

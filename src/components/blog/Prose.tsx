@@ -32,7 +32,7 @@ export function Prose({ children }: { children: React.ReactNode }) {
 export function H2({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <h2 id={id} className="group mt-14 scroll-mt-24 type-headline text-text-primary text-balance">
-      <a href={`#${id}`} className="!text-text-primary !no-underline">
+      <a href={`#${id}`} className="block py-2 !text-text-primary !no-underline">
         {children}
         <span aria-hidden="true" className="ml-2 text-text-quaternary opacity-0 transition-opacity group-hover:opacity-100">
           #

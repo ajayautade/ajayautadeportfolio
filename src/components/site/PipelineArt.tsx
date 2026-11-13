@@ -10,7 +10,7 @@ const AMBER = "#e07a2c";
 
 const label = {
   fontFamily: "var(--font-mono)",
-  fontSize: 11,
+  fontSize: 13,
   letterSpacing: "0.06em",
   fill: "#89868a",
 } as const;
@@ -89,6 +89,61 @@ export default function PipelineArt({ className = "" }: { className?: string }) 
         <text x="54" y="371">cluster</text>
         <text x="300" y="371">hpa 2–10</text>
         <text x="412" y="371">metrics</text>
+      </g>
+    </svg>
+  );
+}
+
+
+/**
+ * Phone and tablet version of the hero illustration. The full diagram's
+ * labels become unreadable when it is scaled down, so this is a separate,
+ * simpler drawing: the same story (commit, checks, pods) at a size where
+ * one unit is roughly one CSS pixel.
+ */
+export function PipelineArtCompact({ className = "" }: { className?: string }) {
+  const pods = [VIOLET, null, MAGENTA, null, OLIVE, null, AMBER, VIOLET, null, MAGENTA] as const;
+  const text = { fontFamily: "var(--font-mono)", fontSize: 13, letterSpacing: "0.04em", fill: "#cfcdd0" } as const;
+  return (
+    <svg
+      viewBox="0 0 300 168"
+      className={className}
+      role="img"
+      aria-label="Diagram of a delivery pipeline: a git push passes test, lint and scan checks, then rolls out to a cluster of pods."
+    >
+      <g fill="none" stroke="#ffffff" strokeWidth="1.25" strokeLinejoin="round">
+        <path d="M0 22 H300" stroke="#3a383b" />
+        {[40, 90, 140].map((x) => (
+          <circle key={x} cx={x} cy="22" r="4" fill="#000" stroke="#57545a" />
+        ))}
+        <circle cx="190" cy="22" r="6" fill="#fff" />
+        <path d="M190 28 V46" />
+        <rect x="0.75" y="46" width="298.5" height="44" rx="4" />
+        <path d="M100 46 V90 M200 46 V90" stroke="#57545a" />
+        {[14, 114, 214].map((x) => (
+          <path key={x} d={`M${x} 68 l6 6 l12 -14`} stroke={OLIVE} strokeWidth="2" />
+        ))}
+        <path d="M150 90 V108" />
+        <rect x="0.75" y="108" width="298.5" height="59" rx="4" />
+      </g>
+      {pods.map((colour, i) => (
+        <rect
+          key={i}
+          x={12 + (i % 5) * 57}
+          y={118 + Math.floor(i / 5) * 22}
+          width="48"
+          height="15"
+          rx="2"
+          fill={colour ?? "#000"}
+          stroke={colour ?? "#57545a"}
+          strokeWidth="1.25"
+        />
+      ))}
+      <g style={text}>
+        <text x="204" y="18">git push</text>
+        <text x="42" y="73">test</text>
+        <text x="142" y="73">lint</text>
+        <text x="242" y="73">scan</text>
       </g>
     </svg>
   );

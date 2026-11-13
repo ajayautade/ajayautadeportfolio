@@ -108,7 +108,7 @@ export default async function BlogPostPage({ params }: Params) {
               />
               <div className="text-sm">
                 <p className="font-medium text-text-primary">
-                  <Link href="/about" className="hover:underline underline-offset-4">
+                  <Link href="/about" className="tap hover:underline underline-offset-4">
                     {site.name}
                   </Link>
                 </p>

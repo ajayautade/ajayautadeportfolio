@@ -5,9 +5,9 @@ export default function SiteFooter() {
   return (
     <footer className="stage">
       <div className="section-container py-16 sm:py-20">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
-            <Link href="/" className="inline-flex items-center gap-2.5 text-xl font-bold tracking-tight text-text-primary">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="col-span-2 md:col-span-1">
+            <Link href="/" className="tap inline-flex items-center gap-2.5 text-xl font-bold tracking-tight text-text-primary">
               <span className="h-2.5 w-2.5 bg-primary" aria-hidden="true" />
               {site.name}
             </Link>
@@ -19,10 +19,10 @@ export default function SiteFooter() {
           {footerNav.map((group) => (
             <nav key={group.title} aria-label={group.title}>
               <h2 className="type-eyebrow text-text-tertiary">{group.title}</h2>
-              <ul className="mt-4 space-y-3">
+              <ul className="mt-2 lg:mt-4 lg:space-y-3">
                 {group.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                    <Link href={link.href} className="tap text-sm text-text-secondary hover:text-text-primary transition-colors">
                       {link.label}
                     </Link>
                   </li>
@@ -31,21 +31,21 @@ export default function SiteFooter() {
             </nav>
           ))}
 
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <h2 className="type-eyebrow text-text-tertiary">Elsewhere</h2>
-            <ul className="mt-4 space-y-3">
+            <ul className="mt-2 lg:mt-4 lg:space-y-3">
               <li>
-                <a href={`mailto:${site.email}`} className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <a href={`mailto:${site.email}`} className="tap text-sm text-text-secondary hover:text-text-primary transition-colors">
                   {site.email}
                 </a>
               </li>
               <li>
-                <a href={site.github} target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <a href={site.github} target="_blank" rel="noopener noreferrer" className="tap text-sm text-text-secondary hover:text-text-primary transition-colors">
                   GitHub
                 </a>
               </li>
               <li>
-                <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="tap text-sm text-text-secondary hover:text-text-primary transition-colors">
                   LinkedIn
                 </a>
               </li>

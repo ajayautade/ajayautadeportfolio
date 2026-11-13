@@ -175,7 +175,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <kbd className="hidden sm:inline-flex items-center rounded border border-border bg-surface-elevated px-1.5 py-0.5 text-[11px] font-mono text-text-tertiary">
+                <kbd className="hidden sm:inline-flex items-center rounded border border-border bg-surface-elevated px-1.5 py-0.5 text-xs font-mono text-text-tertiary">
                   esc
                 </kbd>
                 <button

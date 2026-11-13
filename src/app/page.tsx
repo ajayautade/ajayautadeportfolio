@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
-import PipelineArt from "@/components/site/PipelineArt";
+import PipelineArt, { PipelineArtCompact } from "@/components/site/PipelineArt";
 import ContactForm from "@/components/site/ContactForm";
 import JsonLd, { personLd } from "@/components/site/JsonLd";
 import { site } from "@/lib/site";
@@ -64,19 +64,19 @@ export default function Home() {
       <SiteHeader />
       <main id="main">
         {/* ── Hero: the black stage ─────────────────────────────── */}
-        <section className="stage pt-28 pb-16 sm:pt-36 sm:pb-24 lg:min-h-[100dvh] lg:flex lg:items-center">
+        <section className="stage pt-24 pb-12 sm:pt-36 sm:pb-24 lg:min-h-[100dvh] lg:flex lg:items-center">
           <div className="section-container w-full">
-            <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center">
+            <div className="grid gap-10 lg:gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center">
               <div>
                 <p className="type-eyebrow text-text-tertiary">Cloud &amp; DevOps Engineer</p>
-                <h1 className="mt-6 type-display-xl text-text-primary text-balance">
+                <h1 className="mt-4 sm:mt-6 type-display-xl text-text-primary text-balance">
                   Building reliable cloud infrastructure. Automating everything in between.
                 </h1>
-                <p className="mt-7 max-w-xl type-body-lg sm:type-subhead text-text-secondary text-pretty">
+                <p className="mt-5 sm:mt-7 max-w-xl type-body-lg sm:type-subhead text-text-secondary text-pretty">
                   I help businesses build, deploy, automate, and scale reliable infrastructure using
                   modern cloud-native technologies.
                 </p>
-                <div className="mt-9 flex flex-col sm:flex-row gap-3">
+                <div className="mt-7 sm:mt-9 flex flex-col sm:flex-row gap-3">
                   <Link href="/contact" className="btn-primary">
                     Let&rsquo;s work together
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -85,18 +85,19 @@ export default function Home() {
                     Explore my work
                   </Link>
                 </div>
-                <p className="mt-10 flex items-center gap-2.5 text-sm text-text-tertiary">
+                <p className="mt-6 sm:mt-10 flex items-start gap-2.5 text-sm text-text-tertiary [&>span]:mt-1.5">
                   <span className="h-2 w-2 rounded-full bg-success" aria-hidden="true" />
                   Open to DevOps roles and freelance projects. Remote, based in India.
                 </p>
               </div>
-              <PipelineArt className="w-full max-w-md mx-auto lg:max-w-none" />
+              <PipelineArtCompact className="w-full max-w-sm lg:hidden" />
+              <PipelineArt className="hidden w-full lg:block" />
             </div>
           </div>
         </section>
 
         {/* ── About ─────────────────────────────────────────────── */}
-        <section aria-labelledby="about-heading" className="py-20 sm:py-28">
+        <section aria-labelledby="about-heading" className="py-16 sm:py-28">
           <div className="section-container grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
             <div>
               <SectionLabel index="01">About</SectionLabel>
@@ -116,7 +117,7 @@ export default function Home() {
                 someone else without a two-hour call.
               </p>
               <p>
-                <Link href="/about" className="inline-flex items-center gap-1.5 font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4">
+                <Link href="/about" className="tap inline-flex items-center gap-1.5 font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4">
                   More about me
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
@@ -126,7 +127,7 @@ export default function Home() {
         </section>
 
         {/* ── Services: a numbered index, not a card grid ───────── */}
-        <section aria-labelledby="services-heading" className="py-20 sm:py-28 border-t border-border">
+        <section aria-labelledby="services-heading" className="py-16 sm:py-28 border-t border-border">
           <div className="section-container">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -164,7 +165,7 @@ export default function Home() {
         </section>
 
         {/* ── Featured projects ─────────────────────────────────── */}
-        <section aria-labelledby="projects-heading" className="py-20 sm:py-28 bg-surface">
+        <section aria-labelledby="projects-heading" className="py-16 sm:py-28 bg-surface">
           <div className="section-container">
             <SectionLabel index="03">Selected work</SectionLabel>
             <h2 id="projects-heading" className="mt-6 type-display-lg text-text-primary max-w-3xl text-balance">
@@ -179,7 +180,7 @@ export default function Home() {
                       {String(i + 1).padStart(2, "0")} / {String(featured.length).padStart(2, "0")}
                     </p>
                     <h3 className="mt-3 type-display-md text-text-primary">
-                      <Link href={`/projects/${project.slug}`} className="hover:text-primary transition-colors">
+                      <Link href={`/projects/${project.slug}`} className="block py-2 hover:text-primary transition-colors">
                         {project.title}
                       </Link>
                     </h3>
@@ -197,7 +198,7 @@ export default function Home() {
                     <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
                       <Link
                         href={`/projects/${project.slug}`}
-                        className="inline-flex items-center gap-1.5 font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
+                        className="tap inline-flex items-center gap-1.5 font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
                       >
                         Read the case study
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -206,7 +207,7 @@ export default function Home() {
                         href={project.repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-text-secondary hover:text-text-primary transition-colors"
+                        className="tap inline-flex items-center gap-1.5 text-text-secondary hover:text-text-primary transition-colors"
                       >
                         Source on GitHub
                         <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -227,7 +228,7 @@ export default function Home() {
         </section>
 
         {/* ── Technical expertise: a table, not a cloud of logos ─── */}
-        <section aria-labelledby="stack-heading" className="py-20 sm:py-28">
+        <section aria-labelledby="stack-heading" className="py-16 sm:py-28">
           <div className="section-container grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
             <div>
               <SectionLabel index="04">Technical expertise</SectionLabel>
@@ -256,7 +257,7 @@ export default function Home() {
         </section>
 
         {/* ── Engineering philosophy ────────────────────────────── */}
-        <section aria-labelledby="philosophy-heading" className="stage py-20 sm:py-28">
+        <section aria-labelledby="philosophy-heading" className="stage py-16 sm:py-28">
           <div className="section-container">
             <SectionLabel index="05">Engineering philosophy</SectionLabel>
             <h2 id="philosophy-heading" className="mt-6 type-display-lg text-text-primary max-w-3xl text-balance">
@@ -275,7 +276,7 @@ export default function Home() {
 
         {/* ── Latest insights ───────────────────────────────────── */}
         {latest.length > 0 && (
-          <section aria-labelledby="insights-heading" className="py-20 sm:py-28">
+          <section aria-labelledby="insights-heading" className="py-16 sm:py-28">
             <div className="section-container">
               <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
                 <div>
@@ -313,7 +314,7 @@ export default function Home() {
         )}
 
         {/* ── Contact ───────────────────────────────────────────── */}
-        <section aria-labelledby="contact-heading" className="py-20 sm:py-28 border-t border-border">
+        <section aria-labelledby="contact-heading" className="py-16 sm:py-28 border-t border-border">
           <div className="section-container grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
             <div>
               <SectionLabel index="07">Contact</SectionLabel>
@@ -327,18 +328,18 @@ export default function Home() {
                 <div>
                   <dt className="type-eyebrow text-text-tertiary">Email</dt>
                   <dd className="mt-1.5">
-                    <a href={`mailto:${site.email}`} className="text-lg font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4">
+                    <a href={`mailto:${site.email}`} className="tap text-lg font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4">
                       {site.email}
                     </a>
                   </dd>
                 </div>
                 <div>
                   <dt className="type-eyebrow text-text-tertiary">Elsewhere</dt>
-                  <dd className="mt-1.5 flex gap-6 text-lg font-medium">
-                    <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="text-text-primary hover:text-primary transition-colors">
+                  <dd className="flex gap-6 text-lg font-medium">
+                    <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="tap text-text-primary hover:text-primary transition-colors">
                       LinkedIn
                     </a>
-                    <a href={site.github} target="_blank" rel="noopener noreferrer" className="text-text-primary hover:text-primary transition-colors">
+                    <a href={site.github} target="_blank" rel="noopener noreferrer" className="tap text-text-primary hover:text-primary transition-colors">
                       GitHub
                     </a>
                   </dd>

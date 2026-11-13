@@ -290,7 +290,7 @@ export default function PipelineSimulator() {
                             <span className="text-xs font-medium text-text-primary sm:mt-2 whitespace-nowrap">
                               {stage.name}
                             </span>
-                            <span className="font-mono text-[11px] text-text-tertiary">
+                            <span className="font-mono text-xs text-text-tertiary">
                               {stage.subtitle}
                             </span>
                           </div>
@@ -330,7 +330,7 @@ export default function PipelineSimulator() {
                 <div className="flex items-center justify-between bg-surface border-b border-border px-4 py-2">
                   <div className="flex items-center gap-2">
                     <Terminal className="h-4 w-4 text-text-tertiary" />
-                    <span className="text-[11px] font-mono text-text-tertiary">simulated-runner:~</span>
+                    <span className="text-xs font-mono text-text-tertiary">simulated-runner:~</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="h-2 w-2 rounded-full bg-border-strong" />
@@ -348,7 +348,7 @@ export default function PipelineSimulator() {
                     <div className="flex flex-col items-center justify-center h-full text-center text-text-tertiary">
                       <Terminal className="h-8 w-8 opacity-25 mb-2" />
                       <p>Console idle.</p>
-                      <p className="text-[11px] text-text-quaternary">Press “Run simulation” to start.</p>
+                      <p className="text-xs text-text-quaternary">Press “Run simulation” to start.</p>
                     </div>
                   )}
                   {terminalLogs.map((log, index) => {

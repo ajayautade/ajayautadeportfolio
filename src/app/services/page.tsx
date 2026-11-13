@@ -52,7 +52,7 @@ export default function ServicesPage() {
             <ul className="flex flex-wrap gap-2">
               {services.map((service) => (
                 <li key={service.id}>
-                  <a href={`#${service.id}`} className="tech-pill min-h-9 px-3 hover:text-text-primary transition-colors">
+                  <a href={`#${service.id}`} className="tech-pill min-h-11 px-3 hover:text-text-primary transition-colors">
                     {service.title}
                   </a>
                 </li>
@@ -115,7 +115,7 @@ export default function ServicesPage() {
                     {service.relatedProject && (
                       <Link
                         href={`/projects/${service.relatedProject.slug}`}
-                        className="text-sm font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
+                        className="tap text-sm font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
                       >
                         See it in a project: {service.relatedProject.label}
                       </Link>

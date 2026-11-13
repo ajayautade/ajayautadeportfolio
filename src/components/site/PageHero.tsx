@@ -17,10 +17,10 @@ interface PageHeroProps {
  */
 export default function PageHero({ eyebrow, title, lead, crumbs, children, aside }: PageHeroProps) {
   return (
-    <header className="stage pt-28 pb-14 sm:pt-36 sm:pb-20">
+    <header className="stage pt-20 pb-12 sm:pt-36 sm:pb-20">
       <div className="section-container">
         {crumbs && <Breadcrumbs items={crumbs} />}
-        <div className={`mt-8 grid gap-10 ${aside ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:items-end" : ""}`}>
+        <div className={`mt-4 sm:mt-8 grid gap-10 ${aside ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:items-end" : ""}`}>
           <div className="max-w-4xl">
             {eyebrow && <p className="type-eyebrow text-text-tertiary mb-5">{eyebrow}</p>}
             <h1 className="type-display-xl text-text-primary text-balance">{title}</h1>

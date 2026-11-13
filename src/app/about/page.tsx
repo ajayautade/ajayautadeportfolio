@@ -99,7 +99,7 @@ export default function AboutPage() {
           </div>
         </PageHero>
 
-        <section aria-labelledby="intro-heading" className="py-20 sm:py-28">
+        <section aria-labelledby="intro-heading" className="py-16 sm:py-28">
           <div className="section-container grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
             <h2 id="intro-heading" className="type-display-md text-text-primary">
               Who I am
@@ -124,7 +124,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section aria-labelledby="journey-heading" className="py-20 sm:py-28 bg-surface">
+        <section aria-labelledby="journey-heading" className="py-16 sm:py-28 bg-surface">
           <div className="section-container">
             <h2 id="journey-heading" className="type-display-md text-text-primary">
               What I&rsquo;ve built
@@ -140,7 +140,7 @@ export default function AboutPage() {
                   <p className="mt-3 text-text-secondary">{step.text}</p>
                   <Link
                     href={step.href}
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
+                    className="tap mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
                   >
                     {step.link}
                     <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
@@ -151,7 +151,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section aria-labelledby="interests-heading" className="py-20 sm:py-28">
+        <section aria-labelledby="interests-heading" className="py-16 sm:py-28">
           <div className="section-container grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
             <h2 id="interests-heading" className="type-display-md text-text-primary">
               What I&rsquo;m interested in
@@ -167,7 +167,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section aria-labelledby="skills-heading" className="py-20 sm:py-28 border-t border-border">
+        <section aria-labelledby="skills-heading" className="py-16 sm:py-28 border-t border-border">
           <div className="section-container grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
             <div>
               <h2 id="skills-heading" className="type-display-md text-text-primary">
@@ -209,7 +209,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section aria-labelledby="how-heading" className="stage py-20 sm:py-28">
+        <section aria-labelledby="how-heading" className="stage py-16 sm:py-28">
           <div className="section-container">
             <h2 id="how-heading" className="type-display-md text-text-primary">
               How I work
@@ -233,17 +233,17 @@ export default function AboutPage() {
             </div>
             <ul className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-lg font-medium">
               <li>
-                <a href={site.github} target="_blank" rel="noopener noreferrer" className="text-text-primary underline decoration-primary decoration-2 underline-offset-4">
+                <a href={site.github} target="_blank" rel="noopener noreferrer" className="tap text-text-primary underline decoration-primary decoration-2 underline-offset-4">
                   GitHub
                 </a>
               </li>
               <li>
-                <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="text-text-primary underline decoration-primary decoration-2 underline-offset-4">
+                <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="tap text-text-primary underline decoration-primary decoration-2 underline-offset-4">
                   LinkedIn
                 </a>
               </li>
               <li>
-                <a href={`mailto:${site.email}`} className="text-text-primary underline decoration-primary decoration-2 underline-offset-4">
+                <a href={`mailto:${site.email}`} className="tap text-text-primary underline decoration-primary decoration-2 underline-offset-4">
                   {site.email}
                 </a>
               </li>

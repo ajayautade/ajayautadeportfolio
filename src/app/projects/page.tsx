@@ -46,7 +46,7 @@ export default function ProjectsPage() {
                       <h2 className="mt-3 type-display-md text-text-primary text-balance">
                         <Link
                           href={`/projects/${project.slug}`}
-                          className="underline decoration-transparent decoration-2 underline-offset-4 transition-colors hover:decoration-primary"
+                          className="block py-2 underline decoration-transparent decoration-2 underline-offset-4 transition-colors hover:decoration-primary"
                         >
                           {project.title}
                         </Link>
@@ -63,7 +63,7 @@ export default function ProjectsPage() {
                       </ul>
                       <Link
                         href={`/projects/${project.slug}`}
-                        aria-label={`Read the ${project.title} case study`}
+                        aria-label={`Read the case study: ${project.title}`}
                         className="mt-6 inline-flex min-h-11 items-center gap-1.5 font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
                       >
                         Read the case study
@@ -81,7 +81,7 @@ export default function ProjectsPage() {
                 href={site.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
+                className="tap font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
               >
                 GitHub
               </a>

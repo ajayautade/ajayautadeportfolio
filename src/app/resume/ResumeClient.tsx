@@ -135,7 +135,7 @@ export default function ResumeClient() {
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors py-1.5 px-3 rounded-lg border border-border bg-surface hover:bg-surface-elevated"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors min-h-11 py-1.5 px-3 rounded-lg border border-border bg-surface hover:bg-surface-elevated"
             >
               <ArrowLeft className="h-4 w-4" />
               <span>Back to Portfolio</span>
@@ -151,7 +151,7 @@ export default function ResumeClient() {
             {activeTab === "coverletter" ? (
               <button
                 onClick={handleCopyLetter}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg border border-border bg-surface hover:bg-surface-elevated text-text-secondary hover:text-text-primary transition-colors"
+                className="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg border border-border bg-surface hover:bg-surface-elevated text-text-secondary hover:text-text-primary transition-colors"
                 title="Copy cover letter text"
               >
                 {copiedLetter ? (
@@ -169,7 +169,7 @@ export default function ResumeClient() {
             ) : (
               <button
                 onClick={handleCopyLink}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg border border-border bg-surface hover:bg-surface-elevated text-text-secondary hover:text-text-primary transition-colors"
+                className="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg border border-border bg-surface hover:bg-surface-elevated text-text-secondary hover:text-text-primary transition-colors"
                 title="Copy shareable link"
               >
                 {copiedLink ? (
@@ -199,7 +199,7 @@ export default function ResumeClient() {
               href={RESUME_FILE_PATH}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg border border-border bg-surface hover:bg-surface-elevated text-text-secondary hover:text-text-primary transition-colors"
+              className="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg border border-border bg-surface hover:bg-surface-elevated text-text-secondary hover:text-text-primary transition-colors"
               title="Open raw PDF in new browser tab"
             >
               <ExternalLink className="h-4 w-4" />
@@ -210,13 +210,13 @@ export default function ResumeClient() {
             <a
               href={RESUME_FILE_PATH}
               download={RESUME_DOWNLOAD_FILENAME}
-              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-medium rounded-lg bg-text-primary text-bg hover:opacity-85 transition-colors"
+              className="inline-flex min-h-11 items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-medium rounded-lg bg-text-primary text-bg hover:opacity-85 transition-colors"
               id="download-resume-btn"
               title={`Download resume as ${RESUME_DOWNLOAD_FILENAME}`}
             >
               <Download className="h-4 w-4" />
               <span>Download Resume</span>
-              <span className="hidden sm:inline-block text-[10px] bg-white/20 px-1.5 py-0.5 rounded uppercase tracking-wider font-mono">
+              <span className="hidden sm:inline-block text-xs bg-white/20 px-1.5 py-0.5 rounded uppercase tracking-wider font-mono">
                 PDF
               </span>
             </a>
@@ -269,7 +269,7 @@ export default function ResumeClient() {
             <div className="flex rounded-full p-1 bg-bg border border-border">
               <button
                 onClick={() => handleTabChange("pdf")}
-                className={`flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-sm border border-transparent transition-colors ${
+                className={`flex min-h-11 items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-sm border border-transparent transition-colors ${
                   activeTab === "pdf"
                     ? "bg-surface-elevated text-text-primary border border-border-strong"
                     : "text-text-secondary hover:text-text-primary"
@@ -280,7 +280,7 @@ export default function ResumeClient() {
               </button>
               <button
                 onClick={() => handleTabChange("coverletter")}
-                className={`flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-sm border border-transparent transition-colors ${
+                className={`flex min-h-11 items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-sm border border-transparent transition-colors ${
                   activeTab === "coverletter"
                     ? "bg-surface-elevated text-text-primary border border-border-strong"
                     : "text-text-secondary hover:text-text-primary"
@@ -291,7 +291,7 @@ export default function ResumeClient() {
               </button>
               <button
                 onClick={() => handleTabChange("quickview")}
-                className={`flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-sm border border-transparent transition-colors ${
+                className={`flex min-h-11 items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-sm border border-transparent transition-colors ${
                   activeTab === "quickview"
                     ? "bg-surface-elevated text-text-primary border border-border-strong"
                     : "text-text-secondary hover:text-text-primary"
@@ -310,10 +310,10 @@ export default function ResumeClient() {
             className="panel overflow-hidden flex flex-col"
           >
             {/* Embedded PDF Viewer Header */}
-            <div className="bg-surface-elevated/70 px-4 py-3 border-b border-border flex items-center justify-between text-xs text-text-secondary">
-              <div className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-text-tertiary" />
-                <span className="font-mono text-text-primary font-medium">
+            <div className="bg-surface-elevated/70 px-4 py-1.5 sm:py-3 border-b border-border flex flex-wrap items-center justify-between gap-x-4 text-xs text-text-secondary">
+              <div className="flex min-w-0 items-center gap-2">
+                <FileText className="h-4 w-4 shrink-0 text-text-tertiary" />
+                <span className="font-mono text-text-primary font-medium truncate">
                   {RESUME_DOWNLOAD_FILENAME}
                 </span>
                 <span className="hidden sm:inline text-text-tertiary">
@@ -327,7 +327,7 @@ export default function ResumeClient() {
                 <a
                   href={RESUME_FILE_PATH}
                   download={RESUME_DOWNLOAD_FILENAME}
-                  className="text-primary hover:underline font-medium flex items-center gap-1"
+                  className="tap shrink-0 text-primary hover:underline font-medium flex items-center gap-1"
                 >
                   <Download className="h-3.5 w-3.5" />
                   Direct Download
@@ -670,7 +670,7 @@ export default function ResumeClient() {
 
                 <button
                   onClick={() => handleTabChange("pdf")}
-                  className="w-full mt-2.5 flex items-center justify-center gap-1.5 py-2 px-4 rounded-lg border border-border bg-surface-elevated hover:border-border-strong text-xs font-medium text-text-secondary hover:text-text-primary transition-colors"
+                  className="w-full mt-2.5 flex min-h-11 items-center justify-center gap-1.5 py-2 px-4 rounded-lg border border-border bg-surface-elevated hover:border-border-strong text-xs font-medium text-text-secondary hover:text-text-primary transition-colors"
                 >
                   <Eye className="h-3.5 w-3.5" />
                   Switch to PDF Viewer
