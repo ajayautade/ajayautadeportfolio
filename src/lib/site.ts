@@ -26,6 +26,7 @@ export const mainNav = [
   { label: "Projects", href: "/projects" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
+  { label: "Home", href: "/" },
 ] as const;
 
 export const footerNav = [
