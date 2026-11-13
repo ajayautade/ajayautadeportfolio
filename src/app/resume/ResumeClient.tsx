@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Download,
   ExternalLink,
@@ -27,9 +26,8 @@ import {
   ChevronRight,
   ScrollText,
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import BackToTop from "@/components/BackToTop";
+import SiteHeader from "@/components/site/SiteHeader";
+import SiteFooter from "@/components/site/SiteFooter";
 import { personalInfo } from "@/lib/data";
 
 const RESUME_FILE_PATH = "/ajay_autade_devops_9545034120.pdf";
@@ -54,7 +52,7 @@ function GithubIcon({ className }: { className?: string }) {
 const strengths = [
   {
     title: "Cloud & Infrastructure",
-    desc: "AWS (EC2, EKS, ECR, S3, VPC, IAM), GCP, Terraform, Ansible — production-grade resilient environments",
+    desc: "AWS (EC2, EKS, ECR, S3, VPC, IAM), Terraform, Ansible",
   },
   {
     title: "Containerization & Orchestration",
@@ -66,15 +64,15 @@ const strengths = [
   },
   {
     title: "MLOps & AI Infrastructure",
-    desc: "ML deployment pipelines, model serving, real-time inference monitoring at scale",
+    desc: "Deploying a model-serving API with CI/CD and inference metrics",
   },
   {
     title: "Monitoring & Observability",
-    desc: "Prometheus, Grafana, CloudWatch — custom PromQL alerts and real-time production dashboards",
+    desc: "Prometheus, Grafana, CloudWatch — custom PromQL alerts and Grafana dashboards",
   },
   {
     title: "DevSecOps",
-    desc: "Trivy vulnerability scanning, automated CI security gates, and policy-as-code enforcement",
+    desc: "Trivy image scanning as a CI gate",
   },
 ];
 
@@ -83,22 +81,17 @@ export default function ResumeClient() {
   const searchParams = useSearchParams();
   const tabFromUrl = searchParams.get("tab");
 
-  const [activeTab, setActiveTab] = useState<"pdf" | "coverletter" | "quickview">("pdf");
+  // The tab lives in the URL, so it is derived rather than mirrored into state.
+  const activeTab: "pdf" | "coverletter" | "quickview" =
+    tabFromUrl === "cover-letter" || tabFromUrl === "coverletter"
+      ? "coverletter"
+      : tabFromUrl === "quickview" || tabFromUrl === "bio"
+      ? "quickview"
+      : "pdf";
   const [copiedLink, setCopiedLink] = useState(false);
   const [copiedLetter, setCopiedLetter] = useState(false);
 
-  useEffect(() => {
-    if (tabFromUrl === "cover-letter" || tabFromUrl === "coverletter") {
-      setActiveTab("coverletter");
-    } else if (tabFromUrl === "quickview" || tabFromUrl === "bio") {
-      setActiveTab("quickview");
-    } else if (tabFromUrl === "pdf" || tabFromUrl === "resume") {
-      setActiveTab("pdf");
-    }
-  }, [tabFromUrl]);
-
   const handleTabChange = (tab: "pdf" | "coverletter" | "quickview") => {
-    setActiveTab(tab);
     const param = tab === "coverletter" ? "cover-letter" : tab;
     router.replace(`/resume?tab=${param}`, { scroll: false });
   };
@@ -134,9 +127,9 @@ export default function ResumeClient() {
 
   return (
     <div className="min-h-screen bg-bg text-text-primary flex flex-col">
-      <Navbar />
+      <SiteHeader />
 
-      <main className="flex-1 pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+      <main id="main" className="flex-1 pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         {/* Top Breadcrumb & Status Bar */}
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border pb-5">
           <div className="flex items-center gap-3">
@@ -147,7 +140,7 @@ export default function ResumeClient() {
               <ArrowLeft className="h-4 w-4" />
               <span>Back to Portfolio</span>
             </Link>
-            <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-success/10 text-success text-xs font-medium border border-success/20">
+            <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-sm bg-success/10 text-success text-xs font-medium border border-success/20">
               <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
               Available for Junior Roles &amp; Consultancies
             </div>
@@ -217,7 +210,7 @@ export default function ResumeClient() {
             <a
               href={RESUME_FILE_PATH}
               download={RESUME_DOWNLOAD_FILENAME}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-medium rounded-lg bg-text-primary text-bg hover:opacity-85 transition-colors"
               id="download-resume-btn"
               title={`Download resume as ${RESUME_DOWNLOAD_FILENAME}`}
             >
@@ -231,17 +224,14 @@ export default function ResumeClient() {
         </div>
 
         {/* Header Hero Card with Segmented Tab Switcher */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mb-6 p-5 sm:p-6 rounded-2xl border border-border bg-surface/80 backdrop-blur-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6"
+        <div
+          className="mb-6 p-5 sm:p-6 rounded-2xl border border-border bg-surface flex flex-col md:flex-row md:items-center justify-between gap-6"
         >
           <div className="flex items-center gap-4">
-            <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-2xl overflow-hidden border-2 border-primary/20 shrink-0 bg-surface">
+            <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-xl overflow-hidden border border-border shrink-0 bg-surface">
               <Image
                 src="/profile.png"
-                alt="Ajay Autade — DevOps, Cloud Architecture & Platform Engineering Specialist"
+                alt="Portrait of Ajay Autade"
                 fill
                 sizes="80px"
                 className="object-cover"
@@ -250,12 +240,9 @@ export default function ResumeClient() {
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
+                <h1 className="type-headline text-text-primary">
                   {personalInfo.name}
                 </h1>
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/20">
-                  Verified Candidate
-                </span>
               </div>
               <p className="text-sm sm:text-base text-text-secondary mt-0.5 font-medium">
                 {personalInfo.title}
@@ -279,12 +266,12 @@ export default function ResumeClient() {
 
           {/* Unified 3-Tab View Switcher */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <div className="flex rounded-xl p-1 bg-surface-elevated border border-border">
+            <div className="flex rounded-full p-1 bg-bg border border-border">
               <button
                 onClick={() => handleTabChange("pdf")}
-                className={`flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                className={`flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-sm border border-transparent transition-colors ${
                   activeTab === "pdf"
-                    ? "bg-primary text-white shadow-sm"
+                    ? "bg-surface-elevated text-text-primary border border-border-strong"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
@@ -293,9 +280,9 @@ export default function ResumeClient() {
               </button>
               <button
                 onClick={() => handleTabChange("coverletter")}
-                className={`flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                className={`flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-sm border border-transparent transition-colors ${
                   activeTab === "coverletter"
-                    ? "bg-primary text-white shadow-sm"
+                    ? "bg-surface-elevated text-text-primary border border-border-strong"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
@@ -304,9 +291,9 @@ export default function ResumeClient() {
               </button>
               <button
                 onClick={() => handleTabChange("quickview")}
-                className={`flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                className={`flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-sm border border-transparent transition-colors ${
                   activeTab === "quickview"
-                    ? "bg-primary text-white shadow-sm"
+                    ? "bg-surface-elevated text-text-primary border border-border-strong"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
@@ -315,22 +302,17 @@ export default function ResumeClient() {
               </button>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Tab 1: Embedded PDF Document */}
         {activeTab === "pdf" && (
-          <motion.div
-            key="tab-pdf"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="rounded-2xl border border-border bg-surface overflow-hidden shadow-2xl flex flex-col"
+          <div
+            className="panel overflow-hidden flex flex-col"
           >
             {/* Embedded PDF Viewer Header */}
             <div className="bg-surface-elevated/70 px-4 py-3 border-b border-border flex items-center justify-between text-xs text-text-secondary">
               <div className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-primary" />
+                <FileText className="h-4 w-4 text-text-tertiary" />
                 <span className="font-mono text-text-primary font-medium">
                   {RESUME_DOWNLOAD_FILENAME}
                 </span>
@@ -366,8 +348,8 @@ export default function ResumeClient() {
                   className="w-full h-full border-0"
                 >
                   <div className="p-8 text-center flex flex-col items-center justify-center h-full">
-                    <FileText className="h-16 w-16 text-primary mb-4" />
-                    <h3 className="text-lg font-bold text-text-primary mb-2">
+                    <FileText className="h-16 w-16 text-text-quaternary mb-4" />
+                    <h3 className="text-lg font-semibold text-text-primary mb-2">
                       Resume PDF Preview
                     </h3>
                     <p className="text-sm text-text-secondary max-w-md mb-6">
@@ -396,54 +378,49 @@ export default function ResumeClient() {
                 </iframe>
               </object>
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* Tab 2: Integrated Executive Cover Letter */}
         {activeTab === "coverletter" && (
-          <motion.div
-            key="tab-coverletter"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="rounded-2xl border border-border bg-surface p-6 sm:p-10 lg:p-14 shadow-xl"
+          <div
+            className="rounded-2xl border border-border bg-surface p-6 sm:p-10 lg:p-14"
             id="cover-letter-body"
           >
             {/* Contact Info Header */}
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 text-xs text-text-secondary mb-10 pb-6 border-b border-border">
               <a
                 href={`mailto:${personalInfo.secondaryEmail}`}
-                className="inline-flex items-center gap-1.5 hover:text-primary transition-colors"
+                className="inline-flex items-center gap-1.5 hover:text-text-primary transition-colors"
               >
-                <Mail className="h-3.5 w-3.5 text-primary" />
+                <Mail className="h-3.5 w-3.5 text-text-tertiary" />
                 {personalInfo.secondaryEmail}
               </a>
               <a
                 href={`tel:+91${personalInfo.phone}`}
-                className="inline-flex items-center gap-1.5 hover:text-primary transition-colors"
+                className="inline-flex items-center gap-1.5 hover:text-text-primary transition-colors"
               >
-                <Phone className="h-3.5 w-3.5 text-primary" />
+                <Phone className="h-3.5 w-3.5 text-text-tertiary" />
                 +91 {personalInfo.phone}
               </a>
               <span className="inline-flex items-center gap-1.5">
-                <MapPin className="h-3.5 w-3.5 text-primary" />
+                <MapPin className="h-3.5 w-3.5 text-text-tertiary" />
                 {personalInfo.location}
               </span>
               <a
                 href="https://ajayautade.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-primary transition-colors"
+                className="inline-flex items-center gap-1.5 hover:text-text-primary transition-colors"
               >
-                <Globe className="h-3.5 w-3.5 text-primary" />
+                <Globe className="h-3.5 w-3.5 text-text-tertiary" />
                 ajayautade.com
               </a>
               <a
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-primary transition-colors"
+                className="inline-flex items-center gap-1.5 hover:text-text-primary transition-colors"
               >
                 <LinkedinIcon className="h-3.5 w-3.5 text-[#0A66C2]" />
                 LinkedIn
@@ -452,7 +429,7 @@ export default function ResumeClient() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-primary transition-colors"
+                className="inline-flex items-center gap-1.5 hover:text-text-primary transition-colors"
               >
                 <GithubIcon className="h-3.5 w-3.5 text-text-primary" />
                 GitHub
@@ -461,20 +438,20 @@ export default function ResumeClient() {
 
             {/* Letterhead Title */}
             <div className="text-center mb-10">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
+              <h2 className="type-display-md text-text-primary">
                 {personalInfo.name}
               </h2>
-              <p className="mt-1 text-sm sm:text-base font-semibold text-primary">
+              <p className="mt-1 text-sm sm:text-base font-medium text-text-tertiary">
                 {personalInfo.title}
               </p>
-              <div className="mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-primary to-accent mx-auto" />
+              <div className="mt-4 h-px w-20 bg-border-strong mx-auto" />
             </div>
 
             {/* Cover Letter Content Body */}
             <div id="cover-letter-text" className="space-y-8 sm:space-y-10 max-w-4xl mx-auto">
               {/* Greeting & Intro */}
               <div className="space-y-4">
-                <p className="text-lg font-bold text-text-primary">
+                <p className="text-lg font-semibold text-text-primary">
                   Dear Hiring Manager &amp; Engineering Leadership,
                 </p>
                 <p className="text-[15px] sm:text-base text-text-secondary leading-relaxed">
@@ -485,30 +462,30 @@ export default function ResumeClient() {
               {/* Experience Highlight Card */}
               <div className="rounded-2xl border border-border bg-surface-elevated/70 p-5 sm:p-7">
                 <div className="flex items-center gap-2.5 mb-3">
-                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/10">
-                    <Briefcase className="h-4 w-4 text-primary" />
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-surface-elevated border border-border">
+                    <Briefcase className="h-4 w-4 text-text-secondary" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-text-primary uppercase tracking-wide">
+                  <h3 className="text-sm sm:text-base font-semibold text-text-primary tracking-tight">
                     Professional Experience &amp; Infrastructure Automation
                   </h3>
                 </div>
                 <p className="text-[15px] sm:text-base text-text-secondary leading-relaxed">
-                  During my tenure at <strong className="text-text-primary font-semibold">Invictus Web Solutions Pvt. Ltd.</strong>, I automated AWS infrastructure provisioning (EC2, S3, VPC, IAM) using Terraform, eliminating drift and accelerating environment bootstrapping. I containerized 4+ multi-tier applications with Docker and deployed them onto Kubernetes clusters with auto-scaling (HPA) and zero-downtime rolling updates. Additionally, I architected end-to-end CI/CD workflows using Jenkins and GitHub Actions that cut delivery cycles by <span className="text-primary font-bold">60%</span>.
+                  During my tenure at <strong className="text-text-primary font-semibold">Invictus Web Solutions Pvt. Ltd.</strong>, I automated AWS infrastructure provisioning (EC2, S3, VPC, IAM) using Terraform, eliminating drift and accelerating environment bootstrapping. I containerized 4+ multi-tier applications with Docker and deployed them onto Kubernetes clusters with auto-scaling (HPA) and zero-downtime rolling updates. Additionally, I architected end-to-end CI/CD workflows using Jenkins and GitHub Actions that cut delivery cycles by <span className="text-text-primary font-semibold">60%</span>.
                 </p>
               </div>
 
               {/* Projects & AI/ML Initiatives */}
               <div className="rounded-2xl border border-border bg-surface-elevated/70 p-5 sm:p-7 space-y-4">
                 <div className="flex items-center gap-2.5 mb-1">
-                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/10">
-                    <Rocket className="h-4 w-4 text-primary" />
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-surface-elevated border border-border">
+                    <Rocket className="h-4 w-4 text-text-secondary" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-text-primary uppercase tracking-wide">
+                  <h3 className="text-sm sm:text-base font-semibold text-text-primary tracking-tight">
                     Production Systems, GitOps &amp; MLOps Scale
                   </h3>
                 </div>
                 <p className="text-[15px] sm:text-base text-text-secondary leading-relaxed">
-                  My work spans robust distributed systems. In my <strong className="text-text-primary font-semibold">MLOps Sentiment Analyzer</strong> platform on AWS EKS, I created a zero-touch GitOps deployment pipeline using GitHub Actions and ArgoCD that brought deployment turnaround from <span className="text-primary font-bold">45 minutes down to ~8 minutes</span>. I engineered multi-stage Docker builds reducing image footprints by <span className="text-primary font-bold">73%</span> (3 GB → 800 MB), automated HPA pod autoscaling, and implemented custom PromQL monitoring dashboards across 9 live inference metrics.
+                  My work spans robust distributed systems. In my <strong className="text-text-primary font-semibold">MLOps Sentiment Analyzer</strong> platform on AWS EKS, I created a zero-touch GitOps deployment pipeline using GitHub Actions and ArgoCD that brought deployment turnaround from <span className="text-text-primary font-semibold">45 minutes down to ~8 minutes</span>. I engineered multi-stage Docker builds reducing image footprints by <span className="text-text-primary font-semibold">73%</span> (3 GB → 800 MB), automated HPA pod autoscaling, and implemented custom PromQL monitoring dashboards across 9 live inference metrics.
                 </p>
                 <p className="text-[15px] sm:text-base text-text-secondary leading-relaxed">
                   In <strong className="text-text-primary font-semibold">MoviesMonkey</strong>, I orchestrated a dual-pipeline CI/CD architecture on AWS EKS with Trivy container vulnerability scanning, ArgoCD auto-sync, and automated multi-environment deployments, ensuring that code reaching production meets stringent compliance and availability standards.
@@ -518,10 +495,10 @@ export default function ResumeClient() {
               {/* AI & Continuous Learning */}
               <div className="rounded-2xl border border-border bg-surface-elevated/70 p-5 sm:p-7">
                 <div className="flex items-center gap-2.5 mb-3">
-                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/10">
-                    <Brain className="h-4 w-4 text-primary" />
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-surface-elevated border border-border">
+                    <Brain className="h-4 w-4 text-text-secondary" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-text-primary uppercase tracking-wide">
+                  <h3 className="text-sm sm:text-base font-semibold text-text-primary tracking-tight">
                     Continuous Learning &amp; AI Integration
                   </h3>
                 </div>
@@ -533,10 +510,10 @@ export default function ResumeClient() {
               {/* Core Strengths Grid */}
               <div>
                 <div className="flex items-center gap-2.5 mb-5">
-                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/10">
-                    <Shield className="h-4 w-4 text-primary" />
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-surface-elevated border border-border">
+                    <Shield className="h-4 w-4 text-text-secondary" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-text-primary uppercase tracking-wide">
+                  <h3 className="text-sm sm:text-base font-semibold text-text-primary tracking-tight">
                     Key Competencies &amp; Technical Capabilities
                   </h3>
                 </div>
@@ -544,9 +521,9 @@ export default function ResumeClient() {
                   {strengths.map((item) => (
                     <div
                       key={item.title}
-                      className="flex items-start gap-3 rounded-xl border border-border bg-surface-elevated/50 p-4 hover:border-primary/40 transition-colors"
+                      className="flex items-start gap-3 rounded-xl border border-border bg-bg p-4 hover:border-border-strong transition-colors"
                     >
-                      <ChevronRight className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                      <ChevronRight className="h-4 w-4 text-text-tertiary mt-0.5 shrink-0" />
                       <div>
                         <p className="text-sm font-semibold text-text-primary mb-1">
                           {item.title}
@@ -573,8 +550,8 @@ export default function ResumeClient() {
               {/* Sign-off */}
               <div className="border-t border-border pt-6">
                 <p className="text-sm text-text-secondary mb-1">Sincerely,</p>
-                <p className="text-xl font-bold text-text-primary">Ajay Autade</p>
-                <p className="text-xs font-semibold text-primary mt-0.5">
+                <p className="text-xl font-semibold text-text-primary">Ajay Autade</p>
+                <p className="text-xs font-medium text-text-tertiary mt-0.5">
                   DevOps, Cloud Architecture &amp; Platform Engineer
                 </p>
               </div>
@@ -612,24 +589,19 @@ export default function ResumeClient() {
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* Tab 3: Interactive Bio & Highlights */}
         {activeTab === "quickview" && (
-          <motion.div
-            key="tab-quickview"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+          <div
             className="grid grid-cols-1 lg:grid-cols-3 gap-6"
           >
             {/* Left 2 Cols: Summary & Experience */}
             <div className="lg:col-span-2 space-y-6">
-              <div className="p-6 rounded-2xl border border-border bg-surface shadow-sm">
-                <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
-                  <Sparkles className="h-5 w-5 text-primary" />
+              <div className="p-6 rounded-xl border border-border bg-surface">
+                <h2 className="text-lg font-semibold text-text-primary mb-3 flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-text-tertiary" />
                   Professional Summary
                 </h2>
                 <p className="text-text-secondary leading-relaxed text-sm sm:text-base">
@@ -637,9 +609,9 @@ export default function ResumeClient() {
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl border border-border bg-surface shadow-sm">
-                <h2 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-primary" />
+              <div className="p-6 rounded-xl border border-border bg-surface">
+                <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-text-tertiary" />
                   Key Strengths &amp; Impact
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -681,16 +653,16 @@ export default function ResumeClient() {
 
             {/* Right Col: Details & Quick Download Card */}
             <div className="space-y-6">
-              <div className="p-6 rounded-2xl border border-border bg-surface text-center shadow-sm">
-                <FileText className="h-12 w-12 text-primary mx-auto mb-3" />
-                <h3 className="text-base font-bold text-text-primary mb-4">
+              <div className="p-6 rounded-xl border border-border bg-surface text-center">
+                <FileText className="h-12 w-12 text-text-quaternary mx-auto mb-3" />
+                <h3 className="text-base font-semibold text-text-primary mb-4">
                   Official PDF Resume
                 </h3>
 
                 <a
                   href={RESUME_FILE_PATH}
                   download={RESUME_DOWNLOAD_FILENAME}
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className="btn-primary w-full"
                 >
                   <Download className="h-4 w-4" />
                   Download Resume
@@ -698,15 +670,15 @@ export default function ResumeClient() {
 
                 <button
                   onClick={() => handleTabChange("pdf")}
-                  className="w-full mt-2.5 flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl border border-border bg-surface-elevated hover:bg-surface text-xs font-medium text-text-secondary hover:text-text-primary transition-colors"
+                  className="w-full mt-2.5 flex items-center justify-center gap-1.5 py-2 px-4 rounded-lg border border-border bg-surface-elevated hover:border-border-strong text-xs font-medium text-text-secondary hover:text-text-primary transition-colors"
                 >
                   <Eye className="h-3.5 w-3.5" />
                   Switch to PDF Viewer
                 </button>
               </div>
 
-              <div className="p-6 rounded-2xl border border-border bg-surface shadow-sm">
-                <h3 className="text-sm font-bold text-text-primary mb-3">
+              <div className="p-6 rounded-xl border border-border bg-surface">
+                <h3 className="text-sm font-semibold text-text-primary mb-3">
                   Direct Contact
                 </h3>
                 <div className="space-y-2.5 text-xs text-text-secondary">
@@ -714,7 +686,7 @@ export default function ResumeClient() {
                     <span className="text-text-tertiary">Email:</span>
                     <a
                       href={`mailto:${personalInfo.secondaryEmail}`}
-                      className="text-text-primary hover:text-primary font-medium"
+                      className="text-text-primary hover:underline font-medium"
                     >
                       {personalInfo.secondaryEmail}
                     </a>
@@ -723,7 +695,7 @@ export default function ResumeClient() {
                     <span className="text-text-tertiary">Phone:</span>
                     <a
                       href={`tel:+91${personalInfo.phone}`}
-                      className="text-text-primary hover:text-primary font-medium"
+                      className="text-text-primary hover:underline font-medium"
                     >
                       +91 {personalInfo.phone}
                     </a>
@@ -744,16 +716,16 @@ export default function ResumeClient() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
       </main>
 
-      <Footer />
-      <BackToTop />
+      <SiteFooter />
 
       {/* Print styles */}
       <style jsx global>{`
         @media print {
+          header.stage,
           nav,
           footer,
           .section-divider,
