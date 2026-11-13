@@ -20,7 +20,7 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#09090b",
+          backgroundColor: "#000000",
           padding: "60px",
           textAlign: "center",
         }}
@@ -32,9 +32,9 @@ export default async function Image() {
             justifyContent: "center",
             marginBottom: "24px",
             padding: "8px 24px",
-            backgroundColor: "rgba(79, 70, 229, 0.15)",
+            backgroundColor: "#111111",
             borderRadius: "50px",
-            border: "1px solid rgba(79, 70, 229, 0.3)",
+            border: "1px solid #2c2a2d",
           }}
         >
           <div
@@ -42,15 +42,15 @@ export default async function Image() {
               width: "12px",
               height: "12px",
               borderRadius: "50%",
-              backgroundColor: "#10b981",
+              backgroundColor: "#b7c400",
               marginRight: "10px",
             }}
           />
           <span
             style={{
               fontSize: 22,
-              color: "#818cf8",
-              fontWeight: 600,
+              color: "#c99aab",
+              fontWeight: 700,
               fontFamily: "sans-serif",
             }}
           >
@@ -62,18 +62,18 @@ export default async function Image() {
             fontSize: 68,
             color: "white",
             lineHeight: 1.15,
-            fontWeight: 800,
+            fontWeight: 700,
             marginBottom: "16px",
             fontFamily: "sans-serif",
           }}
         >
           Cloud Architecture, DevOps &amp;{" "}
-          <span style={{ color: "#38bdf8" }}>Systems Engineering</span>
+          <span style={{ color: "#c99aab" }}>Systems Engineering</span>
         </h1>
         <p
           style={{
             fontSize: 30,
-            color: "#d4d4d8",
+            color: "#ffffff",
             maxWidth: "960px",
             lineHeight: 1.4,
             fontFamily: "sans-serif",
@@ -86,10 +86,10 @@ export default async function Image() {
           <div
             style={{
               padding: "12px 28px",
-              backgroundColor: "#18181b",
+              backgroundColor: "#111111",
               borderRadius: "12px",
-              border: "1px solid #27272a",
-              color: "#a1a1aa",
+              border: "1px solid #2c2a2d",
+              color: "#89868a",
               fontSize: 22,
               fontFamily: "sans-serif",
             }}
@@ -99,11 +99,11 @@ export default async function Image() {
           <div
             style={{
               padding: "12px 28px",
-              backgroundColor: "#4f46e5",
+              backgroundColor: "#c99aab",
               borderRadius: "12px",
               color: "white",
               fontSize: 22,
-              fontWeight: "bold",
+              fontWeight: 700,
               fontFamily: "sans-serif",
             }}
           >
@@ -112,10 +112,10 @@ export default async function Image() {
           <div
             style={{
               padding: "12px 28px",
-              backgroundColor: "#18181b",
+              backgroundColor: "#111111",
               borderRadius: "12px",
-              border: "1px solid #f59e0b",
-              color: "#f59e0b",
+              border: "1px solid #c99aab",
+              color: "#c99aab",
               fontSize: 22,
               fontFamily: "sans-serif",
             }}
