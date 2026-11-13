@@ -20,7 +20,7 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "center",
-          backgroundColor: "#09090b",
+          backgroundColor: "#000000",
           padding: "80px",
         }}
       >
@@ -36,11 +36,11 @@ export default async function Image() {
               width: "20px",
               height: "20px",
               borderRadius: "50%",
-              backgroundColor: "#3b82f6",
+              backgroundColor: "#c99aab",
               marginRight: "20px",
             }}
           />
-          <span style={{ fontSize: 40, color: "#a1a1aa", fontWeight: 600, fontFamily: "sans-serif" }}>
+          <span style={{ fontSize: 40, color: "#89868a", fontWeight: 700, fontFamily: "sans-serif" }}>
             ajayautade.com
           </span>
         </div>
@@ -49,7 +49,7 @@ export default async function Image() {
             fontSize: 80,
             color: "white",
             lineHeight: 1.1,
-            fontWeight: 800,
+            fontWeight: 700,
             marginBottom: "20px",
             fontFamily: "sans-serif"
           }}
@@ -59,7 +59,7 @@ export default async function Image() {
         <h2
           style={{
             fontSize: 50,
-            color: "#3b82f6",
+            color: "#c99aab",
             fontWeight: 700,
             marginBottom: "40px",
             fontFamily: "sans-serif"
@@ -70,7 +70,7 @@ export default async function Image() {
         <p
           style={{
             fontSize: 32,
-            color: "#d4d4d8",
+            color: "#ffffff",
             maxWidth: "800px",
             lineHeight: 1.4,
             fontFamily: "sans-serif"

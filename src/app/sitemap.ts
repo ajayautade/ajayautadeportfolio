@@ -1,33 +1,26 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { absoluteUrl } from "@/lib/site";
+import { projects } from "@/lib/projects";
+import { posts } from "@/lib/posts";
+
+// Bump when the static pages change in a way worth re-crawling.
+const SITE_UPDATED = "2026-11-13";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://ajayautade.com";
-  const now = new Date();
+  const pages = ["/", "/services", "/projects", "/blog", "/about", "/contact", "/certifications", "/deep-dives"];
 
   return [
-    {
-      url: baseUrl,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/deep-dives`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/certifications`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.85,
-    },
+    ...pages.map((path) => ({
+      url: absoluteUrl(path),
+      lastModified: SITE_UPDATED,
+    })),
+    ...projects.map((project) => ({
+      url: absoluteUrl(`/projects/${project.slug}`),
+      lastModified: SITE_UPDATED,
+    })),
+    ...posts.map((post) => ({
+      url: absoluteUrl(`/blog/${post.slug}`),
+      lastModified: post.date,
+    })),
   ];
 }

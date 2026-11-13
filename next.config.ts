@@ -95,6 +95,11 @@ const nextConfig: NextConfig = {
             key: "Content-Disposition",
             value: 'inline; filename="ajay_autade_devops_9545034120.pdf"',
           },
+          // Keep the resume out of search results; it is shared by direct link only
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow",
+          },
         ],
       },
       {
@@ -107,6 +112,11 @@ const nextConfig: NextConfig = {
           {
             key: "Content-Disposition",
             value: 'inline; filename="ajay_autade_devops_9545034120.pdf"',
+          },
+          // Keep the resume out of search results; it is shared by direct link only
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow",
           },
         ],
       },
