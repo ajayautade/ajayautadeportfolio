@@ -47,3 +47,9 @@ DESIGN.md
 design.md
 .claude/
 .kilo/
+
+# local maintenance & commit scripts
+*backdate*.sh
+git_backdate*.sh
+make_commits*.sh
+
