@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import PageHero from "@/components/site/PageHero";
@@ -12,7 +12,8 @@ import PostRow from "@/components/blog/PostRow";
 import { TocDisclosure, TocRail } from "@/components/blog/TableOfContents";
 import { formatPostDate } from "@/components/blog/date";
 import { postBodies } from "@/content/posts";
-import { getPost, posts } from "@/lib/posts";
+import { getPost, lastModified, posts, tagSlug } from "@/lib/posts";
+import { services } from "@/lib/services";
 import { absoluteUrl, site } from "@/lib/site";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       description: post.description,
       url: path,
       publishedTime: post.date,
-      modifiedTime: post.date,
+      modifiedTime: lastModified(post),
       authors: [site.name],
       tags: post.tags,
     },
@@ -63,19 +64,23 @@ export default async function BlogPostPage({ params }: Params) {
     .slice(0, 2)
     .map(({ other }) => other);
 
+  const relatedServices = services
+    .filter((service) => service.postTags.some((tag) => post.tags.includes(tag)))
+    .slice(0, 3);
+
   const articleLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: lastModified(post),
     inLanguage: "en",
     keywords: post.tags.join(", "),
     author: { "@id": `${site.url}/#person` },
     publisher: { "@id": `${site.url}/#person` },
     mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(path) },
-    image: `${site.url}/opengraph-image`,
+    image: absoluteUrl(`${path}/opengraph-image`),
   };
 
   return (
@@ -93,8 +98,10 @@ export default async function BlogPostPage({ params }: Params) {
           >
             <ul className="flex flex-wrap gap-1.5" aria-label="Topics">
               {post.tags.map((tag) => (
-                <li key={tag} className="tech-pill">
-                  {tag}
+                <li key={tag}>
+                  <Link href={`/blog/tag/${tagSlug(tag)}`} className="tech-pill min-h-8 hover:text-text-primary transition-colors">
+                    {tag}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -116,6 +123,12 @@ export default async function BlogPostPage({ params }: Params) {
                   <time dateTime={post.date}>{formatPostDate(post.date)}</time>
                   <span aria-hidden="true"> · </span>
                   {post.readingMinutes} min read
+                  {post.updated && post.updated !== post.date && (
+                    <>
+                      <span aria-hidden="true"> · </span>
+                      Updated <time dateTime={post.updated}>{formatPostDate(post.updated)}</time>
+                    </>
+                  )}
                 </p>
               </div>
             </div>
@@ -126,6 +139,25 @@ export default async function BlogPostPage({ params }: Params) {
               <div className="min-w-0">
                 <TocDisclosure headings={headings} />
                 <Body />
+                {relatedServices.length > 0 && (
+                  <aside aria-labelledby="related-services-heading" className="mt-16 max-w-[68ch] border-t border-text-primary pt-6">
+                    <h2 id="related-services-heading" className="type-eyebrow text-text-tertiary">
+                      I do this as a service
+                    </h2>
+                    <ul className="mt-2">
+                      {relatedServices.map((service) => (
+                        <li key={service.id} className="border-b border-border">
+                          <Link href={`/services/${service.id}`} className="group flex min-h-14 items-center justify-between gap-6 py-3">
+                            <span className="type-card-title text-text-primary group-hover:text-primary transition-colors">
+                              {service.title}
+                            </span>
+                            <ArrowRight className="h-4 w-4 shrink-0 text-text-tertiary" aria-hidden="true" />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </aside>
+                )}
               </div>
               <aside className="hidden lg:block">
                 <TocRail headings={headings} />

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { site } from "@/lib/site";
+import { trackEvent } from "@/lib/track";
 
 const TOPICS = [
   "Cloud infrastructure on AWS",
@@ -10,6 +12,8 @@ const TOPICS = [
   "Docker & Kubernetes",
   "Infrastructure as Code",
   "Monitoring & observability",
+  "A consultation call",
+  "Pricing or a quote",
   "A role or interview",
   "Something else",
 ] as const;
@@ -21,7 +25,20 @@ const strip = (value: string, max: number) => value.replace(/<[^>]*>/g, "").repl
 const fieldClass =
   "mt-2 block w-full rounded-sm border border-border-strong bg-bg px-3.5 py-3 text-base text-text-primary placeholder:text-text-quaternary focus:border-text-primary focus:outline-2 focus:outline-offset-2 focus:outline-text-primary";
 
-export default function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
+/** The contact form, prefilled from `?topic=` and `?summary=`. Needs a Suspense boundary above it. */
+export function ContactFormFromQuery() {
+  const params = useSearchParams();
+  const topic = params.get("topic") ?? undefined;
+  const summary = params.get("summary") ?? undefined;
+  return (
+    <ContactForm
+      defaultTopic={TOPICS.find((known) => known === topic)}
+      defaultMessage={summary ? strip(summary, 3000) : undefined}
+    />
+  );
+}
+
+export default function ContactForm({ defaultTopic, defaultMessage }: { defaultTopic?: string; defaultMessage?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [lastSent, setLastSent] = useState(0);
@@ -76,6 +93,7 @@ export default function ContactForm({ defaultTopic }: { defaultTopic?: string })
       const result = await response.json();
       if (!result.success) throw new Error("Form service rejected the message");
       setLastSent(Date.now());
+      trackEvent("contact_submitted", { topic });
       setStatus("sent");
       form.reset();
     } catch {
@@ -166,6 +184,7 @@ export default function ContactForm({ defaultTopic }: { defaultTopic?: string })
           rows={6}
           required
           maxLength={3000}
+          defaultValue={defaultMessage}
           placeholder="What are you running today, and what would you like to change?"
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "cf-message-error" : undefined}

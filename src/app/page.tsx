@@ -5,6 +5,7 @@ import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import PipelineArt, { PipelineArtCompact } from "@/components/site/PipelineArt";
 import ContactForm from "@/components/site/ContactForm";
+import BookCallButton from "@/components/site/BookCallButton";
 import JsonLd, { personLd } from "@/components/site/JsonLd";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
@@ -77,10 +78,7 @@ export default function Home() {
                   modern cloud-native technologies.
                 </p>
                 <div className="mt-7 sm:mt-9 flex flex-col sm:flex-row gap-3">
-                  <Link href="/contact" className="btn-primary">
-                    Let&rsquo;s work together
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
+                  <BookCallButton source="home-hero" label="Book a free 30-minute call" />
                   <Link href="/projects" className="btn-outline">
                     Explore my work
                   </Link>
@@ -136,16 +134,21 @@ export default function Home() {
                   What I can help with
                 </h2>
               </div>
-              <Link href="/services" className="btn-outline sm:shrink-0">
-                All services in detail
-              </Link>
+              <div className="flex flex-col gap-3 sm:flex-row sm:shrink-0">
+                <Link href="/services" className="btn-outline">
+                  All services
+                </Link>
+                <Link href="/pricing" className="btn-outline">
+                  Pricing
+                </Link>
+              </div>
             </div>
 
             <ol className="mt-12 border-t border-text-primary">
               {services.map((service, i) => (
                 <li key={service.id} className="border-b border-border">
                   <Link
-                    href={`/services#${service.id}`}
+                    href={`/services/${service.id}`}
                     className="group grid gap-x-8 gap-y-2 py-7 sm:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.2fr)_2rem] sm:items-baseline"
                   >
                     <span className="font-mono text-sm text-text-tertiary">{String(i + 1).padStart(2, "0")}</span>
@@ -161,6 +164,25 @@ export default function Home() {
                 </li>
               ))}
             </ol>
+
+            <div className="mt-12 grid gap-6 border-l-2 border-primary pl-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-10">
+              <div>
+                <h3 className="type-card-title text-text-primary">Not sure where to start?</h3>
+                <p className="mt-2 max-w-2xl text-text-secondary">
+                  The infrastructure checkup asks twelve yes-or-no questions and gives you a list of what to fix
+                  first. It runs in your browser and nothing is stored.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Link href="/tools/infrastructure-checkup" className="btn-primary">
+                  Take the checkup
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+                <Link href="/tools" className="btn-outline">
+                  All free tools
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -322,8 +344,11 @@ export default function Home() {
                 Tell me what you&rsquo;re running.
               </h2>
               <p className="mt-5 type-body-lg text-text-secondary">
-                A sentence or two is enough to start. I reply by email.
+                A sentence or two is enough to start. I reply by email. Or pick a time for a free 30-minute call.
               </p>
+              <div className="mt-6">
+                <BookCallButton source="home-contact" className="btn-outline" />
+              </div>
               <dl className="mt-10 space-y-5">
                 <div>
                   <dt className="type-eyebrow text-text-tertiary">Email</dt>

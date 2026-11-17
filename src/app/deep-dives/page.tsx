@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import PageHero from "@/components/site/PageHero";
@@ -40,6 +41,9 @@ export default function DeepDivesPage() {
             <a href="#screening" className="btn-outline">
               Interview answers ({technicalQuestions.length})
             </a>
+            <Link href="/tools/infrastructure-checkup" className="btn-ghost">
+              Infrastructure checkup
+            </Link>
           </div>
         </PageHero>
         <PipelineSimulator />

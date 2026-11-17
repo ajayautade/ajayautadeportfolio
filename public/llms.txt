@@ -3,13 +3,30 @@
 > Personal site of Ajay Autade, a Cloud & DevOps Engineer based in Chhatrapati Sambhajinagar, Maharashtra, India. He works with AWS, Docker, Kubernetes, Terraform and CI/CD, and is open to DevOps roles and freelance projects.
 
 ## Pages
-- [Services](https://ajayautade.com/services): the six kinds of Cloud and DevOps work he takes on
+- [Services](https://ajayautade.com/services): the six kinds of Cloud and DevOps work he takes on, each with its own page
+- [Pricing](https://ajayautade.com/pricing): consultation and project prices in INR
+- [Free tools](https://ajayautade.com/tools): infrastructure checkup, CIDR subnet calculator, cron expression explainer, Kubernetes resource calculator
 - [Projects](https://ajayautade.com/projects): case studies of public projects, with architecture and source links
-- [Blog](https://ajayautade.com/blog): technical articles
+- [Blog](https://ajayautade.com/blog): technical articles ([RSS](https://ajayautade.com/feed.xml))
 - [About](https://ajayautade.com/about): background, skills and how he works
 - [Contact](https://ajayautade.com/contact): contact form and email
 
+## Services
+- [Cloud Infrastructure & AWS](https://ajayautade.com/services/aws-cloud-infrastructure)
+- [DevOps & CI/CD Automation](https://ajayautade.com/services/ci-cd-automation)
+- [Docker & Kubernetes](https://ajayautade.com/services/docker-kubernetes)
+- [Infrastructure as Code](https://ajayautade.com/services/infrastructure-as-code)
+- [Monitoring & Observability](https://ajayautade.com/services/monitoring-observability)
+- [Cloud Optimization & Reliability](https://ajayautade.com/services/cloud-optimization-reliability)
+
+## Policies
+- [Privacy Policy](https://ajayautade.com/privacy)
+- [Terms & Conditions](https://ajayautade.com/terms)
+- [Cancellation & Refund Policy](https://ajayautade.com/refund-policy)
+- [Shipping & Delivery Policy](https://ajayautade.com/shipping-policy)
+
 ## Contact
 - Email: contact@ajayautade.com
+- Phone: +91 95450 34120
 - GitHub: https://github.com/ajayautade
 - LinkedIn: https://www.linkedin.com/in/ajayautadepatil

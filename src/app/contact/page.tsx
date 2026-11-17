@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import Link from "next/link";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import PageHero from "@/components/site/PageHero";
-import ContactForm from "@/components/site/ContactForm";
+import ContactForm, { ContactFormFromQuery } from "@/components/site/ContactForm";
 import JsonLd from "@/components/site/JsonLd";
-import { absoluteUrl, site } from "@/lib/site";
+import BookCallButton from "@/components/site/BookCallButton";
+import { absoluteUrl, addressLines, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -46,16 +49,29 @@ export default function ContactPage() {
             <div>
               <h2 className="type-display-md text-text-primary">Send a message</h2>
               <div className="mt-8">
-                <ContactForm />
+                {/* Reads ?topic= and ?summary= in the browser, so the page itself stays static. */}
+                <Suspense fallback={<ContactForm />}>
+                  <ContactFormFromQuery />
+                </Suspense>
               </div>
             </div>
 
             <aside aria-label="Other ways to reach me">
+              <h2 className="type-eyebrow text-text-tertiary">Prefer to talk?</h2>
+              <p className="mt-3 text-text-secondary">A free 30-minute video call. Pick a time and I confirm by email.</p>
+              <div className="mt-4 mb-10">
+                <BookCallButton source="contact" />
+              </div>
               <h2 className="type-eyebrow text-text-tertiary">Direct</h2>
               <ul className="mt-4 space-y-3 text-lg font-medium">
                 <li>
                   <a href={`mailto:${site.email}`} className="tap text-text-primary underline decoration-primary decoration-2 underline-offset-4 break-all">
                     {site.email}
+                  </a>
+                </li>
+                <li>
+                  <a href={site.phoneHref} className="tap text-text-primary hover:text-primary transition-colors">
+                    {site.phone}
                   </a>
                 </li>
                 <li>
@@ -79,8 +95,18 @@ export default function ContactPage() {
                 ))}
               </dl>
 
-              <p className="mt-8 text-sm text-text-tertiary">
-                Based in {site.location}. I work remotely.
+              <h2 className="mt-10 type-eyebrow text-text-tertiary">Business details</h2>
+              <address className="mt-4 not-italic text-text-secondary">
+                <span className="block font-medium text-text-primary">{site.legalName}</span>
+                {addressLines().map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </address>
+              <p className="mt-4 text-sm text-text-tertiary">
+                I work remotely. See <Link href="/pricing" className="underline underline-offset-4 hover:text-text-primary">pricing</Link> for
+                what a call or a project costs.
               </p>
             </aside>
           </div>

@@ -69,3 +69,37 @@ export function A({ href, children }: { href: string; children: React.ReactNode 
     </a>
   );
 }
+
+/** A plain data table: hairlines, mono figures, scrolls sideways on small screens. */
+export function DataTable({ caption, head, rows }: { caption: string; head: string[]; rows: React.ReactNode[][] }) {
+  return (
+    <div className="mt-7 overflow-x-auto">
+      <table className="w-full min-w-[30rem] border-t border-text-primary text-left text-base">
+        <caption className="sr-only">{caption}</caption>
+        <thead>
+          <tr className="border-b border-border">
+            {head.map((cell) => (
+              <th key={cell} scope="col" className="py-3 pr-5 align-bottom type-eyebrow text-text-tertiary last:pr-0">
+                {cell}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i} className="border-b border-border">
+              {row.map((cell, j) => (
+                <td
+                  key={j}
+                  className={`py-3 pr-5 align-top last:pr-0 ${j === 0 ? "font-medium text-text-primary" : "font-mono text-[0.9375rem] text-text-secondary"}`}
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}

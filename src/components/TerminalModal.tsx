@@ -3,7 +3,9 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Terminal as TerminalIcon } from "lucide-react";
+import Link from "next/link";
 import { personalInfo, skillCategories } from "@/lib/data";
+import { services } from "@/lib/services";
 
 interface TerminalModalProps {
   isOpen: boolean;
@@ -73,16 +75,20 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
       case "services":
         output = (
           <div className="flex flex-col gap-1">
-            <p className="text-text-primary font-medium">Engineering Practices &amp; Solutions:</p>
-            <p className="text-text-secondary">• Cloud Architecture &amp; AWS Infrastructure (IaC)</p>
-            <p className="text-text-secondary">• GitOps CI/CD Delivery Engines (GitHub Actions, ArgoCD)</p>
-            <p className="text-text-secondary">• Event-Driven Business Automation (n8n, Python)</p>
-            <p className="text-text-secondary">• High-Performance Web &amp; Full-Stack SaaS Platforms</p>
+            <p className="text-text-primary font-medium">Services:</p>
+            {services.map((service) => (
+              <p key={service.id} className="text-text-secondary">
+                • {service.title}
+              </p>
+            ))}
             <p className="text-text-tertiary mt-1">
-              Explore full practice specifications at:{" "}
-              <a href="/services" className="text-primary underline">
+              Details and pricing:{" "}
+              <Link href="/services" className="text-primary underline">
                 /services
-              </a>
+              </Link>{" "}
+              <Link href="/pricing" className="text-primary underline">
+                /pricing
+              </Link>
             </p>
           </div>
         );

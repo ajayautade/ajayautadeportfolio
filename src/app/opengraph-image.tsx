@@ -1,87 +1,9 @@
-import { ImageResponse } from "next/og";
+import { ogContentType, ogImage, ogSize } from "@/lib/og";
 
-export const runtime = "edge";
-export const alt = "Ajay Autade - DevOps Engineer";
-export const size = {
-  width: 1200,
-  height: 630,
-};
+export const alt = "Ajay Autade, Cloud and DevOps Engineer";
+export const size = ogSize;
+export const contentType = ogContentType;
 
-export const contentType = "image/png";
-
-export default async function Image() {
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          justifyContent: "center",
-          backgroundColor: "#000000",
-          padding: "80px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "40px",
-          }}
-        >
-          <div
-            style={{
-              width: "20px",
-              height: "20px",
-              borderRadius: "50%",
-              backgroundColor: "#c99aab",
-              marginRight: "20px",
-            }}
-          />
-          <span style={{ fontSize: 40, color: "#89868a", fontWeight: 700, fontFamily: "sans-serif" }}>
-            ajayautade.com
-          </span>
-        </div>
-        <h1
-          style={{
-            fontSize: 80,
-            color: "white",
-            lineHeight: 1.1,
-            fontWeight: 700,
-            marginBottom: "20px",
-            fontFamily: "sans-serif"
-          }}
-        >
-          Ajay Autade
-        </h1>
-        <h2
-          style={{
-            fontSize: 50,
-            color: "#c99aab",
-            fontWeight: 700,
-            marginBottom: "40px",
-            fontFamily: "sans-serif"
-          }}
-        >
-          DevOps & Cloud Engineer
-        </h2>
-        <p
-          style={{
-            fontSize: 32,
-            color: "#ffffff",
-            maxWidth: "800px",
-            lineHeight: 1.4,
-            fontFamily: "sans-serif"
-          }}
-        >
-          Designing scalable, secure, and automated cloud infrastructure for modern applications.
-        </p>
-      </div>
-    ),
-    {
-      ...size,
-    }
-  );
+export default function Image() {
+  return ogImage({ eyebrow: "Cloud & DevOps Engineer", title: "Building reliable cloud infrastructure. Automating everything in between." });
 }

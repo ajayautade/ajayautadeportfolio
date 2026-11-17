@@ -15,6 +15,11 @@ export interface Service {
   approach: string[];
   tools: string[];
   deliverables: string[];
+  /** Page title and meta description for the service's own page. */
+  seoTitle: string;
+  seoDescription: string;
+  /** Blog tags whose articles relate to this service. */
+  postTags: string[];
   /** Slug of a public project that shows this kind of work. */
   relatedProject?: { slug: string; label: string };
 }
@@ -22,6 +27,10 @@ export interface Service {
 export const services: Service[] = [
   {
     id: "aws-cloud-infrastructure",
+    seoTitle: "AWS Infrastructure Setup: VPC, EC2, EKS and IAM in Terraform",
+    seoDescription:
+      "Freelance AWS infrastructure setup for startups and small teams: VPC design, EC2 or EKS, S3 and least-privilege IAM, built in Terraform in a repository you own.",
+    postTags: ["AWS", "IAM", "AWS S3", "Terraform"],
     title: "Cloud Infrastructure & AWS",
     summary: "Network, compute, storage and access on AWS, set up so it can be rebuilt from code.",
     intro:
@@ -53,6 +62,10 @@ export const services: Service[] = [
   },
   {
     id: "ci-cd-automation",
+    seoTitle: "CI/CD Pipeline Setup with GitHub Actions and Jenkins",
+    seoDescription:
+      "Freelance CI/CD pipeline setup: build, test, image scanning and automated deployment with GitHub Actions, Jenkins and Argo CD, using short-lived cloud credentials.",
+    postTags: ["CI/CD", "GitHub Actions", "Jenkins", "GitOps", "Argo CD"],
     title: "DevOps & CI/CD Automation",
     summary: "Pipelines that test, build and deploy on every push, so a release stops being an event.",
     intro:
@@ -84,6 +97,10 @@ export const services: Service[] = [
   },
   {
     id: "docker-kubernetes",
+    seoTitle: "Docker and Kubernetes Consulting: Containerise and Deploy",
+    seoDescription:
+      "Freelance Docker and Kubernetes work: multi-stage Dockerfiles, Compose for local development, Kubernetes manifests or Helm charts, health probes and autoscaling.",
+    postTags: ["Docker", "Kubernetes", "MLOps", "kind"],
     title: "Docker & Kubernetes",
     summary: "Containerise an application and run it on Kubernetes with health checks and autoscaling.",
     intro:
@@ -116,6 +133,10 @@ export const services: Service[] = [
   },
   {
     id: "infrastructure-as-code",
+    seoTitle: "Terraform and Ansible Consulting: Infrastructure as Code",
+    seoDescription:
+      "Freelance Terraform and Ansible work: modules, remote state, plans in CI, server configuration playbooks, and bringing hand-made resources under code.",
+    postTags: ["Terraform", "IAM", "AWS"],
     title: "Infrastructure as Code",
     summary: "Terraform and Ansible, so environments are created from a repository instead of by hand.",
     intro:
@@ -147,6 +168,10 @@ export const services: Service[] = [
   },
   {
     id: "monitoring-observability",
+    seoTitle: "Prometheus and Grafana Setup: Monitoring and Alerting",
+    seoDescription:
+      "Freelance monitoring setup with Prometheus, Grafana and Alertmanager: application metrics, one dashboard per service, and alert rules stored as code.",
+    postTags: ["Prometheus", "Grafana", "Monitoring"],
     title: "Monitoring & Observability",
     summary: "Prometheus and Grafana, so you find out about a problem before your users tell you.",
     intro:
@@ -178,6 +203,10 @@ export const services: Service[] = [
   },
   {
     id: "cloud-optimization-reliability",
+    seoTitle: "AWS Cost and Reliability Review, with Backups",
+    seoDescription:
+      "A written review of an existing AWS setup: unused resources, weak points and missing backups, ordered by impact, with fixes implemented on request.",
+    postTags: ["Cost", "Backups", "AWS S3", "Linux", "Bash"],
     title: "Cloud Optimization & Reliability",
     summary: "A review of what you run, what it costs and where it can fail, with fixes in priority order.",
     intro:
@@ -250,3 +279,5 @@ export const faqs = [
     a: "Yes. I'm open to Cloud and DevOps engineering roles as well as freelance projects. The contact page works for both.",
   },
 ] as const;
+
+export const getService = (id: string): Service | undefined => services.find((service) => service.id === id);

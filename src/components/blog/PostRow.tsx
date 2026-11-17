@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { PostMeta } from "@/lib/posts";
+import { tagSlug, type PostMeta } from "@/lib/posts";
 import { formatPostDate } from "./date";
 
 /** One article in an editorial list: a row with a hairline, not a card. */
@@ -23,8 +23,10 @@ export default function PostRow({ post, headingLevel = "h2" }: { post: PostMeta;
         <p className="mt-3 max-w-2xl text-text-secondary text-pretty">{post.description}</p>
         <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Topics">
           {post.tags.map((tag) => (
-            <li key={tag} className="tech-pill">
-              {tag}
+            <li key={tag}>
+              <Link href={`/blog/tag/${tagSlug(tag)}`} className="tech-pill min-h-8 hover:text-text-primary transition-colors">
+                {tag}
+              </Link>
             </li>
           ))}
         </ul>

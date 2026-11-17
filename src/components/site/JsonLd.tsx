@@ -18,8 +18,11 @@ export const personLd = {
   image: absoluteUrl("/profile.png"),
   jobTitle: site.role,
   email: `mailto:${site.email}`,
+  telephone: site.phone,
   address: {
     "@type": "PostalAddress",
+    ...(site.street ? { streetAddress: site.street } : {}),
+    ...(site.postalCode ? { postalCode: site.postalCode } : {}),
     addressLocality: site.locality,
     addressRegion: site.region,
     addressCountry: site.country,

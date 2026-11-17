@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { footerNav, site } from "@/lib/site";
+import { footerNav, legalNav, site } from "@/lib/site";
 
 export default function SiteFooter() {
   return (
@@ -40,6 +40,11 @@ export default function SiteFooter() {
                 </a>
               </li>
               <li>
+                <a href={site.phoneHref} className="tap text-sm text-text-secondary hover:text-text-primary transition-colors">
+                  {site.phone}
+                </a>
+              </li>
+              <li>
                 <a href={site.github} target="_blank" rel="noopener noreferrer" className="tap text-sm text-text-secondary hover:text-text-primary transition-colors">
                   GitHub
                 </a>
@@ -53,9 +58,22 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <p className="mt-14 border-t border-border pt-6 text-xs text-text-quaternary">
-          &copy; {new Date().getFullYear()} {site.name}
-        </p>
+        <div className="mt-14 flex flex-col gap-x-8 gap-y-2 border-t border-border pt-6 lg:flex-row lg:items-center lg:justify-between">
+          <p className="text-xs text-text-quaternary">
+            &copy; {new Date().getFullYear()} {site.legalName}
+          </p>
+          <nav aria-label="Legal">
+            <ul className="flex flex-col gap-x-6 sm:flex-row sm:flex-wrap">
+              {legalNav.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="tap text-xs text-text-tertiary hover:text-text-primary transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
     </footer>
   );

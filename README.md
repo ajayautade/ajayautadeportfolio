@@ -1,156 +1,61 @@
-# 🚀 Ajay Autade — Personal Portfolio
+# ajayautade.com
 
-A modern, production-ready personal portfolio website built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**. Features a premium SaaS-style design with glassmorphism effects, smooth animations, dark/light mode, and full SEO optimization.
+The website of Ajay Autade, Cloud & DevOps Engineer: services, pricing, project case studies, a blog and a free infrastructure checkup.
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?style=for-the-badge&logo=tailwindcss)
+Built with Next.js 16 (App Router), React 19, TypeScript and Tailwind CSS 4. Every page is prerendered as static HTML.
 
----
-
-## ✨ Features
-
-- **🎨 Premium Design** — SaaS-style glassmorphism with gradient accents
-- **🌙 Dark/Light Mode** — System-aware theme switching
-- **📱 Fully Responsive** — Mobile-first, works on all devices
-- **⚡ Blazing Fast** — Next.js 15 with App Router
-- **🎭 Smooth Animations** — Framer Motion scroll reveals & transitions
-- **🔍 SEO Optimized** — Meta tags, JSON-LD schema, semantic HTML
-- **💻 Interactive Terminal** — DevOps command animations in hero
-- **📊 Skills Dashboard** — Animated progress bars with categorization
-- **🗺️ DevOps Roadmap** — Visual learning journey timeline
-- **📬 Contact Form** — Integrated mailto contact form
-
-## 📦 Tech Stack
-
-| Technology | Purpose |
-|-----------|---------|
-| [Next.js 15](https://nextjs.org/) | React framework (App Router) |
-| [TypeScript](https://typescriptlang.org/) | Type safety |
-| [Tailwind CSS 4](https://tailwindcss.com/) | Utility-first styling |
-| [Framer Motion](https://motion.dev/) | Animations |
-| [Lucide React](https://lucide.dev/) | Icons |
-| [next-themes](https://github.com/pacocoursey/next-themes) | Dark mode |
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Node.js** >= 18.0
-- **npm** >= 9.0
-
-### Installation
+## Run it
 
 ```bash
-# Clone the repository
-git clone https://github.com/ajayautade/portfolio.git
-cd portfolio
-
-# Install dependencies
 npm install
-
-# Run development server
-npm run dev
+npm run dev      # http://localhost:3000
+npm run lint
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Requires Node.js 20 or newer. A `Dockerfile` builds the standalone output for container hosting.
 
-### Build for Production
+## Pages
 
-```bash
-npm run build
-npm start
-```
+| Route | What it is |
+|---|---|
+| `/` | Home |
+| `/services`, `/services/[id]` | Overview and one page per service |
+| `/pricing` | Prices in INR |
+| `/projects`, `/projects/[slug]` | Case studies, written from each repo's README |
+| `/blog`, `/blog/[slug]`, `/blog/tag/[tag]`, `/feed.xml` | Articles, topic pages and RSS |
+| `/tools`, `/tools/[tool]` | Free browser tools: infrastructure checkup, CIDR calculator, cron explainer, Kubernetes resource calculator |
+| `/about`, `/contact`, `/certifications`, `/deep-dives`, `/resume` | Background and contact |
+| `/privacy`, `/terms`, `/refund-policy`, `/shipping-policy` | Policies |
 
-## 📁 Project Structure
+## Where content lives
 
-```
-src/
-├── app/
-│   ├── layout.tsx          # Root layout (fonts, theme, SEO)
-│   ├── page.tsx            # Main page (all sections)
-│   └── globals.css         # Design system & custom CSS
-├── components/
-│   ├── Navbar.tsx           # Sticky nav + mobile menu
-│   ├── HeroSection.tsx      # Hero + terminal animation
-│   ├── AboutSection.tsx     # Bio + info cards
-│   ├── SkillsSection.tsx    # Skills + progress bars
-│   ├── ProjectsSection.tsx  # Project cards + GitHub links
-│   ├── RoadmapSection.tsx   # DevOps learning timeline
-│   ├── ExperienceSection.tsx # Internship timeline
-│   ├── ResumeSection.tsx    # Resume download CTA
-│   ├── ContactSection.tsx   # Contact form + socials
-│   ├── Footer.tsx           # Footer
-│   ├── ThemeToggle.tsx      # Dark/light toggle
-│   └── ui/
-│       ├── ScrollReveal.tsx  # Scroll animation wrapper
-│       └── SectionHeading.tsx # Section title component
-└── lib/
-    └── data.ts              # All portfolio data
-```
+| File | Holds |
+|---|---|
+| `src/lib/site.ts` | Name, legal name, phone, address, email, navigation |
+| `src/lib/pricing.ts` | Prices |
+| `src/lib/legal.ts` | Payment, refund and delivery terms shared by the policy pages |
+| `src/lib/services.ts` | The six services, process steps and FAQ |
+| `src/lib/projects.ts` | Project case studies |
+| `src/lib/posts.ts`, `src/content/posts/*.tsx` | Blog articles |
+| `src/lib/checkup.ts` | Checkup questions |
+| `src/lib/booking.ts` | Days and hours offered in the "Book a call" calendar |
+| `src/lib/data.ts` | Skills, experience, certifications |
 
-## 🌐 Deployment
+To add an article: create a file in `src/content/posts/`, then register it in `src/lib/posts.ts` and `src/content/posts/index.ts`. Tag pages, the RSS feed, the sitemap and the share image follow automatically.
 
-### Vercel (Recommended)
+## Before applying to a payment gateway
 
-1. Push your code to GitHub
-2. Visit [vercel.com](https://vercel.com) and import the repository
-3. Vercel auto-detects Next.js — click **Deploy**
-4. Your site is live! 🎉
+Fill in `street` and `postalCode` in `src/lib/site.ts`. They appear on the Contact page and the policy pages once set.
 
-Or deploy via CLI:
+Once approved, create a Razorpay Payment Link for the paid session and put its URL in `paidSessionPaymentLink` in the same file. The Pricing page button then takes payment directly.
 
-```bash
-npm i -g vercel
-vercel
-```
+## Environment
 
-### Cloudflare Pages
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_GSC_VERIFICATION` | Google Search Console verification token (optional) |
 
-1. Push your code to GitHub
-2. Go to [Cloudflare Dashboard](https://dash.cloudflare.com) → Pages → Create a project
-3. Connect your GitHub repository
-4. Set build configuration:
-   - **Build command:** `npx @cloudflare/next-on-pages@latest`
-   - **Build output directory:** `.vercel/output/static`
-   - **Environment variable:** `NODE_VERSION` = `18`
-5. Click **Save and Deploy**
+## Design
 
-Or use the Cloudflare CLI:
-
-```bash
-npm install -D @cloudflare/next-on-pages
-npx @cloudflare/next-on-pages@latest
-npx wrangler pages deploy .vercel/output/static
-```
-
-> **Note:** For Cloudflare Pages, add `export const runtime = 'edge'` to any route using server features.
-
-## 📝 Customization
-
-### Update Personal Info
-
-Edit `src/lib/data.ts` to update:
-- Personal details (name, email, phone, location)
-- Skills and proficiency levels
-- Projects and GitHub links
-- Work experience
-- DevOps roadmap items
-
-### Add Your Resume
-
-Drop your resume PDF at `public/resume.pdf`.
-
-### Change Colors
-
-Edit the CSS custom properties in `src/app/globals.css` under `:root` and `.dark`.
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-<p align="center">
-  Built with ❤️ by <a href="https://github.com/ajayautade">Ajay Autade</a>
-</p>
+The visual system is documented in `src/app/globals.css`: a black opening stage, a white reading surface, 4px corners, and one accent colour used sparingly.

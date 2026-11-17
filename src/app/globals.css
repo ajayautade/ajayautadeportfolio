@@ -38,6 +38,12 @@
   --color-border-strong: #89868a;      /* border */
 
   --color-card-hover: #eaeaea;
+
+  /* Code accents: DESIGN.md chroma, used only inside code samples */
+  --code-comment: #6b686d;
+  --code-string: #5f6800;              /* accent-olive, darkened */
+  --code-key: #550098;                 /* accent-violet */
+  --code-var: #a1490f;                 /* accent-amber */
 }
 
 .dark,
@@ -62,6 +68,11 @@
   --color-border-strong: #57545a;      /* derived */
 
   --color-card-hover: #1b1b1b;
+
+  --code-comment: #89868a;
+  --code-string: #b7c400;              /* accent-olive, lifted */
+  --code-key: #c9a2f0;                 /* accent-violet, lifted */
+  --code-var: #e8a06a;                 /* accent-amber, lifted */
 }
 
 /* A stage paints its own ground so it reads as black in either theme */
@@ -249,6 +260,13 @@ h1, h2, h3, h4 {
   border: 1px solid var(--color-border);
   border-radius: 4px;
 }
+
+/* Syntax accents inside code samples. Meaning never depends on hue alone:
+   comments are also italic, and the code reads the same in one colour. */
+.tok-comment { color: var(--code-comment); font-style: italic; }
+.tok-string  { color: var(--code-string); }
+.tok-key     { color: var(--code-key); }
+.tok-var     { color: var(--code-var); }
 
 /* ============================================
    RETIRED DECORATION — kept as no-ops so stray

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   publisher: site.name,
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", types: { "application/rss+xml": [{ url: "/feed.xml", title: `${site.name}: blog` }] } },
   openGraph: {
     type: "website",
     siteName: site.name,

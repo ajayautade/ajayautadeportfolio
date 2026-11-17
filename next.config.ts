@@ -1,8 +1,12 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
   trailingSlash: false,
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
   // Serve AVIF first, then WebP, sized per device
   images: { formats: ["image/avif", "image/webp"] },
   async redirects() {
@@ -25,6 +29,36 @@ const nextConfig: NextConfig = {
       {
         source: "/certificates",
         destination: "/certifications",
+        permanent: true,
+      },
+      {
+        source: "/refunds",
+        destination: "/refund-policy",
+        permanent: true,
+      },
+      {
+        source: "/cancellation-policy",
+        destination: "/refund-policy",
+        permanent: true,
+      },
+      {
+        source: "/refund",
+        destination: "/refund-policy",
+        permanent: true,
+      },
+      {
+        source: "/privacy-policy",
+        destination: "/privacy",
+        permanent: true,
+      },
+      {
+        source: "/terms-and-conditions",
+        destination: "/terms",
+        permanent: true,
+      },
+      {
+        source: "/delivery-policy",
+        destination: "/shipping-policy",
         permanent: true,
       },
     ];

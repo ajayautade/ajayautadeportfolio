@@ -5,7 +5,8 @@ import PageHero from "@/components/site/PageHero";
 import CtaBand from "@/components/site/CtaBand";
 import JsonLd from "@/components/site/JsonLd";
 import PostRow from "@/components/blog/PostRow";
-import { posts } from "@/lib/posts";
+import Link from "next/link";
+import { posts, tags } from "@/lib/posts";
 import { absoluteUrl, site } from "@/lib/site";
 
 const title = "DevOps Blog: AWS, Docker, Kubernetes and CI/CD";
@@ -15,7 +16,7 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/blog" },
+  alternates: { canonical: "/blog", types: { "application/rss+xml": "/feed.xml" } },
   openGraph: { title, description, url: "/blog", type: "website" },
   twitter: { card: "summary_large_image", title, description },
 };
@@ -49,7 +50,19 @@ export default function BlogIndexPage() {
           title="Notes from building and running infrastructure."
           lead="Write-ups of problems I worked through on my own projects: what broke, what I changed, and the commands and configuration that did it."
           crumbs={[{ name: "Blog", path: "/blog" }]}
-        />
+        >
+          <nav aria-label="Topics">
+            <ul className="flex flex-wrap gap-1.5">
+              {tags.map((tag) => (
+                <li key={tag.slug}>
+                  <Link href={`/blog/tag/${tag.slug}`} className="tech-pill min-h-8 hover:text-text-primary transition-colors">
+                    {tag.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </PageHero>
 
         <section aria-labelledby="articles-heading" className="py-16 sm:py-24">
           <div className="section-container">

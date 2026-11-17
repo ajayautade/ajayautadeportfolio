@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Terminal as TerminalIcon } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import BookCallButton from "@/components/site/BookCallButton";
 import { mainNav, site } from "@/lib/site";
 
 // The terminal is an extra; it only loads when someone opens it.
@@ -86,12 +87,12 @@ export default function SiteHeader() {
               <TerminalIcon className="h-4 w-4" aria-hidden="true" />
             </button>
             <ThemeToggle />
-            <Link
-              href="/contact"
+            <BookCallButton
+              source="header"
+              label="Book a call"
+              icon={false}
               className="hidden sm:inline-flex h-11 items-center rounded-sm bg-white px-4 text-sm font-medium text-black transition-opacity hover:opacity-85"
-            >
-              Contact
-            </Link>
+            />
             <button
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
@@ -110,7 +111,7 @@ export default function SiteHeader() {
         <div id="mobile-menu" className="stage fixed inset-0 z-40 overflow-y-auto pt-16 lg:hidden">
           <nav aria-label="Mobile" className="section-container py-8">
             <ul>
-              {[...mainNav, { label: "Contact", href: "/contact" }].map((item) => (
+              {mainNav.map((item) => (
                 <li key={item.href} className="border-b border-border">
                   <Link
                     href={item.href}
@@ -135,9 +136,7 @@ export default function SiteHeader() {
               Open terminal
             </button>
             <div className="mt-8 border-t border-border pt-8">
-              <Link href="/contact" onClick={() => setMenuOpen(false)} className="btn-primary">
-                Let&rsquo;s work together
-              </Link>
+              <BookCallButton source="mobile-menu" />
               <a href={`mailto:${site.email}`} className="tap mt-4 text-text-secondary">
                 {site.email}
               </a>
