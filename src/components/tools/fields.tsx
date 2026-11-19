@@ -1,4 +1,4 @@
-/** Small shared pieces for the calculators, so the three tools read as one family. */
+/** Small shared pieces for the calculators, so the tools read as one family. */
 
 export const inputClass =
   "mt-2 block w-full rounded-sm border border-border-strong bg-bg px-3.5 py-3 font-mono text-base text-text-primary placeholder:text-text-quaternary focus:border-text-primary focus:outline-2 focus:outline-offset-2 focus:outline-text-primary";
