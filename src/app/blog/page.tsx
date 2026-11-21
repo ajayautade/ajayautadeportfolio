@@ -4,7 +4,8 @@ import SiteFooter from "@/components/site/SiteFooter";
 import PageHero from "@/components/site/PageHero";
 import CtaBand from "@/components/site/CtaBand";
 import JsonLd from "@/components/site/JsonLd";
-import PostRow from "@/components/blog/PostRow";
+import BlogSearch from "@/components/blog/BlogSearch";
+import { postBodies } from "@/content/posts";
 import Link from "next/link";
 import { posts, tags } from "@/lib/posts";
 import { absoluteUrl, site } from "@/lib/site";
@@ -40,6 +41,11 @@ const blogLd = {
   })),
 };
 
+// Only the heading titles go to the browser, not the article bodies.
+const headings = Object.fromEntries(
+  Object.entries(postBodies).map(([slug, { headings }]) => [slug, headings.map((heading) => heading.title)]),
+);
+
 export default function BlogIndexPage() {
   return (
     <>
@@ -66,14 +72,7 @@ export default function BlogIndexPage() {
 
         <section aria-labelledby="articles-heading" className="py-16 sm:py-24">
           <div className="section-container">
-            <h2 id="articles-heading" className="type-eyebrow text-text-tertiary mb-8">
-              {posts.length} {posts.length === 1 ? "article" : "articles"}, newest first
-            </h2>
-            <div className="border-b border-border">
-              {posts.map((post) => (
-                <PostRow key={post.slug} post={post} headingLevel="h3" />
-              ))}
-            </div>
+            <BlogSearch posts={posts} headings={headings} suggestions={tags.slice(0, 6).map((tag) => tag.name)} />
           </div>
         </section>
 
