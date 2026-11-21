@@ -9,9 +9,9 @@ import JsonLd from "@/components/site/JsonLd";
 import { absoluteUrl, site } from "@/lib/site";
 import { toolPath, tools } from "@/lib/tools";
 
-const title = "Free DevOps Tools: CIDR, Cron and Kubernetes Calculators";
+const title = "Free DevOps Tools: AWS, Kubernetes, Docker and CI/CD";
 const description =
-  "Free browser-based tools for cloud and DevOps work: a CIDR subnet calculator, a cron expression explainer, a Kubernetes resource calculator and an infrastructure checkup.";
+  "Free browser-based tools for cloud and DevOps work: an AWS cost estimator, IAM policy explainer, GitHub OIDC trust policy generator, Dockerfile checker, CIDR, cron and Kubernetes calculators, and an infrastructure checkup.";
 
 export const metadata: Metadata = {
   title,
