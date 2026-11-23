@@ -4,8 +4,8 @@
 
 ## Pages
 - [Services](https://ajayautade.com/services): the six kinds of Cloud and DevOps work he takes on, each with its own page
-- [Pricing](https://ajayautade.com/pricing): consultation and project prices in INR
-- [Free tools](https://ajayautade.com/tools): infrastructure checkup, CIDR subnet calculator, cron expression explainer, Kubernetes resource calculator
+- [Pricing](https://ajayautade.com/pricing): consultation and project prices in USD
+- [Free tools](https://ajayautade.com/tools): infrastructure checkup, CIDR subnet calculator, cron expression explainer, Kubernetes resource calculator, GitHub OIDC trust policy generator, IAM policy explainer, Dockerfile checker, EKS and EC2 cost estimator
 - [Projects](https://ajayautade.com/projects): case studies of public projects, with architecture and source links
 - [Blog](https://ajayautade.com/blog): technical articles ([RSS](https://ajayautade.com/feed.xml))
 - [About](https://ajayautade.com/about): background, skills and how he works
