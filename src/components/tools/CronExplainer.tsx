@@ -109,21 +109,28 @@ export default function CronExplainer() {
                 ))}
               </div>
             </div>
-            <div className="mt-6 overflow-x-auto border-t border-text-primary">
-              <table className="w-full min-w-[30rem] text-left">
-                <thead>
-                  <tr className="border-b border-border">
-                    <th scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">#</th>
-                    <th scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">UTC</th>
-                    <th scope="col" className="py-3 type-eyebrow text-text-tertiary">Your time</th>
+            <div className="mt-6 border-t border-text-primary sm:overflow-x-auto">
+              <table role="table" className="stack-table w-full text-left sm:min-w-[30rem]">
+                <thead role="rowgroup">
+                  <tr role="row" className="border-b border-border">
+                    <th role="columnheader" scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">#</th>
+                    <th role="columnheader" scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">UTC</th>
+                    <th role="columnheader" scope="col" className="py-3 type-eyebrow text-text-tertiary">Your time</th>
                   </tr>
                 </thead>
-                <tbody className="font-mono text-sm">
+                <tbody role="rowgroup" className="font-mono text-sm">
                   {runs.map((run, i) => (
-                    <tr key={run.getTime()} className="border-b border-border">
-                      <td className="py-2.5 pr-4 text-text-tertiary">{i + 1}</td>
-                      <td className="py-2.5 pr-4 text-text-primary">{format(run, "UTC")}</td>
-                      <td className="py-2.5 text-text-secondary">{format(run)}</td>
+                    <tr key={run.getTime()} role="row" className="border-b border-border">
+                      <td role="cell" className="stack-title py-2.5 pr-4 text-text-tertiary">
+                        <span className="sm:hidden">Run </span>
+                        {i + 1}
+                      </td>
+                      <td role="cell" data-label="UTC" className="py-2.5 pr-4 text-text-primary">
+                        <span>{format(run, "UTC")}</span>
+                      </td>
+                      <td role="cell" data-label="Your time" className="py-2.5 text-text-secondary">
+                        <span>{format(run)}</span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

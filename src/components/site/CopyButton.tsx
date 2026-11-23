@@ -23,7 +23,7 @@ export default function CopyButton({ text, label = "Copy" }: { text: string; lab
     <button
       type="button"
       onClick={copy}
-      className="inline-flex min-h-8 shrink-0 items-center gap-1.5 rounded-sm px-2 type-eyebrow text-text-tertiary transition-colors hover:text-text-primary"
+      className="hit inline-flex min-h-8 shrink-0 items-center gap-1.5 rounded-sm px-2 type-eyebrow text-text-tertiary transition-colors hover:text-text-primary"
       aria-live="polite"
     >
       {copied ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}

@@ -116,23 +116,32 @@ export default function CidrCalculator() {
                   </div>
                 </div>
 
-                <div className="mt-6 overflow-x-auto border-t border-text-primary">
-                  <table className="w-full min-w-[32rem] text-left">
-                    <thead>
-                      <tr className="border-b border-border">
-                        <th scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">#</th>
-                        <th scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">Subnet</th>
-                        <th scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">First host</th>
-                        <th scope="col" className="py-3 type-eyebrow text-text-tertiary">Last host</th>
+                <div className="mt-6 border-t border-text-primary sm:overflow-x-auto">
+                  <table role="table" className="stack-table w-full text-left sm:min-w-[32rem]">
+                    <thead role="rowgroup">
+                      <tr role="row" className="border-b border-border">
+                        <th role="columnheader" scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">#</th>
+                        <th role="columnheader" scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">Subnet</th>
+                        <th role="columnheader" scope="col" className="py-3 pr-4 type-eyebrow text-text-tertiary">First host</th>
+                        <th role="columnheader" scope="col" className="py-3 type-eyebrow text-text-tertiary">Last host</th>
                       </tr>
                     </thead>
-                    <tbody className="font-mono text-sm">
+                    <tbody role="rowgroup" className="font-mono text-sm">
                       {split.subnets.map((subnet, i) => (
-                        <tr key={subnet.cidr} className="border-b border-border">
-                          <td className="py-2.5 pr-4 text-text-tertiary">{i + 1}</td>
-                          <td className="py-2.5 pr-4 text-text-primary">{subnet.cidr}</td>
-                          <td className="py-2.5 pr-4 text-text-secondary">{subnet.first}</td>
-                          <td className="py-2.5 text-text-secondary">{subnet.last}</td>
+                        <tr key={subnet.cidr} role="row" className="border-b border-border">
+                          <td role="cell" className="stack-title py-2.5 pr-4 text-text-tertiary">
+                            <span className="sm:hidden">Subnet </span>
+                            {i + 1}
+                          </td>
+                          <td role="cell" data-label="Subnet" className="py-2.5 pr-4 text-text-primary">
+                            <span>{subnet.cidr}</span>
+                          </td>
+                          <td role="cell" data-label="First host" className="py-2.5 pr-4 text-text-secondary">
+                            <span>{subnet.first}</span>
+                          </td>
+                          <td role="cell" data-label="Last host" className="py-2.5 text-text-secondary">
+                            <span>{subnet.last}</span>
+                          </td>
                         </tr>
                       ))}
                     </tbody>

@@ -165,7 +165,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 8 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="panel fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 overflow-hidden !bg-bg !border-border-strong font-mono text-[13px] leading-relaxed text-text-secondary"
+            className="panel fixed left-1/2 top-4 sm:top-1/2 z-50 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 sm:-translate-y-1/2 overflow-hidden !bg-bg !border-border-strong font-mono text-[13px] leading-relaxed text-text-secondary"
           >
             {/* Header bar with macOS traffic lights & ESC indicator */}
             <div className="flex items-center justify-between border-b border-border bg-surface px-4 py-2.5">
@@ -186,7 +186,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
                 </kbd>
                 <button
                   onClick={onClose}
-                  className="rounded-md p-2 hover:bg-surface-elevated transition-colors"
+                  className="-my-1.5 -mr-2 inline-flex h-11 w-11 items-center justify-center rounded-md hover:bg-surface-elevated transition-colors"
                   aria-label="Close terminal"
                 >
                   <X className="h-3.5 w-3.5 text-text-tertiary" />
@@ -197,7 +197,7 @@ export default function TerminalModal({ isOpen, onClose }: TerminalModalProps) {
             {/* Terminal body */}
             <div 
               ref={terminalBodyRef}
-              className="h-[55dvh] max-h-[480px] overflow-y-auto p-4 sm:p-6 overscroll-contain"
+              className="h-[45dvh] sm:h-[55dvh] max-h-[480px] overflow-y-auto p-4 sm:p-6 overscroll-contain"
               onClick={() => inputRef.current?.focus()}
             >
               {history.map((item, index) => (

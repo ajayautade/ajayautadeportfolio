@@ -16,9 +16,9 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
           {trail.map((item, i) => {
             const last = i === trail.length - 1;
             return (
-              <li key={item.path} className="flex items-center gap-2">
+              <li key={item.path} className={`flex items-center gap-2 ${last ? "min-w-0 max-w-full" : ""}`}>
                 {last ? (
-                  <span aria-current="page" className="text-text-secondary">
+                  <span aria-current="page" title={item.name} className="truncate py-1 text-text-secondary sm:whitespace-normal">
                     {item.name}
                   </span>
                 ) : (

@@ -196,8 +196,34 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   overscroll-behavior-x: none;
+  overflow-wrap: break-word;
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+  /* Stop iOS enlarging text after a rotation to landscape */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Safety net for sideways scrolling on phones. iOS Safari ignores
+   overflow-x: hidden on body alone; clip on both stops the page sliding
+   without making either a scroll container, so sticky still works. */
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+/* A fieldset defaults to min-width: min-content, so one long <select>
+   option pushes the whole form wider than a phone screen. */
+fieldset {
+  min-width: 0;
+}
+
+/* Long unbroken literals (hostnames, ARNs) in running text wrap instead
+   of widening their column. Code blocks keep their own layout. */
+:not(pre) > code {
+  overflow-wrap: anywhere;
 }
 
 h1, h2, h3, h4 {
@@ -393,6 +419,91 @@ h1, h2, h3, h4 {
     align-items: center;
     min-height: 2.75rem;
     min-width: 2.75rem;
+  }
+
+  /* Interactive chips and small utility buttons keep their compact look
+     but get an invisible 44px-tall hit area, centred on the control. */
+  a.tech-pill,
+  button.tech-pill,
+  .hit {
+    position: relative;
+  }
+  a.tech-pill::after,
+  button.tech-pill::after,
+  .hit::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2.75rem;
+    transform: translateY(-50%);
+  }
+}
+
+/* ============================================
+   STACKED TABLE — below 640px each row becomes
+   a small block: the first cell is its title,
+   the other cells read "label  value" using the
+   data-label attribute. The header row stays in
+   the accessibility tree (visually hidden), and
+   the markup carries explicit ARIA table roles
+   because display:block drops them in Safari.
+   ============================================ */
+@media (max-width: 639px) {
+  .stack-table,
+  .stack-table tbody,
+  .stack-table tfoot,
+  .stack-table tr,
+  .stack-table td,
+  .stack-table th[scope="row"] {
+    display: block;
+    width: 100%;
+  }
+  .stack-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .stack-table tr {
+    padding-block: 0.75rem;
+  }
+  .stack-table td,
+  .stack-table th[scope="row"] {
+    padding: 0.125rem 0;
+    text-align: left;
+  }
+  .stack-table td[data-label] {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 1rem;
+    align-items: baseline;
+  }
+  /* An empty cell has nothing to label, so its line collapses. It stays
+     in the accessibility tree (no display:none) so screen readers keep
+     each value under its own column header. */
+  .stack-table td[data-label]:has(> :empty) {
+    display: block;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .stack-table td[data-label]::before {
+    content: attr(data-label);
+    /* --font-sans is inlined by @theme inline, so name the family directly */
+    font-family: var(--font-inter), -apple-system, system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+  .stack-table .stack-title {
+    padding-bottom: 0.375rem;
   }
 }
 

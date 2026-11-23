@@ -86,7 +86,7 @@ export default function DockerfileChecker() {
           rows={20}
           aria-invalid={"error" in result}
           aria-describedby={"error" in result ? "dockerfile-error" : undefined}
-          className={`${inputClass} resize-y text-[13px] leading-[1.6]`}
+          className={`${inputClass} resize-y sm:text-[13px] leading-[1.6]`}
         />
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
           <span className="mr-1 text-sm text-text-tertiary">Try:</span>

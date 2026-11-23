@@ -179,8 +179,8 @@ export default async function BlogPostPage({ params }: Params) {
               {project && (
                 <aside aria-labelledby="related-project-heading" className="self-start border-t border-text-primary pt-6">
                   <p className="type-eyebrow text-text-tertiary">The project behind this article</p>
-                  <h3 id="related-project-heading" className="mt-3 type-headline text-text-primary">
-                    <Link href={`/projects/${project.slug}`} className="hover:underline decoration-2 underline-offset-4">
+                  <h3 id="related-project-heading" className="mt-1 type-headline text-text-primary">
+                    <Link href={`/projects/${project.slug}`} className="block py-2 hover:underline decoration-2 underline-offset-4">
                       {project.title}
                     </Link>
                   </h3>

@@ -142,7 +142,7 @@ export default function AwsCostEstimator() {
         </p>
 
         <div className="mt-6 overflow-x-auto border-t border-text-primary">
-          <table className="w-full min-w-[22rem] text-left">
+          <table className="w-full text-left">
             <caption className="sr-only">Monthly cost line by line</caption>
             <thead>
               <tr className="border-b border-border">

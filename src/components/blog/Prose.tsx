@@ -70,30 +70,37 @@ export function A({ href, children }: { href: string; children: React.ReactNode 
   );
 }
 
-/** A plain data table: hairlines, mono figures, scrolls sideways on small screens. */
+/**
+ * A plain data table: hairlines, mono figures. On phones each row stacks
+ * into a small block (see .stack-table in globals.css) so no column is
+ * hidden off the edge of the screen.
+ */
 export function DataTable({ caption, head, rows }: { caption: string; head: string[]; rows: React.ReactNode[][] }) {
   return (
-    <div className="mt-7 overflow-x-auto">
-      <table className="w-full min-w-[30rem] border-t border-text-primary text-left text-base">
+    <div className="mt-7 sm:overflow-x-auto">
+      <table role="table" className="stack-table w-full border-t border-text-primary text-left text-base sm:min-w-[30rem]">
         <caption className="sr-only">{caption}</caption>
-        <thead>
-          <tr className="border-b border-border">
+        <thead role="rowgroup">
+          <tr role="row" className="border-b border-border">
             {head.map((cell) => (
-              <th key={cell} scope="col" className="py-3 pr-5 align-bottom type-eyebrow text-text-tertiary last:pr-0">
+              <th key={cell} role="columnheader" scope="col" className="py-3 pr-5 align-bottom type-eyebrow text-text-tertiary last:pr-0">
                 {cell}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody role="rowgroup">
           {rows.map((row, i) => (
-            <tr key={i} className="border-b border-border">
+            <tr key={i} role="row" className="border-b border-border">
               {row.map((cell, j) => (
                 <td
                   key={j}
-                  className={`py-3 pr-5 align-top last:pr-0 ${j === 0 ? "font-medium text-text-primary" : "font-mono text-[0.9375rem] text-text-secondary"}`}
+                  role="cell"
+                  data-label={j === 0 ? undefined : head[j]}
+                  className={`py-3 pr-5 align-top last:pr-0 ${j === 0 ? "stack-title font-medium text-text-primary" : "font-mono text-[0.9375rem] text-text-secondary"}`}
                 >
-                  {cell}
+                  {/* One wrapper, so the stacked layout sees label + value as two grid items */}
+                  <span className="block min-w-0">{cell}</span>
                 </td>
               ))}
             </tr>

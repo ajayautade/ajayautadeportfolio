@@ -1,4 +1,4 @@
-import CopyButton from "./CopyButton";
+import CodeFrame from "./CodeFrame";
 import { highlight } from "@/lib/highlight";
 
 interface CodeBlockProps {
@@ -9,22 +9,26 @@ interface CodeBlockProps {
   title?: string;
 }
 
-/** Code sample card: pale surface, hairline edge, mono type, a few colour accents. Scrolls sideways instead of wrapping. */
+/** About as many Martian Mono characters at 13px as fit a 320px phone's code panel. */
+const PHONE_LINE_CHARS = 36;
+
+/**
+ * Code sample card: pale surface, hairline edge, mono type, a few colour accents.
+ * Scrolls sideways instead of wrapping; on phones, long lines can be wrapped on demand.
+ */
 export default function CodeBlock({ code, lang, title }: CodeBlockProps) {
   const clean = code.replace(/^\n+|\s+$/g, "");
   const lines = highlight(clean, lang);
+  const longest = Math.max(...clean.split("\n").map((line) => line.length));
+
   return (
     <figure className="panel my-6 overflow-hidden">
-      <figcaption className="flex items-center justify-between gap-4 border-b border-border py-1 pl-4 pr-2">
-        <span className="min-w-0 truncate font-mono text-xs text-text-secondary">
-          {title ?? <span className="type-eyebrow text-text-tertiary">{lang ?? "code"}</span>}
-        </span>
-        <span className="flex shrink-0 items-center gap-2">
-          {title && lang && <span className="type-eyebrow text-text-tertiary">{lang}</span>}
-          <CopyButton text={clean} />
-        </span>
-      </figcaption>
-      <pre tabIndex={0} className="overflow-x-auto px-4 py-4 font-mono text-[13px] leading-[1.6] text-text-primary">
+      <CodeFrame
+        label={title ?? <span className="type-eyebrow text-text-tertiary">{lang ?? "code"}</span>}
+        meta={title && lang ? <span className="type-eyebrow text-text-tertiary">{lang}</span> : undefined}
+        copyText={clean}
+        wrappable={longest > PHONE_LINE_CHARS}
+      >
         <code>
           {lines.map((tokens, i) => (
             <span key={i}>
@@ -41,7 +45,7 @@ export default function CodeBlock({ code, lang, title }: CodeBlockProps) {
             </span>
           ))}
         </code>
-      </pre>
+      </CodeFrame>
     </figure>
   );
 }
