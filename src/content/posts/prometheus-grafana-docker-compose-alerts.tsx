@@ -11,6 +11,9 @@ export const meta: PostMeta = {
   date: "2026-11-15",
   tags: ["Prometheus", "Grafana", "Monitoring", "Docker"],
   readingMinutes: 8,
+  service: "monitoring-observability",
+  project: "moviesmonkey",
+  cta: "Want alerts you can trust to fire? I can set up Prometheus, Grafana and alert rules for what you run.",
 };
 
 export const headings: Heading[] = [

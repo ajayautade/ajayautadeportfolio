@@ -11,6 +11,9 @@ export const meta: PostMeta = {
   date: "2026-11-13",
   tags: ["Docker", "PyTorch", "MLOps", "Kubernetes"],
   readingMinutes: 6,
+  service: "docker-kubernetes",
+  project: "mlops-sentiment-analyzer",
+  cta: "Images that take ages to build and pull? I can rework your Dockerfiles into small multi-stage builds.",
 };
 
 export const headings: Heading[] = [
@@ -225,6 +228,11 @@ export default function Article() {
       <p>
         If one <code>RUN</code> line accounts for most of the image, that is the line to work on. In my
         case it was the pip install, and inside it, PyTorch.
+      </p>
+      <p>
+        Before you build at all, the <A href="/tools/dockerfile-checker">Dockerfile checker</A> catches the
+        common problems from this article: a single-stage build, a root user, pip&apos;s cache left in the
+        image and a COPY order that reinstalls every package on each code change.
       </p>
 
       <H2 id="what-id-do-next">What I&apos;d do next</H2>

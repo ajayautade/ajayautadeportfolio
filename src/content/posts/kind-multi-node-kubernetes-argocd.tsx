@@ -11,6 +11,9 @@ export const meta: PostMeta = {
   date: "2026-11-15",
   tags: ["Kubernetes", "kind", "Argo CD", "GitOps", "Prometheus"],
   readingMinutes: 7,
+  service: "docker-kubernetes",
+  project: "kind-voting-app",
+  cta: "Moving an app onto Kubernetes? I can get it running locally with kind first, then on a managed cluster.",
 };
 
 export const headings: Heading[] = [

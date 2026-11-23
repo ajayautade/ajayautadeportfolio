@@ -11,6 +11,9 @@ export const meta: PostMeta = {
   date: "2026-11-06",
   tags: ["GitHub Actions", "AWS", "Terraform", "CI/CD", "IAM"],
   readingMinutes: 7,
+  service: "ci-cd-automation",
+  project: "end-to-end-cicd-pipeline",
+  cta: "Still storing AWS access keys as CI secrets? I can move your pipelines to short-lived OIDC credentials.",
 };
 
 export const headings: Heading[] = [
@@ -287,6 +290,11 @@ export default function Article() {
         <li>
           Use GitHub environments with required reviewers for production, and trust the{" "}
           <code>environment:production</code> subject instead of a branch.
+        </li>
+        <li>
+          If you want the trust policy without writing it by hand, the{" "}
+          <A href="/tools/github-oidc-trust-policy">OIDC trust policy generator</A> builds it for any mix of
+          branches, tags and environments, as JSON, Terraform or CLI.
         </li>
         <li>
           Split the role in two: one that can only push images, one that can deploy. A build job should not

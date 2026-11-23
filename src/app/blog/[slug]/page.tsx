@@ -2,17 +2,19 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import PageHero from "@/components/site/PageHero";
 import CtaBand from "@/components/site/CtaBand";
+import BookCallButton from "@/components/site/BookCallButton";
 import JsonLd from "@/components/site/JsonLd";
 import PostRow from "@/components/blog/PostRow";
 import { TocDisclosure, TocRail } from "@/components/blog/TableOfContents";
 import { formatPostDate } from "@/components/blog/date";
 import { postBodies } from "@/content/posts";
-import { getPost, lastModified, posts, tagSlug } from "@/lib/posts";
+import { getPost, lastModified, posts, relatedPosts, tagSlug } from "@/lib/posts";
+import { getProject } from "@/lib/projects";
 import { services } from "@/lib/services";
 import { absoluteUrl, site } from "@/lib/site";
 
@@ -56,17 +58,10 @@ export default async function BlogPostPage({ params }: Params) {
   const { Body, headings } = content;
   const path = `/blog/${post.slug}`;
 
-  // Related: share the most tags, newest first as the tie-break.
-  const related = posts
-    .filter((other) => other.slug !== post.slug)
-    .map((other) => ({ other, shared: other.tags.filter((tag) => post.tags.includes(tag)).length }))
-    .sort((a, b) => b.shared - a.shared || b.other.date.localeCompare(a.other.date))
-    .slice(0, 2)
-    .map(({ other }) => other);
-
-  const relatedServices = services
-    .filter((service) => service.postTags.some((tag) => post.tags.includes(tag)))
-    .slice(0, 3);
+  const related = relatedPosts(post);
+  const service = services.find((s) => s.id === post.service);
+  if (!service) throw new Error(`Post ${post.slug} names an unknown service: ${post.service}`);
+  const project = post.project ? getProject(post.project) : undefined;
 
   const articleLd = {
     "@context": "https://schema.org",
@@ -139,25 +134,20 @@ export default async function BlogPostPage({ params }: Params) {
               <div className="min-w-0">
                 <TocDisclosure headings={headings} />
                 <Body />
-                {relatedServices.length > 0 && (
-                  <aside aria-labelledby="related-services-heading" className="mt-16 max-w-[68ch] border-t border-text-primary pt-6">
-                    <h2 id="related-services-heading" className="type-eyebrow text-text-tertiary">
-                      I do this as a service
-                    </h2>
-                    <ul className="mt-2">
-                      {relatedServices.map((service) => (
-                        <li key={service.id} className="border-b border-border">
-                          <Link href={`/services/${service.id}`} className="group flex min-h-14 items-center justify-between gap-6 py-3">
-                            <span className="type-card-title text-text-primary group-hover:text-primary transition-colors">
-                              {service.title}
-                            </span>
-                            <ArrowRight className="h-4 w-4 shrink-0 text-text-tertiary" aria-hidden="true" />
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </aside>
-                )}
+                <aside aria-labelledby="service-cta-heading" className="mt-16 max-w-[68ch] border-t-2 border-text-primary pt-6">
+                  <p className="type-eyebrow text-text-tertiary">I do this as a service</p>
+                  <h2 id="service-cta-heading" className="mt-3 type-headline text-text-primary text-balance">
+                    {service.title}
+                  </h2>
+                  <p className="mt-3 text-text-secondary text-pretty">{post.cta}</p>
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                    <Link href={`/services/${service.id}`} className="btn-primary">
+                      How I work on this
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                    <BookCallButton source={`post-${post.slug}`} className="btn-outline" />
+                  </div>
+                </aside>
               </div>
               <aside className="hidden lg:block">
                 <TocRail headings={headings} />
@@ -180,10 +170,48 @@ export default async function BlogPostPage({ params }: Params) {
                 All articles
               </Link>
             </div>
-            <div className="mt-8 border-b border-border">
-              {related.map((other) => (
-                <PostRow key={other.slug} post={other} headingLevel="h3" />
-              ))}
+            <div className={`mt-8 grid gap-x-16 gap-y-12 ${project ? "lg:grid-cols-[minmax(0,1fr)_20rem]" : ""}`}>
+              <div className="border-b border-border">
+                {related.map((other) => (
+                  <PostRow key={other.slug} post={other} headingLevel="h3" />
+                ))}
+              </div>
+              {project && (
+                <aside aria-labelledby="related-project-heading" className="self-start border-t border-text-primary pt-6">
+                  <p className="type-eyebrow text-text-tertiary">The project behind this article</p>
+                  <h3 id="related-project-heading" className="mt-3 type-headline text-text-primary">
+                    <Link href={`/projects/${project.slug}`} className="hover:underline decoration-2 underline-offset-4">
+                      {project.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-3 text-text-secondary text-pretty">{project.summary}</p>
+                  <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Stack">
+                    {project.stack.slice(0, 6).map((item) => (
+                      <li key={item} className="tech-pill">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="inline-flex min-h-11 items-center gap-2 font-medium text-text-primary underline decoration-primary decoration-2 underline-offset-4"
+                    >
+                      Read the case study
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                    <a
+                      href={project.repoUrl}
+                      target="_blank"
+                      rel="noopener"
+                      className="inline-flex min-h-11 items-center gap-1.5 text-text-secondary hover:text-text-primary transition-colors"
+                    >
+                      Source on GitHub
+                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  </div>
+                </aside>
+              )}
             </div>
           </div>
         </section>

@@ -10,6 +10,9 @@ export const meta: PostMeta = {
   date: "2026-11-15",
   tags: ["CI/CD", "GitHub Actions", "Jenkins", "Comparison"],
   readingMinutes: 8,
+  service: "ci-cd-automation",
+  project: "end-to-end-cicd-pipeline",
+  cta: "Choosing a CI system, or moving off one? I can set up the pipeline and document how releases work.",
 };
 
 export const headings: Heading[] = [

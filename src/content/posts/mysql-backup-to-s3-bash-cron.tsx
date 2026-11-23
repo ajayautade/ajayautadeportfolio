@@ -11,6 +11,9 @@ export const meta: PostMeta = {
   date: "2026-10-30",
   tags: ["Bash", "MySQL", "AWS S3", "Linux", "Backups"],
   readingMinutes: 7,
+  service: "cloud-optimization-reliability",
+  project: "s3-database-backup-automation",
+  cta: "Have backups you have never restored? I can set them up off-site and test the restore.",
 };
 
 export const headings: Heading[] = [

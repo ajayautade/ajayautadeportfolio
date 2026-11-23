@@ -11,6 +11,9 @@ export const meta: PostMeta = {
   date: "2026-11-15",
   tags: ["Argo CD", "GitOps", "GitHub Actions", "Kubernetes", "CI/CD"],
   readingMinutes: 7,
+  service: "ci-cd-automation",
+  project: "gitops-argocd-deployment",
+  cta: "Want deployments that happen through Git, with Argo CD syncing the cluster? I can set up the same flow for your services.",
 };
 
 export const headings: Heading[] = [

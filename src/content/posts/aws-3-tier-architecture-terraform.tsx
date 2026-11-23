@@ -11,6 +11,9 @@ export const meta: PostMeta = {
   date: "2026-11-15",
   tags: ["AWS", "Terraform", "VPC", "Security Groups"],
   readingMinutes: 7,
+  service: "infrastructure-as-code",
+  project: "aws-3tier-architecture",
+  cta: "Want your AWS network in Terraform like this, so it can be reviewed, rebuilt and torn down from a repository?",
 };
 
 export const headings: Heading[] = [

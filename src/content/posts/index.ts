@@ -9,6 +9,9 @@ import PromGrafana, { headings as promGrafanaHeadings } from "./prometheus-grafa
 import KindCluster, { headings as kindClusterHeadings } from "./kind-multi-node-kubernetes-argocd";
 import ActionsVsJenkins, { headings as actionsVsJenkinsHeadings } from "./github-actions-vs-jenkins-small-team";
 import EksCost, { headings as eksCostHeadings } from "./eks-cluster-cost-per-month";
+import PredictScale, { headings as predictScaleHeadings } from "./predictive-autoscaling-kubernetes-control-loop";
+import HelmValues, { headings as helmValuesHeadings } from "./helm-chart-dev-prod-values";
+import EcsFargate, { headings as ecsFargateHeadings } from "./ecs-fargate-github-actions-terraform";
 
 /** Article bodies by slug. Metadata lives in src/lib/posts.ts. */
 export const postBodies: Record<string, { Body: ComponentType; headings: Heading[] }> = {
@@ -21,4 +24,7 @@ export const postBodies: Record<string, { Body: ComponentType; headings: Heading
   "kind-multi-node-kubernetes-argocd": { Body: KindCluster, headings: kindClusterHeadings },
   "github-actions-vs-jenkins-small-team": { Body: ActionsVsJenkins, headings: actionsVsJenkinsHeadings },
   "eks-cluster-cost-per-month": { Body: EksCost, headings: eksCostHeadings },
+  "predictive-autoscaling-kubernetes-control-loop": { Body: PredictScale, headings: predictScaleHeadings },
+  "helm-chart-dev-prod-values": { Body: HelmValues, headings: helmValuesHeadings },
+  "ecs-fargate-github-actions-terraform": { Body: EcsFargate, headings: ecsFargateHeadings },
 };

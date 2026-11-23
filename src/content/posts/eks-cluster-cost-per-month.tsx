@@ -10,6 +10,9 @@ export const meta: PostMeta = {
   date: "2026-11-15",
   tags: ["AWS", "Kubernetes", "EKS", "Cost"],
   readingMinutes: 8,
+  service: "cloud-optimization-reliability",
+  project: "gitops-argocd-deployment",
+  cta: "Not sure where your own AWS bill goes? I can go through what you run and write up what each part costs and what can go.",
 };
 
 export const headings: Heading[] = [
@@ -38,6 +41,8 @@ export default function Article() {
         <A href="https://aws.amazon.com/eks/pricing/">EKS</A>,{" "}
         <A href="https://aws.amazon.com/ec2/pricing/on-demand/">EC2</A> and{" "}
         <A href="https://aws.amazon.com/vpc/pricing/">VPC</A> pricing pages before relying on any figure here.
+        To price your own setup, change the numbers in the{" "}
+        <A href="/tools/aws-cost-estimator">EKS and EC2 cost estimator</A>, which uses the same unit prices.
       </p>
 
       <H2 id="the-setup">The setup being priced</H2>
