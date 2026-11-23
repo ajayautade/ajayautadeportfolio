@@ -29,6 +29,11 @@ export const site = {
    * Leave empty until the account is approved: the Pricing page then sends people to the contact form instead.
    */
   paidSessionPaymentLink: "",
+  /**
+   * Public status page from an uptime monitor (Better Stack, UptimeRobot, …).
+   * Leave empty until the monitor exists: the footer link only appears once this is set.
+   */
+  statusPageUrl: "",
   github: "https://github.com/ajayautade",
   linkedin: "https://www.linkedin.com/in/ajayautadepatil",
   education: "B.Tech in Computer Science and Engineering",

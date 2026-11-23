@@ -10,6 +10,7 @@ import BookCallButton from "@/components/site/BookCallButton";
 import TrackedLink from "@/components/site/TrackedLink";
 import { legal } from "@/lib/legal";
 import { currency, formatInr, priceItems } from "@/lib/pricing";
+import { process } from "@/lib/services";
 import { absoluteUrl, site } from "@/lib/site";
 
 const title = "Pricing: DevOps Consultation and Project Rates in USD";
@@ -42,6 +43,26 @@ const terms = [
   {
     title: "If plans change",
     text: `A working session can be cancelled or moved up to ${legal.consultationNoticeHours} hours before for a full refund. A project advance is refunded in full if you cancel before work starts.`,
+  },
+];
+
+/**
+ * When money changes hands at each step of a project. Built from legal.ts, the same source as the
+ * Terms and Refund pages, so the three can't disagree. One entry per step in `process`.
+ */
+const payments = [
+  { label: "Free", text: "The 30-minute intro call costs nothing and commits you to nothing." },
+  {
+    label: "Nothing to pay yet",
+    text: "The scope sets the final price and the expected dates. The price does not change after you accept it.",
+  },
+  {
+    label: `${legal.advancePercent}% advance`,
+    text: `Work starts once you accept the scope and pay the advance. If you cancel before work starts, it is refunded in full. Anything outside the scope is quoted separately first.`,
+  },
+  {
+    label: `${100 - legal.advancePercent}% at handover`,
+    text: "The rest is due when the work is handed over: the code in your repositories and the walkthrough done.",
   },
 ];
 
@@ -125,6 +146,37 @@ export default function PricingPage() {
                 </div>
               </li>
             </ul>
+          </div>
+        </section>
+
+        <section aria-labelledby="engagement-heading" className="border-t border-border py-16 sm:py-24">
+          <div className="section-container">
+            <div className="max-w-3xl">
+              <h2 id="engagement-heading" className="type-display-md text-text-primary text-balance">
+                How a project goes, and when you pay
+              </h2>
+              <p className="mt-5 type-body-lg text-text-secondary text-pretty">
+                Every project follows the same four steps. Nothing is paid until you have a written scope with the
+                final price in it.
+              </p>
+            </div>
+            <ol className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+              {process.map((step, i) => (
+                // On wide screens each step spans four rows of a shared subgrid, so the payment rows line up.
+                <li
+                  key={step.title}
+                  className="flex flex-col border-t border-text-primary pt-5 lg:row-span-4 lg:grid lg:grid-rows-subgrid lg:gap-0"
+                >
+                  <p className="font-mono text-sm text-text-tertiary">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="mt-2 type-card-title text-text-primary">{step.title}</h3>
+                  <p className="mt-3 text-text-secondary text-pretty">{step.text}</p>
+                  <div className="mt-6 self-start border-t border-border pt-4">
+                    <p className="font-mono text-sm text-text-primary">{payments[i].label}</p>
+                    <p className="mt-1 text-sm text-text-tertiary text-pretty">{payments[i].text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 

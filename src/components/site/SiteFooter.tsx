@@ -49,6 +49,19 @@ export default function SiteFooter() {
                   GitHub
                 </a>
               </li>
+              {site.statusPageUrl && (
+                <li>
+                  <a
+                    href={site.statusPageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="tap inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-text-primary" aria-hidden="true" />
+                    Site status and uptime
+                  </a>
+                </li>
+              )}
               <li>
                 <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="tap text-sm text-text-secondary hover:text-text-primary transition-colors">
                   LinkedIn
